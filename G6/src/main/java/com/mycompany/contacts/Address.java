@@ -4,7 +4,8 @@
  */
 package com.mycompany.contacts;
 
-import java.awt.Image;
+import javafx.scene.image.Image;
+
 
 /**
  *

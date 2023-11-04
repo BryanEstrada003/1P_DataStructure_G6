@@ -4,9 +4,9 @@
  */
 package com.mycompany.contacts;
 
-import java.awt.Image;
 import java.util.*;
 import java.time.*;
+import javafx.scene.image.Image;
 
 /**
  *
