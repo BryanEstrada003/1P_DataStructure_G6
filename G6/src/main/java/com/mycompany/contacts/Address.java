@@ -14,9 +14,9 @@ import javafx.scene.image.Image;
 class Address {
     private String addressType;
     private String description;
-    private Image geographyUbication;
+    private String geographyUbication;
 
-    public Address(String addressType, String description, Image geographyUbication) {
+    public Address(String addressType, String description, String geographyUbication) {
         this.addressType = addressType;
         this.description = description;
         this.geographyUbication = geographyUbication;
@@ -38,11 +38,11 @@ class Address {
         this.description = description;
     }
 
-    public Image getGeographyUbication() {
+    public String getGeographyUbication() {
         return geographyUbication;
     }
 
-    public void setGeographyUbication(Image geographyUbication) {
+    public void setGeographyUbication(String geographyUbication) {
         this.geographyUbication = geographyUbication;
     }
 
