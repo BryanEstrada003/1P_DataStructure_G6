@@ -12,12 +12,22 @@ import javafx.scene.image.Image;
  * @author HOME
  */
 class Address {
+    private String addressType;
     private String description;
     private Image geographyUbication;
 
-    public Address(String description, Image geographyUbication) {
+    public Address(String addressType, String description, Image geographyUbication) {
+        this.addressType = addressType;
         this.description = description;
         this.geographyUbication = geographyUbication;
+    }
+
+    public String getAddressType() {
+        return addressType;
+    }
+
+    public void setAddressType(String addressType) {
+        this.addressType = addressType;
     }
 
     public String getDescription() {
