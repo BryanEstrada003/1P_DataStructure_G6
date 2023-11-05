@@ -32,5 +32,9 @@ public class Telephone {
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Telephone{" + "numberType=" + numberType + ", telephoneNumber=" + telephoneNumber + '}';
+    }    
 }
