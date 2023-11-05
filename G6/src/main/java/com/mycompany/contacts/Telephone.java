@@ -9,35 +9,28 @@ package com.mycompany.contacts;
  * @author HOME
  */
 public class Telephone {
-    private String typeNumber;
-    private String number;
+    private String numberType;
+    private String telephoneNumber;
 
-    public Telephone(String typeNumber, String number) {
-        this.typeNumber = typeNumber;
-        this.number = number;
+    public Telephone(String numberType, String telephoneNumber) {
+        this.numberType = numberType;
+        this.telephoneNumber = telephoneNumber;
     }
 
-    public String getTypeNumber() {
-        return typeNumber;
+    public String getNumberType() {
+        return numberType;
     }
 
-    public void setTypeNumber(String typeNumber) {
-        this.typeNumber = typeNumber;
+    public void setNumberType(String numberType) {
+        this.numberType = numberType;
     }
 
-    public String getNumber() {
-        return number;
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
-
-    @Override
-    public String toString() {
-        return "Telephone{" + "typeNumber=" + typeNumber + ", number=" + number + '}';
-    }
-    
-    
     
 }
