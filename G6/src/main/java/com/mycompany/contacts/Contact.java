@@ -17,12 +17,12 @@ public abstract class Contact {
     private List<Telephone> telephoneNumbers;
     private List<Image> photos;
     private Address address;
-    private List<String> emails;
+    private List<Email> emails;
     private List<SocialMedia> socialsMedia;
     private List<LocalDate> datesInterest;
     private List<Contact> relatedContacts;
 
-    public Contact(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<String> emails, List<SocialMedia> socialsMedia, List<LocalDate> datesInterest, List<Contact> relatedContacts) {
+    public Contact(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<LocalDate> datesInterest, List<Contact> relatedContacts) {
         this.name = name;
         this.telephoneNumbers = telephoneNumbers;
         this.photos = photos;
@@ -65,11 +65,11 @@ public abstract class Contact {
         this.address = address;
     }
 
-    public List<String> getEmails() {
+    public List<Email> getEmails() {
         return emails;
     }
 
-    public void setEmails(List<String> emails) {
+    public void setEmails(List<Email> emails) {
         this.emails = emails;
     }
 
