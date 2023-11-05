@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
  */
 public class Person extends Contact{
     
-    public Person(String name, List<String> telephoneNumbers, List<Image> photos, Address address, List<String> emails, List<SocialMedia> socialsMedia, List<LocalDate> datesInterest, List<Contact> relatedContacts) {
+    public Person(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<String> emails, List<SocialMedia> socialsMedia, List<LocalDate> datesInterest, List<Contact> relatedContacts) {
         super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
     }
     
