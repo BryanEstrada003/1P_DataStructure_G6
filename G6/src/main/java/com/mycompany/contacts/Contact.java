@@ -21,6 +21,18 @@ public abstract class Contact {
     private List<SocialMedia> socialsMedia;
     private List<LocalDate> datesInterest;
     private List<Contact> relatedContacts;
+
+    public Contact(String name, List<String> telephoneNumbers, List<Image> photos, Address address, List<String> emails, List<SocialMedia> socialsMedia, List<LocalDate> datesInterest, List<Contact> relatedContacts) {
+        this.name = name;
+        this.telephoneNumbers = telephoneNumbers;
+        this.photos = photos;
+        this.address = address;
+        this.emails = emails;
+        this.socialsMedia = socialsMedia;
+        this.datesInterest = datesInterest;
+        this.relatedContacts = relatedContacts;
+    }
+    
     
     
 }
