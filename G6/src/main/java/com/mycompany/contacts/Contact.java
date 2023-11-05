@@ -5,7 +5,6 @@
 package com.mycompany.contacts;
 
 import java.util.*;
-import java.time.*;
 import javafx.scene.image.Image;
 
 /**
@@ -19,10 +18,10 @@ public abstract class Contact {
     private Address address;
     private List<Email> emails;
     private List<SocialMedia> socialsMedia;
-    private List<LocalDate> datesInterest;
+    private List<Date> datesInterest;
     private List<Contact> relatedContacts;
 
-    public Contact(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<LocalDate> datesInterest, List<Contact> relatedContacts) {
+    public Contact(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts) {
         this.name = name;
         this.telephoneNumbers = telephoneNumbers;
         this.photos = photos;
@@ -81,11 +80,11 @@ public abstract class Contact {
         this.socialsMedia = socialsMedia;
     }
 
-    public List<LocalDate> getDatesInterest() {
+    public List<Date> getDatesInterest() {
         return datesInterest;
     }
 
-    public void setDatesInterest(List<LocalDate> datesInterest) {
+    public void setDatesInterest(List<Date> datesInterest) {
         this.datesInterest = datesInterest;
     }
 
