@@ -32,6 +32,72 @@ public abstract class Contact {
         this.datesInterest = datesInterest;
         this.relatedContacts = relatedContacts;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<String> getTelephoneNumbers() {
+        return telephoneNumbers;
+    }
+
+    public void setTelephoneNumbers(List<String> telephoneNumbers) {
+        this.telephoneNumbers = telephoneNumbers;
+    }
+
+    public List<Image> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Image> photos) {
+        this.photos = photos;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<String> getEmails() {
+        return emails;
+    }
+
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
+    }
+
+    public List<SocialMedia> getSocialsMedia() {
+        return socialsMedia;
+    }
+
+    public void setSocialsMedia(List<SocialMedia> socialsMedia) {
+        this.socialsMedia = socialsMedia;
+    }
+
+    public List<LocalDate> getDatesInterest() {
+        return datesInterest;
+    }
+
+    public void setDatesInterest(List<LocalDate> datesInterest) {
+        this.datesInterest = datesInterest;
+    }
+
+    public List<Contact> getRelatedContacts() {
+        return relatedContacts;
+    }
+
+    public void setRelatedContacts(List<Contact> relatedContacts) {
+        this.relatedContacts = relatedContacts;
+    }
+    
+    
     
     
     
