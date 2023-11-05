@@ -13,9 +13,14 @@ import javafx.scene.image.Image;
  * @author HOME
  */
 public class Company extends Contact{
-
+    
+    public Company(){
+        super(null, null, null, null, null, null, null, null);
+    }
     public Company(String name, List<String> telephoneNumbers, List<Image> photos, Address address, List<String> emails, List<SocialMedia> socialsMedia, List<LocalDate> datesInterest, List<Contact> relatedContacts) {
         super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
     }
+    
+    
 
 }
