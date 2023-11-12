@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="principal_page" fx:id="principal_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="837.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.ContactsController">
+    <stylesheets>
+        <URL value="@/styles/login.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane fx:id="header" prefHeight="125.0" prefWidth="838.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="686.0" spacing="10.0">
+               <children>
+                  <ImageView fx:id="groups" fitHeight="54.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label prefHeight="26.0" prefWidth="84.0" text="GROUPS">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <textFill>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.5764706134796143" green="0.7215686440467834" blue="0.7882353067398071" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutY="66.0" prefHeight="71.0" prefWidth="317.0">
+               <children>
+                  <Label fx:id="title_contacts" alignment="CENTER" contentDisplay="CENTER" text="CONTACTS" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Modak" size="50.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fx:id="newcontact" fitHeight="54.0" fitWidth="60.0" layoutX="747.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+      <HBox alignment="CENTER" layoutY="137.0" prefHeight="71.0" prefWidth="837.0" spacing="10.0">
+         <children>
+            <ImageView fx:id="lupa" fitHeight="37.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" />
+            <TextField fx:id="search" prefHeight="44.0" prefWidth="696.0" promptText="SEARCH" />
+         </children>
+      </HBox>
+      <Pane fx:id="show_contact" layoutY="286.0" prefHeight="593.0" prefWidth="837.0">
+         <children>
+            <VBox fx:id="Vbox_contacts" prefHeight="593.0" prefWidth="781.0" spacing="7.0">
+               <children>
+                  <HBox fx:id="contact1" onMouseClicked="#showcontact" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture1" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname1" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification1" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture2" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname2" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification2" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture3" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname3" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification3" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture4" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname4" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification4" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture5" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname5" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification5" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture6" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname6" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification6" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture7" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname7" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification7" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture8" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname8" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification8" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture9" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname9" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification9" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                     <children>
+                        <ImageView fx:id="profile_picture10" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                           <viewport>
+                              <Rectangle2D height="80.0" width="80.0" />
+                           </viewport>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="497.0" spacing="20.0">
+                           <children>
+                              <Label fx:id="name_lastname10" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Helvetica Neue" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="clasification10" prefHeight="53.0" prefWidth="173.0" />
+                     </children>
+                  </HBox>
+               </children></VBox>
+            <ImageView fx:id="subir" fitHeight="54.0" fitWidth="57.0" layoutX="780.0" onMouseClicked="#subir" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="bajar" fitHeight="54.0" fitWidth="57.0" layoutX="780.0" layoutY="539.0" onMouseClicked="#bajar" pickOnBounds="true" preserveRatio="true" />
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </Pane>
+      <HBox layoutY="202.0" prefHeight="53.0" prefWidth="837.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <ImageView fx:id="profile_picture" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+               <viewport>
+                  <Rectangle2D height="80.0" width="80.0" />
+               </viewport>
+            </ImageView>
+            <VBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="497.0" spacing="20.0">
+               <children>
+                  <Label fx:id="name_lastname" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Helvetica Neue" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label text="ME" textFill="#a8a8a8">
+                     <opaqueInsets>
+                        <Insets left="10.0" />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <AnchorPane fx:id="nav" layoutX="1.0" layoutY="890.0" prefHeight="26.0" prefWidth="837.0">
+         <children>
+            <ImageView fx:id="salir" fitHeight="45.0" fitWidth="66.0" layoutX="386.0" layoutY="1.0" onMouseClicked="#salir" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="385.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

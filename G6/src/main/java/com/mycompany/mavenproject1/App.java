@@ -1,5 +1,6 @@
 package com.mycompany.mavenproject1;
 
+import com.mycompany.contacts.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * JavaFX App
@@ -17,7 +21,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("contacts"));
         stage.setScene(scene);
         stage.show();
     }
@@ -32,6 +36,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+//        User.crearArchivoser();
         launch();
     }
 
