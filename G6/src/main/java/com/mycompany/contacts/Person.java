@@ -4,8 +4,7 @@
  */
 package com.mycompany.contacts;
 
-import java.util.ArrayList;
-import java.util.List;
+import ec.edu.espol.TDAs.*;
 import javafx.scene.image.Image;
 
 /**
@@ -17,12 +16,12 @@ public class Person extends Contact {
     private String lastName;
     private ArrayList<Contact> contacts;
 
-    public Person(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts, String LastName) {
+    public Person(String name, String LastName, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
         super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
         this.lastName = LastName;
     }
     
-    public Person(ArrayList<Contact> contacts,String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts, String LastName) {
+    public Person(ArrayList<Contact> contacts,String name, String LastName, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
         super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
         this.lastName = LastName;
         this.contacts=contacts;
