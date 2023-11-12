@@ -24,7 +24,6 @@ public class DoublyLinkedList<E> implements List<E> {
         this.head = head;
     }
 
-    @Override
     public boolean addLast(E element) {
         if (element != null) {
             DoublyNode<E> newNode = new DoublyNode<>(element);
@@ -45,20 +44,6 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     @Override
-    public int size() {
-        if (isEmpty()) {
-            return 0;
-        }
-        int counter = 0;
-        DoublyNode<E> node = head;
-        do {
-            node = node.getNext();
-            counter++;
-        } while (node != head);
-        return counter;
-    }
-
-    @Override
     public E removeLast() {
         if (isEmpty()) {
             return null;
@@ -74,6 +59,19 @@ public class DoublyLinkedList<E> implements List<E> {
     @Override
     public boolean isEmpty() {
         return size() == 0;
+    }
+
+    @Override
+    public int size() {
+        int counter = 0;
+        if (head != null) {
+            DoublyNode<E> node = head;
+            do {
+                node = node.getNext();
+                counter++;
+            } while (node != head);
+        }
+        return counter;
     }
 
     @Override
@@ -180,7 +178,6 @@ public class DoublyLinkedList<E> implements List<E> {
         return node.getElement();
     }
 
-    @Override
     public E set(int index, E e) {
         if (isEmpty()) {
             return null;
@@ -265,45 +262,57 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     @Override
-    public E removeFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public E getFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean remove(E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public ArrayList<E> removeFirstNElements(int n) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-
-    @Override
     public boolean addAll(List<E> otherList) {
         if (otherList == null || otherList.isEmpty()) {
-            return false; 
+            return false;
         }
         for (E element : otherList) {
-            addLast(element); 
+            addLast(element);
         }
         return true;
     }
 
     @Override
-    public E getLast() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean add(E element) {
+        if (element == null) {
+            return false;
+        }
+
+        DoublyNode<E> new_node = new DoublyNode<>(element);
+
+        if (isEmpty()) {
+            head = new_node;
+            head.setNext(head);
+            head.setPrevious(head);
+        } else {
+            DoublyNode<E> last = head.getPrevious();
+            last.setNext(new_node);
+            new_node.setPrevious(last);
+            new_node.setNext(head);
+            head.setPrevious(new_node);
+        }
+        return true;
     }
 
     @Override
-    public boolean addFirst(E element) {
+    public boolean remove(E element, Comparator<E> cmp) {
+        Iterator<E> iterator = iterator();
+        int pos = 0;
+        while (iterator.hasNext()) {
+            E currentElement = iterator.next();
+            if (cmp.compare(currentElement, element) == 0) {
+                this.remove(pos);
+                return true;
+            }
+            pos++;
+        }
+        return false;
+    }
+    
+    @Override
+    public E removeFirst() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 
 }

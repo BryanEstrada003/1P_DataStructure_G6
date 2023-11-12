@@ -35,17 +35,7 @@ public class DoublyLinkedList<E> implements List<E>{
         return false;
     }
 
-    @Override
-    public int size() {
-        if(isEmpty()) return 0;
-        int counter = 0;
-        DoublyNodeList<E> node = head;
-        do{
-            node = node.getNext();
-            counter++;
-        }while(node !=head);
-        return counter;
-    }
+    
 
     @Override
     public E removeLast() {
@@ -63,6 +53,18 @@ public class DoublyLinkedList<E> implements List<E>{
     public boolean isEmpty() {
         return size() == 0;
     }
+    
+    @Override
+public int size() {
+    if (isEmpty()) return 0;
+    int counter = 0;
+    DoublyNode<E> node = head;
+    do {
+        node = node.getNext();
+        counter++;
+    } while (node != head);
+    return counter;
+}
 
     @Override
     public E remove(int index) {

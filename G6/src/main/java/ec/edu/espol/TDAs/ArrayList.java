@@ -34,10 +34,12 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (int i = 0; i <= this.effectiveSize - 1; i++) {
+            this.elements[i] = null;
+        }
+        this.effectiveSize = 0;
     }
 
-    @Override
     public boolean addFirst(E element) {
         if (element == null) {
             return false;
@@ -54,32 +56,6 @@ public class ArrayList<E> implements List<E> {
         this.elements[0] = element;
         this.effectiveSize++;
         return true;
-    }
-
-    @Override
-    public boolean addLast(E element) {
-        if (element == null) {
-            return false;
-        }
-        if (isFull()) {
-            addCapacity();
-        }
-        elements[effectiveSize++] = element;
-        return true;
-    }
-
-    @Override
-    public ArrayList<E> removeFirstNElements(int n) {
-        if (n <= 0 || n >= effectiveSize) {
-            return this;
-        }
-
-        for (int i = 0; i < effectiveSize - n; i++) {
-            elements[i] = elements[i + n];
-        }
-        effectiveSize -= n;
-
-        return this;
     }
 
     @Override
@@ -135,11 +111,6 @@ public class ArrayList<E> implements List<E> {
         return elements[index];
     }
 
-    @Override
-    public E set(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     private void addCapacity() {
         MAX_SIZE = MAX_SIZE * 2;
         E[] newElements = (E[]) new Object[MAX_SIZE];
@@ -190,22 +161,6 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public E getFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public E getLast() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-
-    @Override
-    public boolean contains(E e, Comparator<E> comp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public int indexOf(E element, Comparator<E> cmp) {
         for (int i = 0; i < effectiveSize; i++) {
             if (element == null ? elements[i] == null : cmp.compare(element, elements[i]) == 0) {
@@ -216,33 +171,97 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean remove(E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean addAll(List<E> l)  {
-        if(l == null) {
+    public boolean addAll(List<E> l) {
+        if (l == null) {
             return false;
         }
         int total_a_tener = effectiveSize + l.size();
-        int añadir_capacity = total_a_tener/100 ;
-        if (total_a_tener > MAX_SIZE){
-            for (int i = 0 ; i < (añadir_capacity + 1) ; i++ ){
-                addCapacity();   
+        int añadir_capacity = total_a_tener / 100;
+        if (total_a_tener > MAX_SIZE) {
+            for (int i = 0; i < (añadir_capacity + 1); i++) {
+                addCapacity();
             }
         }
-        for (int u = 0; u < l.size() ; u++){
-            elements[effectiveSize] = l.get(u) ;
-            effectiveSize ++;
+        for (int u = 0; u < l.size(); u++) {
+            elements[effectiveSize] = l.get(u);
+            effectiveSize++;
         }
         return true;
     }
 
     @Override
     public E removeFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        E elementRemove = this.elements[0];
+        this.remove(0);
+        return elementRemove;
+    }
+
+    @Override
+    public boolean add(E element) {
+        if (element == null) {
+            return false;
+        }
+        if (isFull()) {
+            addCapacity();
+        }
+        elements[effectiveSize++] = element;
+        return true;
+    }
+
+    @Override
+    public boolean remove(E element, Comparator<E> cmp) {
+        for (int i = 0; i <= this.effectiveSize - 1; i++) {
+            if (cmp.compare(this.elements[i], element) == 0) {
+                this.remove(i);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(E e, Comparator<E> comp) {
+        if (e == null) {
+            return false;
+        }
+        for (E element : this.elements) {
+            if (comp.compare(element, e) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<E> subList(int from, int to) {
+
+        ArrayList<E> array = new ArrayList();
+        for (int i = 0; i <= this.effectiveSize - 1; i++) {
+            if (i >= from && i <= to && to <= this.effectiveSize - 1) {
+                array.add(get(i));
+            }
+        }
+        return array;
     }
 
 
+    public List<E> removeFirstNElements(int n) {
+        ArrayList<E> array = new ArrayList();
+        for (int i = 0; i <= this.effectiveSize - 1; i++) {
+            if (i >= n) {
+                array.add(get(i));
+            }
+        }
+        return array;
+    }
+    
+    public void rotate(int k) {
+        List<E> array = this.subList(0, (this.effectiveSize - k) - 1);
+        List<E> array2 = this.subList((this.effectiveSize - k), this.effectiveSize - 1);
+        for (int i = array2.size() - 1; i >= 0; i--) {
+            array.add(array2.get(i));
+        }
+        for (int i = 0; i < array.size(); i++) {
+            this.elements[i] = array.get(i);
+        }
+    }
 }

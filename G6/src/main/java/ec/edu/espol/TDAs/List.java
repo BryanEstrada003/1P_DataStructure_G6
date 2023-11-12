@@ -13,21 +13,15 @@ import java.util.Comparator;
  */
 public interface List<E> extends Iterable<E> {
 
-    boolean addFirst(E element);
-
-    boolean addLast(E element);
-
     public E removeFirst();
 
     E removeLast();
 
-    E getFirst();
-
-    E getLast();
-
     public int indexOf(E element, Comparator<E> cmp);
 
     void clear();
+
+    boolean add(E element);
 
     boolean add(int index, E element);
 
@@ -39,13 +33,9 @@ public interface List<E> extends Iterable<E> {
 
     E remove(int index);
 
-    boolean remove(E element);
-
-    E set(int index, E element);
-
     int size();
 
-    ArrayList<E> removeFirstNElements(int n);
-
     boolean addAll(List<E> l);
+    
+    boolean remove(E element,Comparator<E> cmp);
 }
