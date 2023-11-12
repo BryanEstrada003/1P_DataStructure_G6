@@ -1,6 +1,8 @@
 package com.mycompany.mavenproject1;
 
+import com.mycompany.contacts.Contact;
 import com.mycompany.contacts.User;
+import ec.edu.espol.TDAs.DoublyLinkedList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,6 +40,7 @@ public class App extends Application {
     public static void main(String[] args) {
 //        User.crearArchivoser();
         launch();
+        DoublyLinkedList<Contact> contacto=new DoublyLinkedList<>();
     }
 
 }
