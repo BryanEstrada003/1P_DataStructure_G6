@@ -31,13 +31,9 @@ public interface List<E> extends Iterable<E> {
 
     boolean add(int index, E element);
 
-    boolean insert(int index, E element);
-
     boolean contains(E element, Comparator<E> comp);
 
     E get(int index);
-
-    int indexOf(E element);
 
     boolean isEmpty();
 
@@ -49,7 +45,7 @@ public interface List<E> extends Iterable<E> {
 
     int size();
 
-    public ArrayList<E> removeFirstNElements(int n);
+    ArrayList<E> removeFirstNElements(int n);
 
-    public boolean addAll(List<E> l);
+    boolean addAll(List<E> l);
 }

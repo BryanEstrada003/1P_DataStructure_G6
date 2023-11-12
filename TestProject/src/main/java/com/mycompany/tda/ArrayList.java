@@ -216,7 +216,7 @@ public class ArrayList<E> implements List<E> {
                 return i;
             }
         }
-        return -1; // Elemento no existe
+        return -1; 
     }
 
     @Override

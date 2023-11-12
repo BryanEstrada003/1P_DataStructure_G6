@@ -199,10 +199,6 @@ public class ArrayList<E> implements List<E> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public boolean insert(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public boolean contains(E e, Comparator<E> comp) {
@@ -248,9 +244,5 @@ public class ArrayList<E> implements List<E> {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public int indexOf(E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
 }
