@@ -4,23 +4,33 @@
  */
 package com.mycompany.contacts;
 
+import ec.edu.espol.TDAs.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.scene.image.Image;
 
 /**
  *
- * @author HOME
+ * @author Luis Romero
  */
 public class Company extends Contact{
+    private ArrayList<Person> contact;
     
-    public Company(){
-        super(null, null, null, null, null, null, null, null);
-    }
     public Company(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts) {
         super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
     }
     
-    
+    public Company(ArrayList<Person> contact, String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts) {
+        super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
+        this.contact = contact;
+    }
+
+    public ArrayList<Person> getContact() {
+        return contact;
+    }
+
+    public void setContact(ArrayList<Person> contact) {
+        this.contact = contact;
+    }
 
 }
