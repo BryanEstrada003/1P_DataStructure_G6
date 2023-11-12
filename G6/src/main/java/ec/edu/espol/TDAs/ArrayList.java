@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.TDAs;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -17,7 +18,6 @@ public class ArrayList<E> implements List<E> {
     private int effectiveSize;
 
     public ArrayList() {
-        // elements = new E[100]; // NO vale
         elements = (E[]) new Object[MAX_SIZE];
         effectiveSize = 0;
     }
@@ -69,8 +69,17 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public E removeFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public ArrayList<E> removeFirstNElements(int n) {
+        if (n <= 0 || n >= effectiveSize) {
+            return this;
+        }
+
+        for (int i = 0; i < effectiveSize - n; i++) {
+            elements[i] = elements[i + n];
+        }
+        effectiveSize -= n;
+
+        return this;
     }
 
     @Override
@@ -144,7 +153,6 @@ public class ArrayList<E> implements List<E> {
         return effectiveSize == MAX_SIZE;
     }
 
-
     @Override
     public String toString() {
         StringBuilder cadena = new StringBuilder();
@@ -161,20 +169,24 @@ public class ArrayList<E> implements List<E> {
         return cadena.toString();
     }
 
-//    public void rotate(int k) {
-//        List<E> array = this.subList(0, (this.effectiveSize - k) - 1);
-//        List<E> array2 = this.subList((this.effectiveSize - k), this.effectiveSize - 1);
-//        for (int i = array2.size() - 1; i >= 0; i--) {
-//            array.addFirst(array2.get(i));
-//        }
-//        for (int i = 0; i < array.size(); i++) {
-//            this.elements[i] = array.get(i);
-//        }
-//    }
-
     @Override
     public Iterator<E> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Iterator<E> it = new Iterator<E>() {
+            int cursor = 0;
+
+            @Override
+            public boolean hasNext() {
+                return cursor < effectiveSize;
+            }
+
+            @Override
+            public E next() {
+                E element = elements[cursor];
+                cursor++;
+                return element;
+            }
+        };
+        return it;
     }
 
     @Override
@@ -193,13 +205,18 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean contains(E element) {
+    public boolean contains(E e, Comparator<E> comp) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public int indexOf(E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int indexOf(E element, Comparator<E> cmp) {
+        for (int i = 0; i < effectiveSize; i++) {
+            if (element == null ? elements[i] == null : cmp.compare(element, elements[i]) == 0) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -208,7 +225,31 @@ public class ArrayList<E> implements List<E> {
     }
 
     @Override
-    public boolean addAll(List<E> l) {
+    public boolean addAll(List<E> l)  {
+        if(l == null) {
+            return false;
+        }
+        int total_a_tener = effectiveSize + l.size();
+        int añadir_capacity = total_a_tener/100 ;
+        if (total_a_tener > MAX_SIZE){
+            for (int i = 0 ; i < (añadir_capacity + 1) ; i++ ){
+                addCapacity();   
+            }
+        }
+        for (int u = 0; u < l.size() ; u++){
+            elements[effectiveSize] = l.get(u) ;
+            effectiveSize ++;
+        }
+        return true;
+    }
+
+    @Override
+    public E removeFirst() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int indexOf(E element) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

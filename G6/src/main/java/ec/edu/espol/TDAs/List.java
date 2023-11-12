@@ -4,6 +4,8 @@
  */
 package ec.edu.espol.TDAs;
 
+import java.util.Comparator;
+
 /**
  *
  * @author Jonanyu 11.1
@@ -23,13 +25,15 @@ public interface List<E> extends Iterable<E> {
 
     E getLast();
 
+    public int indexOf(E element, Comparator<E> cmp);
+
     void clear();
 
     boolean add(int index, E element);
 
     boolean insert(int index, E element);
 
-    boolean contains(E element);
+    boolean contains(E element, Comparator<E> comp);
 
     E get(int index);
 
@@ -44,6 +48,8 @@ public interface List<E> extends Iterable<E> {
     E set(int index, E element);
 
     int size();
+
+    public ArrayList<E> removeFirstNElements(int n);
 
     public boolean addAll(List<E> l);
 }

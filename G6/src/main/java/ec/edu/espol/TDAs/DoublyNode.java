@@ -7,16 +7,22 @@ package ec.edu.espol.TDAs;
 /**
  *
  * @author Jonanyu 11.1
+ * @param <E>
  */
-public class Node<E> {
+public class DoublyNode<E> {
     private E element;
-    private Node<E> next;
-    private Node<E> previous;
-
-    public Node(E element) {
-        this.element = element;
-        this.next = this;
-        this.previous = this;
+    private DoublyNode<E> next;
+    private DoublyNode<E> previous;
+    
+    public DoublyNode(){
+        next = null;
+        previous = null;
+    }
+    
+    public DoublyNode(E content){
+        this.element=content;
+        next = null;
+        previous = null;
     }
 
     public E getElement() {
@@ -27,21 +33,23 @@ public class Node<E> {
         this.element = element;
     }
 
-    public Node<E> getNext() {
+    public DoublyNode<E> getNext() {
         return next;
     }
 
-    public void setNext(Node<E> next) {
+    public void setNext(DoublyNode<E> next) {
         this.next = next;
     }
 
-    public Node<E> getPrevious() {
+    public DoublyNode<E> getPrevious() {
         return previous;
     }
 
-    public void setPrevious(Node<E> previous) {
+    public void setPrevious(DoublyNode<E> previous) {
         this.previous = previous;
     }
+
+    
     
     
 }
