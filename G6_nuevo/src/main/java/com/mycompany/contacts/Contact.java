@@ -4,7 +4,7 @@
  */
 package com.mycompany.contacts;
 
-import ec.edu.espol.TDAs.*;
+import java.util.*;
 import javafx.scene.image.Image;
 
 /**
@@ -20,9 +20,9 @@ public abstract class Contact {
     private List<Email> emails;
     private List<SocialMedia> socialsMedia;
     private List<Date> datesInterest;
-    private List<RelatedContact> relatedContacts;
-    
-    public Contact(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
+    private List<Contact> relatedContacts;
+
+    public Contact(String name,String lastname, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts) {
         this.name = name;
         this.lastname = lastname;
         this.telephoneNumbers = telephoneNumbers;
@@ -90,11 +90,11 @@ public abstract class Contact {
         this.datesInterest = datesInterest;
     }
 
-    public List<RelatedContact> getRelatedContacts() {
+    public List<Contact> getRelatedContacts() {
         return relatedContacts;
     }
 
-    public void setRelatedContacts(List<RelatedContact> relatedContacts) {
+    public void setRelatedContacts(List<Contact> relatedContacts) {
         this.relatedContacts = relatedContacts;
     }
 

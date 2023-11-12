@@ -11,19 +11,9 @@ import javafx.scene.image.Image;
  *
  * @author Luis Romero
  */
-<<<<<<< HEAD
-public class Person extends Contact{
-    
-    public Person(String name, String lastname, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts) {
-        super(name,lastname, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
-    }
-     //Para prueba 
-    public Person (String name,String lastname){
-        super(name,lastname,null, null, null, null, null, null,null);
-    }
-=======
-public class Person extends Contact {
 
+public class Person extends Contact {
+    
     private String lastName;
     private ArrayList<Contact> contacts;
 
@@ -53,6 +43,4 @@ public class Person extends Contact {
     public void setContacts(ArrayList<Contact> contacts) {
         this.contacts = contacts;
     }
-   
->>>>>>> c2d80c9ba5f8010fcaa21ae547842ef879a42fa9
 }

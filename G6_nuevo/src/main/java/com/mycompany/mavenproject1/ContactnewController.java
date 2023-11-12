@@ -67,25 +67,16 @@ public class ContactnewController implements Initializable {
         last.setPrefSize(500, 60);
 
         name_last.getChildren().addAll(name, last);
-        
-        HBox add_phone = new HBox(10);
-        add_phone.setAlignment(Pos.CENTER_LEFT);
+
+        HBox add_email = new HBox(10);
+        add_email.setAlignment(Pos.CENTER_LEFT);
         ImageView icon_add = new ImageView(new Image("Iconos/agregar.png"));
         icon_add.setFitHeight(30);
         icon_add.setFitWidth(30);
-        Label phone = new Label("ADD PHONE");
-        phone.getStyleClass().add("sign-up");
-        add_phone.getStyleClass().add("text-field");
-        add_phone.setPrefSize(700, 60);
-        add_phone.setSpacing(20);
-        add_phone.getChildren().addAll(icon_add, phone);
-        
-        HBox add_email = new HBox(10);
-        add_email.setAlignment(Pos.CENTER_LEFT);
         Label email = new Label("ADD EMAIL");
         email.getStyleClass().add("sign-up");
         add_email.getStyleClass().add("text-field");
-        add_email.setPrefSize(700, 60);
+        add_email.setPrefSize(813, 60);
         add_email.setSpacing(20);
         add_email.getChildren().addAll(icon_add, email);
 
@@ -97,14 +88,11 @@ public class ContactnewController implements Initializable {
         AnchorPane.setLeftAnchor(name_last, (newcontact_page.getPrefWidth() - name.getPrefWidth()) / 2);
         AnchorPane.setRightAnchor(name_last, (newcontact_page.getPrefWidth() - name.getPrefWidth()) / 2);
 
-//        AnchorPane.setTopAnchor(add_phone, 350.0);
+        AnchorPane.setTopAnchor(add_email, 350.0); 
         VBox emails = new VBox();
         emails.setPrefSize(813, 60);
-        AnchorPane.setTopAnchor(add_email, 350.0);
-        
-        
         AnchorPane.setTopAnchor(emails, 410.0); 
-        newcontact_page.getChildren().addAll(header, name_last,add_email,emails);
+        newcontact_page.getChildren().addAll(header, name_last, add_email,emails);
         
         add_email.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
             @Override
@@ -128,6 +116,7 @@ public class ContactnewController implements Initializable {
                 Platform.runLater(()->{
                     emails.getChildren().add(new_email);    
                 });
+
             }  
             });
     }
