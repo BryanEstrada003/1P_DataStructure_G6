@@ -2,74 +2,56 @@ package com.mycompany.testproject;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.io.File;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
+    public static String pathImg="src/main/resources/images/";
     
-    private ImageView imageView;
-
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Mini Aplicación JavaFX para URL e Imagen");
+        // Crear una imagen de muestra (reemplázala con la lógica para cargar la imagen del perfil)
+        Image profileImage = new Image("file:/C:/Users/HOME/Desktop/Data%20Structure%20Practices/1P_DataStructure_G6/TestProject/src/main/resources/images/Screenshot%202023-10-24%20194027.png");
 
-        // Crear un cuadro de texto para ingresar una URL
-        TextField textField = new TextField();
-        textField.setPromptText("Ingresa una URL");
+        ImageView profileImageView = new ImageView(profileImage);
 
-        // Crear un elemento de texto para mostrar la URL como enlace
-        Text linkText = new Text();
+        // Etiqueta para el nombre
+        Label nameLabel = new Label("Nombre: John Doe");
 
-        
+        // Etiqueta para la lista de números telefónicos
+        Label phoneLabel = new Label("Números telefónicos: 123-456-7890, 987-654-3210");
 
-        // Crear un botón para cargar una imagen
-        Button loadImageButton = new Button("Cargar Imagen");
+        // Etiqueta para la lista de fotos
+        Label photosLabel = new Label("Fotos: [Photo1, Photo2, Photo3]");
 
-        // Crear un ImageView para mostrar la imagen
-        imageView = new ImageView();
+        // Etiqueta para la dirección
+        Label addressLabel = new Label("Dirección: 123 Main St, City");
 
-        // Evento para cargar una imagen desde un archivo
-        loadImageButton.setOnAction(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Imágenes", "*.jpg", "*.jpeg", "*.png", "*.gif"));
-            File selectedFile = fileChooser.showOpenDialog(primaryStage);
-            if (selectedFile != null) {
-                Image image = new Image(selectedFile.toURI().toString());
-                imageView.setImage(image);
-            }
-        });
+        // Etiqueta para la lista de redes sociales
+        Label socialMediaLabel = new Label("Redes sociales: [Facebook, Twitter, LinkedIn]");
 
-        // Evento para actualizar el elemento de texto con la URL ingresada
-        textField.setOnAction(event -> {
-            String url = textField.getText();
-            if (!url.isEmpty()) {
-                linkText.setText(url);
-                linkText.setOnMouseClicked(e -> {
-                    getHostServices().showDocument(url);
-                });
-            } else {
-                linkText.setText("");
-            }
-        });
+        // Etiqueta para la lista de fechas importantes
+        Label importantDatesLabel = new Label("Fechas importantes: [Date1, Date2, Date3]");
 
-        // Crear un diseño de caja vertical para organizar los elementos
-        VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(textField, linkText, loadImageButton, imageView);
+        // Etiqueta para la lista de contactos relacionados
+        Label relatedContactsLabel = new Label("Contactos relacionados: [Contact1, Contact2, Contact3]");
 
-        // Crear una escena y mostrarla en el escenario
-        Scene scene = new Scene(vbox, 400, 300);
+        // Crear un diseño vertical para organizar los elementos
+        VBox vbox = new VBox(profileImageView, nameLabel, phoneLabel, photosLabel, addressLabel,
+                socialMediaLabel, importantDatesLabel, relatedContactsLabel);
+
+        // Crear la escena y agregarla al escenario
+        Scene scene = new Scene(vbox, 400, 600);
+        primaryStage.setTitle("Detalles de Contacto");
         primaryStage.setScene(scene);
+
+        // Mostrar la ventana
         primaryStage.show();
     }
 
