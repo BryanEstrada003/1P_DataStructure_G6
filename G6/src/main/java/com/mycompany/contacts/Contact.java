@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
  */
 public abstract class Contact {
     private String name;
+    private String lastname;
     private List<Telephone> telephoneNumbers;
     private List<Image> photos;
     private Address address;
@@ -21,8 +22,9 @@ public abstract class Contact {
     private List<Date> datesInterest;
     private List<Contact> relatedContacts;
 
-    public Contact(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts) {
+    public Contact(String name,String lastname, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts) {
         this.name = name;
+        this.lastname = lastname;
         this.telephoneNumbers = telephoneNumbers;
         this.photos = photos;
         this.address = address;
@@ -94,6 +96,14 @@ public abstract class Contact {
 
     public void setRelatedContacts(List<Contact> relatedContacts) {
         this.relatedContacts = relatedContacts;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
     
     

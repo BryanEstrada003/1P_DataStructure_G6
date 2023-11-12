@@ -106,36 +106,6 @@ public class ContactsController implements Initializable {
     private Label name_lastname5;
     @FXML
     private VBox clasification5;
-    @FXML
-    private ImageView profile_picture6;
-    @FXML
-    private Label name_lastname6;
-    @FXML
-    private VBox clasification6;
-    @FXML
-    private ImageView profile_picture7;
-    @FXML
-    private Label name_lastname7;
-    @FXML
-    private VBox clasification7;
-    @FXML
-    private ImageView profile_picture8;
-    @FXML
-    private Label name_lastname8;
-    @FXML
-    private VBox clasification8;
-    @FXML
-    private ImageView profile_picture9;
-    @FXML
-    private Label name_lastname9;
-    @FXML
-    private VBox clasification9;
-    @FXML
-    private ImageView profile_picture10;
-    @FXML
-    private Label name_lastname10;
-    @FXML
-    private VBox clasification10;
 
     /**
      * Initializes the controller class.
@@ -224,6 +194,11 @@ public class ContactsController implements Initializable {
 
     @FXML
     private void showcontact(MouseEvent event) {
+    }
+
+    @FXML
+    private void agregar_contacto(MouseEvent event) {
+        
     }
 
 }

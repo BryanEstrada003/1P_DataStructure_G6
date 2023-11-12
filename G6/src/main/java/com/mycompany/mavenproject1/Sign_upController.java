@@ -70,11 +70,14 @@ public class Sign_upController implements Initializable {
     private Label verificar_user;
     @FXML
     private ImageView flecha_regresar;
+    @FXML
+    private Label upload_image;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        upload_image.setText("UPLOAD IMAGE");
         logo_app.setImage(new Image("Iconos/Logo-sf.png"));
         logo_user.setImage(new Image("Iconos/usuario.png"));
         logo_pasword.setImage(new Image("Iconos/password.png"));
@@ -131,6 +134,7 @@ public class Sign_upController implements Initializable {
         if (selectedFile != null) {
             Image image = new Image(selectedFile.toURI().toString());
             image_user.setImage(image);
+            upload_image.setText("");
         }
         Path sourcePath = selectedFile.toPath();
         Path targetPath = Paths.get("src/main/resources/Users/p_user.png");

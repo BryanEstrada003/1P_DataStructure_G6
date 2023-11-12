@@ -12,37 +12,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="sign_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="837.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.Sign_upController">
+<AnchorPane id="AnchorPane" fx:id="sign_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="837.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.Sign_upController">
     <stylesheets>
         <URL value="@/styles/login.css" />
     </stylesheets>
      <children>
-        <VBox alignment="CENTER" layoutX="7.0" layoutY="314.0" prefHeight="605.0" prefWidth="821.0" spacing="50.0">
+        <VBox alignment="CENTER" layoutX="-1.0" layoutY="342.0" prefHeight="406.0" prefWidth="838.0" spacing="50.0">
             <children>
-            <VBox prefHeight="200.0" prefWidth="100.0" />
-            <HBox alignment="CENTER" prefHeight="66.0" prefWidth="602.0">
+            <VBox alignment="CENTER" prefHeight="46.0" prefWidth="840.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="46.0" prefWidth="840.0">
+                  <HBox alignment="CENTER" prefHeight="84.0" prefWidth="821.0">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="84.0" prefWidth="821.0">
-                           <children>
-                              <ImageView fx:id="logo_user" fitHeight="57.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets right="30.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <TextField fx:id="user" alignment="CENTER" prefHeight="60.0" prefWidth="500.0" promptText="USER" />
-                           </children>
-                        </HBox>
-                        <Label fx:id="verificar_user" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="#9a0e0e">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
+                        <ImageView fx:id="logo_user" fitHeight="57.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <TextField fx:id="user" alignment="CENTER" prefHeight="60.0" prefWidth="500.0" promptText="USER" />
                      </children>
-                  </VBox>
+                  </HBox>
+                  <Label fx:id="verificar_user" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="#9a0e0e">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
                </children>
-            </HBox>
+            </VBox>
             <HBox alignment="CENTER" prefHeight="66.0" prefWidth="602.0">
                <children>
                   <ImageView fx:id="logo_pasword" fitHeight="57.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
@@ -53,27 +48,31 @@
                   <PasswordField fx:id="password" alignment="CENTER" prefHeight="60.0" prefWidth="500.0" promptText="PASSWORD" />
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="66.0" prefWidth="602.0">
                <children>
-                  <Button fx:id="button_sign_up" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#register" prefHeight="56.0" prefWidth="196.0" text="SIGN UP">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Button>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="button_sign_up" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#register" prefHeight="56.0" prefWidth="196.0" text="SIGN UP">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
             </children>
         </VBox>
-      <ImageView fx:id="logo_app" fitHeight="180.0" fitWidth="231.0" layoutX="564.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <AnchorPane layoutY="204.0" prefHeight="340.0" prefWidth="837.0">
+      <ImageView fx:id="logo_app" fitHeight="111.0" fitWidth="200.0" layoutX="587.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane layoutX="7.0" layoutY="110.0" prefHeight="260.0" prefWidth="838.0">
          <children>
-            <Label fx:id="personal_information" alignment="CENTER" contentDisplay="CENTER" layoutX="267.0" layoutY="14.0" prefHeight="29.0" prefWidth="306.0" text="PERSONAL PROFILE" textFill="WHITE">
+            <Label fx:id="personal_information" alignment="CENTER" contentDisplay="CENTER" layoutX="-6.0" layoutY="12.0" prefHeight="29.0" prefWidth="306.0" text="PERSONAL PROFILE" textFill="WHITE">
                <font>
                   <Font name="Modak" size="24.0" />
                </font>
             </Label>
-            <ImageView fx:id="image_user" fitHeight="111.0" fitWidth="178.0" layoutX="361.0" layoutY="59.0" onMouseClicked="#change_image" pickOnBounds="true" preserveRatio="true" />
-            <HBox layoutX="2.0" layoutY="209.0" prefHeight="111.0" prefWidth="835.0">
+            <ImageView fx:id="image_user" fitHeight="88.0" fitWidth="153.0" layoutX="369.0" layoutY="10.0" onMouseClicked="#change_image" pickOnBounds="true" preserveRatio="true" />
+            <HBox layoutX="3.0" layoutY="133.0" prefHeight="111.0" prefWidth="835.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="111.0" prefWidth="415.0" spacing="20.0">
                      <children>
@@ -105,11 +104,16 @@
                   </VBox>
                </children>
             </HBox>
+            <Label fx:id="upload_image" layoutX="373.0" layoutY="98.0" onMouseClicked="#change_image" text="UPLOAD IMAGE" textFill="WHITE">
+               <font>
+                  <Font name="Modak" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <Label fx:id="title_app" layoutX="58.0" layoutY="50.0" prefHeight="123.0" prefWidth="552.0" text="SAFE CONTACTS" textFill="WHITE">
+      <Label fx:id="title_app" layoutX="98.0" layoutY="20.0" prefHeight="100.0" prefWidth="385.0" text="SAFE CONTACTS" textFill="WHITE">
          <font>
-            <Font name="Modak" size="66.0" />
+            <Font name="Modak" size="48.0" />
          </font>
       </Label>
       <ImageView fx:id="flecha_regresar" fitHeight="56.0" fitWidth="61.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#regresar" pickOnBounds="true" preserveRatio="true" />

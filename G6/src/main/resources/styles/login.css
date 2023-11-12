@@ -18,15 +18,27 @@
     -fx-border-radius: 10;
     -fx-padding: 5 10;
 }
+.text-field-e {
+    -fx-background-color: #333333;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10;
+    -fx-text-fill: blue;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-prompt-text-fill: #757575;
+    -fx-border-color: #2c2c2c;
+    -fx-border-radius: 10;
+    -fx-padding: 5 10;
+}
 .sign-up{
     -fx-text-fill: #93b8c9;
     -fx-font-weight: bold;
 }
 
-.AnchorPane {
+/*.AnchorPane {
     -fx-background-color: #2c2c2c;
     -fx-padding: 10;
-}
+}*/
 
 .button_{
     -fx-background-color: #444444; 
@@ -36,7 +48,31 @@
     -fx-background-radius: 20px;
 }
 .icon {
-    -fx-fill: #c0c0c0;
-    filter: brightness(200%); 
+    -fx-fill: #c0c0c0; 
 }
+
+.upload_image {
+    -fx-fill :white;
+    -fx-font-family: "Modak"; 
+    -fx-font-size: 14px; 
+}
+.centrar{
+    -fx-alignment: center;
+}
+.centrar_header{
+    -fx-alignment: center;
+    -fx-color : white;
+    -fx-text-fill: white;
+}
+.iconos{
+    -fx-padding: 0 20 0 0;
+    -fx-pref-width: 50px; 
+    -fx-pref-heigth: 50px;
+}
+.Null{
+    -fx-background-color: null;
+    -fx-alignment: center;
+}
+
+
 

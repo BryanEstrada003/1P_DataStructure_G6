@@ -28,7 +28,7 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </ImageView>
-                  <TextField fx:id="user" alignment="CENTER" prefHeight="60.0" prefWidth="500.0" promptText="USER" />
+                  <TextField fx:id="user" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="500.0" promptText="USER" />
                </children>
                <VBox.margin>
                   <Insets left="10.0" />

@@ -14,8 +14,11 @@ import javafx.scene.image.Image;
  */
 public class Person extends Contact{
     
-    public Person(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts) {
-        super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
+    public Person(String name, String lastname, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<Contact> relatedContacts) {
+        super(name,lastname, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
     }
-    
+     //Para prueba 
+    public Person (String name,String lastname){
+        super(name,lastname,null, null, null, null, null, null,null);
+    }
 }
