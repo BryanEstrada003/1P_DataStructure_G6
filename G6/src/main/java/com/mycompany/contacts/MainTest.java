@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
  */
 public class MainTest {
     public static void main(String args[]){
-        
         System.out.println("hola mundo");
         //List<Date> datesInterest, List<RelatedContact> relatedContacts
         ArrayList<Telephone> telephoneNumbers = new ArrayList<>();
@@ -143,5 +142,11 @@ public class MainTest {
         relatedContacts2.add(new RelatedContact("Empresa", user3));
         relatedContacts3.add(new RelatedContact("Asistente de ventas", user1));
         relatedContacts3.add(new RelatedContact("Asistente de finanzas", user2));
+        
+        DoublyLinkedList<Contact> contacts = new DoublyLinkedList<Contact>();
+        contacts.addLast(user1);
+        contacts.addLast(user2);
+        contacts.addLast(user3);
+        
     }
 }
