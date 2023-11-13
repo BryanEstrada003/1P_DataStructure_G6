@@ -13,18 +13,18 @@ import javafx.scene.image.Image;
  */
 public abstract class Contact {
     private String name;
-    private String lastname;
+    private String profilePhoto;
     private List<Telephone> telephoneNumbers;
-    private List<Image> photos;
+    private List<String> photos;
     private Address address;
     private List<Email> emails;
     private List<SocialMedia> socialsMedia;
     private List<Date> datesInterest;
     private List<RelatedContact> relatedContacts;
     
-    public Contact(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
+    public Contact(String name, String profilePhoto,List<Telephone> telephoneNumbers, List<String> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
         this.name = name;
-        this.lastname = lastname;
+        this.profilePhoto = profilePhoto;
         this.telephoneNumbers = telephoneNumbers;
         this.photos = photos;
         this.address = address;
@@ -42,6 +42,14 @@ public abstract class Contact {
         this.name = name;
     }
 
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+    
     public List<Telephone> getTelephoneNumbers() {
         return telephoneNumbers;
     }
@@ -50,11 +58,11 @@ public abstract class Contact {
         this.telephoneNumbers = telephoneNumbers;
     }
 
-    public List<Image> getPhotos() {
+    public List<String> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<Image> photos) {
+    public void setPhotos(List<String> photos) {
         this.photos = photos;
     }
 
@@ -98,16 +106,4 @@ public abstract class Contact {
         this.relatedContacts = relatedContacts;
     }
 
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-    
-    
-    
-    
-    
 }
