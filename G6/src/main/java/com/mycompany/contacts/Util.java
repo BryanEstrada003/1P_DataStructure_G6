@@ -4,86 +4,22 @@
  */
 package com.mycompany.contacts;
 
-<<<<<<< HEAD
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-=======
-import ec.edu.espol.TDAs.ArrayList;
-import ec.edu.espol.TDAs.DoublyLinkedList;
+import ec.edu.espol.TDAs.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
->>>>>>> ede550c0c1c7e68b87c9788ab46404cee12fc733
 
 /**
  *
  * @author angelozurita
  */
-<<<<<<< HEAD
-public class Util<E> implements Serializable{
-    
-    public static String title(String palabra){
-        String result = palabra.toUpperCase().charAt(0) + palabra.substring(1, palabra.length()).toLowerCase();
-        return result;
-    }
-    
-    public ArrayList<E> readListFromFileSer(String nombre) {
-        ArrayList<E> users = new ArrayList<>();
-        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(nombre)))
-        {
-            users = (ArrayList<E>)in.readObject();
-        }
-        catch(IOException ioe)
-        {
-            
-        }
-        catch(ClassNotFoundException c )
-        {
-                
-        }
-        return users;
-    }
-    
-    public void saveListToFileSer (String nombre, ArrayList<E> usuarios){
-        try(ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream(nombre)))
-        {
-            out.writeObject(usuarios);
-        }
-        catch(IOException ioe)
-        {
-            
-        }
-    }
-    
-    public ArrayList<E>  add_Usertolist (E userp,ArrayList<E> usuarios) {
-        usuarios.add(userp);
-        return usuarios;
-    }
-    
-    public void crearArchivoser(String name){
-        ArrayList<E> users = new ArrayList();
-        try(ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream(name+".ser")))
-        {
-            out.writeObject(users);
-        }
-        catch(IOException ioe)
-        {
-            
-        }        
-    }
-    
-    public void add_Userto (E userp,String name) {
-        ArrayList<E> users = readListFromFileSer(name+".ser");
-        users.add(userp);
-        saveListToFileSer("Users.ser",users);
-    }
-    
-=======
+
 public class Util implements Serializable {
 
     public static String title(String palabra) {
@@ -367,6 +303,4 @@ public class Util implements Serializable {
         return contacts;
 
     }
-
->>>>>>> ede550c0c1c7e68b87c9788ab46404cee12fc733
 }
