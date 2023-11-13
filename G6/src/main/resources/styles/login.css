@@ -30,6 +30,18 @@
     -fx-border-radius: 10;
     -fx-padding: 5 10;
 }
+.text-field-e2 {
+    -fx-background-color: #333333;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10;
+    -fx-text-fill: blue;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-prompt-text-fill: #93b8c9;
+    -fx-border-color: #2c2c2c;
+    -fx-border-radius: 10;
+    -fx-padding: 5 10;
+}
 .sign-up{
     -fx-text-fill: #93b8c9;
     -fx-font-weight: bold;
@@ -56,6 +68,11 @@
     -fx-font-family: "Modak"; 
     -fx-font-size: 14px; 
 }
+.titutlo {
+    -fx-fill :white;
+    -fx-font-family: "Modak"; 
+    -fx-font-size: 42px; 
+}
 .centrar{
     -fx-alignment: center;
 }
@@ -73,6 +90,15 @@
     -fx-background-color: null;
     -fx-alignment: center;
 }
-
+.Hbox{
+    
+}
+.margin-top{
+    -fx-padding: 20 0 0 0;
+}
+.confirmation {
+    -fx-fill :green;
+    -fx-font-size: 14px; 
+}
 
 
