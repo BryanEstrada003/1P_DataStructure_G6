@@ -158,23 +158,11 @@ public class DoublyLinkedList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        if (isEmpty()) {
+        if (isEmpty() || index < 0 || index >= size()) {
             return null;
         }
-        if (index > size() - 1 || index < -1) {
-            return null;
-        }
-        if (index == -1) {
-            index = size() - 1;
-        }
 
-        DoublyNode<E> node = head;
-        int i = 0;
-        do {
-            node = node.getNext();
-            i++;
-        } while (node != head && i < index);
-
+        DoublyNode<E> node = getNodeAtIndex(index);
         return node.getElement();
     }
 
@@ -308,11 +296,74 @@ public class DoublyLinkedList<E> implements List<E> {
         }
         return false;
     }
-    
+
     @Override
     public E removeFirst() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+// Método para obtener el nodo en un índice específico
 
+    private DoublyNode<E> getNodeAtIndex(int index) {
+        DoublyNode<E> node = head;
+        for (int i = 0; i < index; i++) {
+            node = node.getNext();
+        }
+        return node;
+    }
+
+    public Iterator<E> iteratorForwardFrom(int start, int limit) {
+        if (isEmpty() || start < 0 || start >= size()) {
+            return null;
+        }
+        return new Iterator<E>() {
+            DoublyNode<E> currentNode = getNodeAtIndex(start);
+            int count = 0;
+
+            @Override
+            public boolean hasNext() {
+                return count < limit;
+            }
+
+            @Override
+            public E next() {
+                E element = currentNode.getElement();
+                currentNode = currentNode.getNext(); // Avanzar hacia adelante
+                count++;
+                return element;
+            }
+        };
+    }
+
+    // Método para iterar hacia atrás desde un punto específico
+    public Iterator<E> iteratorBackwardFrom(int start, int limit) {
+        if (isEmpty() || start < 0 || start >= size() || limit <= 0) {
+            return null;
+        }
+
+        int index = start;
+        while (index != (start + limit) % size()) {
+            index = (index + 1) % size();
+        }
+
+        final int finalIndex = index;
+
+        return new Iterator<E>() {
+            int currentIndex = finalIndex;
+            int count = 0;
+
+            @Override
+            public boolean hasNext() {
+                return count < limit;
+            }
+
+            @Override
+            public E next() {
+                E element = getNodeAtIndex(currentIndex).getElement();
+                currentIndex = (currentIndex + 1) % size();
+                count++;
+                return element;
+            }
+        };
+    }
 
 }

@@ -203,7 +203,7 @@
                   </HBox>
                </children></VBox>
             <ImageView fx:id="subir" fitHeight="54.0" fitWidth="57.0" layoutX="780.0" onMouseClicked="#subir" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="bajar" fitHeight="54.0" fitWidth="57.0" layoutX="780.0" layoutY="372.0" onMouseClicked="#bajar" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="bajar" fitHeight="54.0" fitWidth="57.0" layoutX="780.0" layoutY="278.0" onMouseClicked="#bajar" pickOnBounds="true" preserveRatio="true" />
          </children>
          <padding>
             <Insets top="10.0" />

@@ -14,12 +14,12 @@ import javafx.scene.image.Image;
 public class Company extends Contact{
     private ArrayList<Contact> contacts;
     
-    public Company(String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
-        super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
+    public Company(String name, String profilePhoto, List<Telephone> telephoneNumbers, List<String> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
+        super(name, profilePhoto,telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
     }
     
-    public Company(ArrayList<Contact> contact, String name, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
-        super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
+    public Company(ArrayList<Contact> contact, String name, String profilePhoto, List<Telephone> telephoneNumbers, List<String> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
+        super(name, profilePhoto,telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
         this.contacts = contact;
     }
 
@@ -29,6 +29,11 @@ public class Company extends Contact{
 
     public void setContact(ArrayList<Contact> contact) {
         this.contacts = contact;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" + "contacts=" + contacts + '}';
     }
 
 }

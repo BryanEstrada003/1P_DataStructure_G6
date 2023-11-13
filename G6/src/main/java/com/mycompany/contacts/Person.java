@@ -17,13 +17,13 @@ public class Person extends Contact {
     private String lastName;
     private ArrayList<Contact> contacts;
 
-    public Person(String name, String LastName, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
-        super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
+    public Person(String name, String LastName, String profilePhoto,List<Telephone> telephoneNumbers, List<String> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
+        super(name, profilePhoto,telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
         this.lastName = LastName;
     }
     
-    public Person(ArrayList<Contact> contacts,String name, String LastName, List<Telephone> telephoneNumbers, List<Image> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
-        super(name, telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
+    public Person(ArrayList<Contact> contacts,String name, String LastName,String profilePhoto, List<Telephone> telephoneNumbers, List<String> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
+        super(name, profilePhoto,telephoneNumbers, photos, address, emails, socialsMedia, datesInterest, relatedContacts);
         this.lastName = LastName;
         this.contacts=contacts;
     }
@@ -42,5 +42,10 @@ public class Person extends Contact {
 
     public void setContacts(ArrayList<Contact> contacts) {
         this.contacts = contacts;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" + "lastName=" + lastName + ", contacts=" + contacts + '}';
     }
 }
