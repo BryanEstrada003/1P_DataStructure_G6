@@ -156,7 +156,7 @@ public class ContactsController implements Initializable {
         } catch (Exception e) {
             profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
         }
-        this.contactos = Util.listaContacto();
+//        this.contactos = Util.listaContacto();
 
         DoublyLinkedList<Contact> nuevaList = new DoublyLinkedList<>();
         Iterator<Contact> forwardIterator = contactos.iteratorForwardFrom(valorInicial, 5);

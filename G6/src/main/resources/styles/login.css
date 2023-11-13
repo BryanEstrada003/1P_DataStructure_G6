@@ -100,5 +100,9 @@
     -fx-fill :green;
     -fx-font-size: 14px; 
 }
+.negation{
+    -fx-fill :red;
+    -fx-font-size: 14px;   
+}
 
 

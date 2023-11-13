@@ -4,6 +4,7 @@
  */
 package com.mycompany.mavenproject1;
 
+import ec.edu.espol.TDAs.DoublyLinkedList;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -12,19 +13,26 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
@@ -38,6 +46,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -56,6 +65,9 @@ public class NewcontactController implements Initializable {
     private String id_registro;
     private int number_photos;
     private String directoryPath;
+    private String tipo = "";
+    private TextField last_d;
+    private DoublyLinkedList lista_contacto;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -83,13 +95,15 @@ public class NewcontactController implements Initializable {
         container_AddEmail();
         container_address();
         container_SocialMedia();
-        container_photos();
-
+        createHBox_photo();
+        container_AddImportantsDate();
+        
         principal.setContent(contentBox);
         principal.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         principal.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
     private void Container_Top() {
+        
         HBox top = new HBox();
         top.getStyleClass().add("blackbackgorund");
         top.setSpacing(20);
@@ -104,6 +118,10 @@ public class NewcontactController implements Initializable {
     }
     
     private void Container_Header() {
+        HBox nueva = new HBox(30);
+        nueva.getStyleClass().add("blackbackgorund");
+        nueva.setAlignment(Pos.CENTER);
+        
         VBox header = new VBox(10);
         header.getStyleClass().add("blackbackgorund");
         header.setAlignment(Pos.CENTER);
@@ -114,9 +132,28 @@ public class NewcontactController implements Initializable {
 
         Text info_upload = new Text("UPLOAD IMAGE");
         info_upload.getStyleClass().add("upload_image");
-
+        
         header.getChildren().addAll(profile_picture, info_upload);
-        contentBox.getChildren().add(header);
+        
+        ComboBox<String> typeDropdown = new ComboBox<>();
+        typeDropdown.getItems().addAll("PERSON", "COMPANY");
+        typeDropdown.setValue("PERSON");
+        typeDropdown.setOnAction(event -> {
+            tipo = typeDropdown.getValue();
+            if(tipo.equals("COMPANY")){
+                Platform.runLater(()->{
+                    adjustContentBasedOnTipo();
+                });
+            }
+        });
+
+        nueva.getChildren().addAll(header,typeDropdown);
+        contentBox.getChildren().add(nueva);
+    }
+    
+    private void adjustContentBasedOnTipo() {
+            contentBox.getChildren().remove(2); // Elimina el VBox de nombre y apellido
+            contentBox.getChildren().add(2, Create_Container_Name_Last());
     }
 
     private void Container_Name_Last() {
@@ -138,10 +175,41 @@ public class NewcontactController implements Initializable {
         last.setMaxSize(500, 60);
         last.setMinSize(500, 60);
         
-        name_last.getChildren().addAll(name, last);
+        if (tipo.equals("COMPANY")){
+            name_last.getChildren().addAll(name);            
+        }
+        else{
+            name_last.getChildren().addAll(name,last); 
+        }
         contentBox.getChildren().add(name_last);
     }
+    private VBox Create_Container_Name_Last() {
+        VBox name_last = new VBox();
+        name_last.getStyleClass().addAll("blackbackgorund","margin-top");
+        name_last.setAlignment(Pos.CENTER);
 
+        TextField name = new TextField();
+        name.setPromptText("NAME");
+        name.getStyleClass().add("text-field");
+        name.setPrefSize(500, 60);
+        name.setMaxSize(500, 60);
+        name.setMinSize(500, 60);
+
+        TextField last = new TextField();
+        last.setPromptText("LASTNAME");
+        last.getStyleClass().add("text-field");
+        last.setPrefSize(500, 60);
+        last.setMaxSize(500, 60);
+        last.setMinSize(500, 60);
+        
+        if (tipo.equals("COMPANY")){
+            name_last.getChildren().addAll(name);            
+        }
+        else{
+            name_last.getChildren().addAll(name,last); 
+        }
+        return name_last;
+    }
     private void container_AddPhone() {
         VBox phones = new VBox();
         phones.getStyleClass().addAll("blackbackgorund","margin-top");
@@ -243,21 +311,10 @@ public class NewcontactController implements Initializable {
         social_medias.getChildren().add(add_social_media);
         contentBox.getChildren().add(social_medias);
     }
-    private void container_photos() {
-        VBox photos = new VBox();
-        photos.getStyleClass().add("blackbackgorund");
-        photos.setAlignment(Pos.CENTER);
-
-        HBox add_social_media = createAddOptions("ADD PHOTOS", "Iconos/agregar.png", event -> {
-            HBox new_email = createHBox_photo("Iconos/eliminar.png", 250);
-            photos.getChildren().add(new_email);
-            new_email.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> photos.getChildren().remove(new_email));
-        });
-
-        photos.getChildren().add(add_social_media);
-        contentBox.getChildren().add(photos);
-    }
-    private HBox createHBox_photo(String iconPath, double prefWidth1) {
+    private void createHBox_photo() {
+        VBox container_photos = new VBox();
+        container_photos.getStyleClass().add("blackbackgorund");
+        container_photos.setAlignment(Pos.CENTER);
         HBox itemBox = new HBox(20);
         itemBox.getStyleClass().add("text-field");
         itemBox.setAlignment(Pos.CENTER_LEFT);
@@ -265,21 +322,16 @@ public class NewcontactController implements Initializable {
         itemBox.setMaxSize(750, 60);
         itemBox.setMinSize(750, 60);
 
-        ImageView icon_delete = new ImageView(new Image(iconPath));
-        icon_delete.setFitHeight(30);
-        icon_delete.setFitWidth(30);
-
         Button btn_photo = new Button("ADD PHOTO");
         btn_photo.getStyleClass().add("text-field");
-        btn_photo.setPrefSize(prefWidth1, 30);
+        btn_photo.setPrefSize(300, 30);
         btn_photo.setStyle("-fx-text-fill: blue;");
         
         Text process = new Text();
         process.setText("");
-        
-        itemBox.getChildren().addAll(icon_delete, btn_photo,process);
-        
-        
+
+        itemBox.getChildren().addAll( btn_photo,process);
+        container_photos.getChildren().add(itemBox);
         btn_photo.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
             @Override
             public void handle(Event event) {
@@ -300,8 +352,14 @@ public class NewcontactController implements Initializable {
                 Platform.runLater(()->{
                     process.setText("NEW IMAGE CONFIRMED");
                     process.getStyleClass().add("confirmation");
+                    number_photos++;
                 });
             } catch (IOException e) {
+                Platform.runLater(()->{
+                    process.setText("NEW IMAGE CONFIRMED");
+                    process.getStyleClass().add("negation");
+                    number_photos++;
+                });
                 Alert alert = new Alert(Alert.AlertType.INFORMATION,"ISSUES TO MOVE FOLDER");
                 alert.setTitle("MOVE FOLDER");
                 alert.setHeaderText("INFORMATION");
@@ -309,11 +367,9 @@ public class NewcontactController implements Initializable {
                 alert.getButtonTypes().setAll(okButton);
                 alert.showAndWait();
             }
-            }
-                   
+            }     
         });
-
-        return itemBox;
+        contentBox.getChildren().add(container_photos);
     }
     private void createFolder() {
        try {
@@ -333,5 +389,81 @@ public class NewcontactController implements Initializable {
            alert.showAndWait();
        }
    }
+    private void container_AddImportantsDate() {
+        VBox dates = new VBox();
+        dates.getStyleClass().add("blackbackgorund");
+        dates.setAlignment(Pos.CENTER);
 
+        HBox add_date = createAddOptions("ADD DATES", "Iconos/agregar.png", event -> {
+            HBox new_hbox_date = createHBox_dates("Iconos/eliminar.png", "DESCRIPTION", "DATE", 150, 420);
+            dates.getChildren().add(new_hbox_date);
+            new_hbox_date.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> dates.getChildren().remove(new_hbox_date));
+        });
+
+        dates.getChildren().add(add_date);
+        contentBox.getChildren().add(dates);
+    }
+    private HBox createHBox_dates(String iconPath, String promptText1, String promptText2, double prefWidth1, double prefWidth2) {
+        HBox itemBox = new HBox(20);
+        itemBox.getStyleClass().add("text-field");
+        itemBox.setAlignment(Pos.CENTER_LEFT);
+        itemBox.setPrefSize(750, 60);
+        itemBox.setMaxSize(750, 60);
+        itemBox.setMinSize(750, 60);
+
+        ImageView icon_delete = new ImageView(new Image(iconPath));
+        icon_delete.setFitHeight(30);
+        icon_delete.setFitWidth(30);
+
+        TextField textField1 = new TextField();
+        textField1.setPromptText(promptText1);
+        textField1.setPrefSize(prefWidth1, 30);
+        textField1.setStyle("-fx-text-fill: blue;");
+        
+        Text date = new Text();
+        date.getStyleClass().add("confirmation");
+        
+        DatePicker datePicker = new DatePicker();
+        datePicker.setPromptText("Selecciona una fecha");
+        datePicker.setOnAction(event -> {
+            LocalDate selectedDate = datePicker.getValue();
+            date.setText(selectedDate+"");
+        });
+
+        itemBox.getChildren().addAll(icon_delete, textField1, datePicker,date);
+        return itemBox;
+    }
+    private void createHBox_Contact() {
+        VBox container_contact = new VBox();
+        container_contact.getStyleClass().add("blackbackgorund");
+        container_contact.setAlignment(Pos.CENTER);
+        HBox itemBox = new HBox(20);
+        itemBox.getStyleClass().add("text-field");
+        itemBox.setAlignment(Pos.CENTER_LEFT);
+        itemBox.setPrefSize(750, 60);
+        itemBox.setMaxSize(750, 60);
+        itemBox.setMinSize(750, 60);
+
+        Button btn_contact = new Button("ADD PHOTO");
+        btn_contact.getStyleClass().add("text-field");
+        btn_contact.setPrefSize(300, 30);
+        btn_contact.setStyle("-fx-text-fill: blue;");
+        
+        Text process = new Text();
+        process.setText("");
+
+        itemBox.getChildren().addAll( btn_contact,process);
+        container_contact.getChildren().add(itemBox);
+        btn_contact.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                Parent root = FXMLLoader.load(getClass().getResource("AgregarContacto.fxml"));
+                Scene scene = new Scene(root);
+                Stage stage = (Stage) newcontact_page.getScene().getWindow();
+                stage.setScene(scene); 
+            }     
+        });
+        contentBox.getChildren().add(container_contact);
+    }
+    // setear lista ; 
 }
