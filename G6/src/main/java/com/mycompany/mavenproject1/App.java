@@ -23,7 +23,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+<<<<<<< HEAD
         scene = new Scene(loadFXML("newcontact"));
+=======
+
+        scene = new Scene(loadFXML("newcontact"));
+
+>>>>>>> 69fb64db1a0f3a4341ee28622e75909b2e187443
         stage.setScene(scene);
         stage.show();
     }
