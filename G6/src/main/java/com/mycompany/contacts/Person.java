@@ -43,4 +43,9 @@ public class Person extends Contact {
     public void setContacts(ArrayList<Contact> contacts) {
         this.contacts = contacts;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" + "lastName=" + lastName + ", contacts=" + contacts + '}';
+    }
 }

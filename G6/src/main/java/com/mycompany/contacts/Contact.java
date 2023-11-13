@@ -105,5 +105,5 @@ public abstract class Contact {
     public void setRelatedContacts(List<RelatedContact> relatedContacts) {
         this.relatedContacts = relatedContacts;
     }
-
+    
 }

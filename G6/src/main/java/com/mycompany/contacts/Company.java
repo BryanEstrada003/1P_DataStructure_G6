@@ -31,4 +31,9 @@ public class Company extends Contact{
         this.contacts = contact;
     }
 
+    @Override
+    public String toString() {
+        return "Company{" + "contacts=" + contacts + '}';
+    }
+
 }
