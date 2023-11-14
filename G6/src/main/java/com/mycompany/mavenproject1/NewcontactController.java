@@ -4,6 +4,9 @@
  */
 package com.mycompany.mavenproject1;
 
+import com.mycompany.contacts.Contact;
+import com.mycompany.contacts.Util;
+import ec.edu.espol.TDAs.ArrayList;
 import ec.edu.espol.TDAs.DoublyLinkedList;
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +70,7 @@ public class NewcontactController implements Initializable {
     private String directoryPath;
     private String tipo = "";
     private TextField last_d;
-    private DoublyLinkedList lista_contacto;
+    private DoublyLinkedList<Contact> lista_contacto;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -457,10 +460,23 @@ public class NewcontactController implements Initializable {
         btn_contact.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
             @Override
             public void handle(Event event) {
-                Parent root = FXMLLoader.load(getClass().getResource("AgregarContacto.fxml"));
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("AgregarContacto.fxml"));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) newcontact_page.getScene().getWindow();
                 stage.setScene(scene); 
+                try{
+                ArrayList<Contact> listaconta=Util.readListFromFileSer("ContactosSeleccionados.ser");
+                for (Contact c:listaconta ) {
+                    lista_contacto.add(c);
+                }
+                }catch(Exception e){
+                
+                }
             }     
         });
         contentBox.getChildren().add(container_contact);

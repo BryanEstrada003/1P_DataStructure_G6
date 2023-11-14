@@ -23,13 +23,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-<<<<<<< HEAD
-        scene = new Scene(loadFXML("newcontact"));
-=======
-
-        scene = new Scene(loadFXML("newcontact"));
-
->>>>>>> 69fb64db1a0f3a4341ee28622e75909b2e187443
+        scene = new Scene(loadFXML("login"));
         stage.setScene(scene);
         stage.show();
     }
@@ -44,7 +38,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-//        User.crearArchivoser("User");
+//        User.crearArchivoser();
 
         launch();
 //        DoublyLinkedList<Contact> contacto=new DoublyLinkedList<>();
