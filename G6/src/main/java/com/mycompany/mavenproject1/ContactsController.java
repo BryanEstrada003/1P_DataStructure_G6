@@ -6,13 +6,15 @@ package com.mycompany.mavenproject1;
 
 import com.mycompany.contacts.Contact;
 import com.mycompany.contacts.User;
+import com.mycompany.contacts.Util;
+import ec.edu.espol.TDAs.ArrayList;
 import ec.edu.espol.TDAs.DoublyLinkedList;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -109,7 +111,7 @@ public class ContactsController implements Initializable {
     private VBox clasification5;
 
     private DoublyLinkedList<Contact> contactos;
-    int valorInicial = 1;
+    private ListIterator<Contact> ite;
 
     /**
      * Initializes the controller class.
@@ -141,15 +143,13 @@ public class ContactsController implements Initializable {
         profile_picture.setSmooth(true);
         profile_picture.setFitWidth(80);
         profile_picture.setFitHeight(80);
-        profile_picture.setImage(new Image("Profile_pictures/" +owner.getPersonal_user()+"/"+ owner.getPersonal_user()+".png"));
+        profile_picture.setImage(new Image("Profile_pictures/" + owner.getPersonal_user() + "/" + owner.getPersonal_user() + ".png"));
         name_lastname.setText(owner.getName() + owner.getLastname());
 //        profile_picture.setFitWidth(80); 
 //        profile_picture.setFitHeight(80);
 //        profile_picture.setPreserveRatio(true); 
 //        profile_picture.setSmooth(true); 
-        
-        
-
+//
 //        if (owner != null) {
 //            name_lastname.setText(Util.title(owner.getName()) + "  " + Util.title(owner.getLastname()));
 //        } else {
@@ -163,21 +163,14 @@ public class ContactsController implements Initializable {
 //        } catch (Exception e) {
 //            profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
 //        }
-////        this.contactos = Util.listaContacto();
-//
-//        DoublyLinkedList<Contact> nuevaList = new DoublyLinkedList<>();
-//        Iterator<Contact> forwardIterator = contactos.iteratorForwardFrom(valorInicial, 5);
-//        while (forwardIterator.hasNext()) {
-//            nuevaList.add(forwardIterator.next());
-//        }
-//        name_lastname1.setText(nuevaList.get(0).getName());
-//        name_lastname2.setText(nuevaList.get(1).getName());
-//        name_lastname3.setText(nuevaList.get(2).getName());
-//        name_lastname4.setText(nuevaList.get(3).getName());
-//        name_lastname5.setText(nuevaList.get(4).getName());
-//        for (Contact c : this.contactos) {
-//            System.out.println(c.getName());
-//        }
+        this.contactos = Util.listaContacto2();
+        this.ite = this.contactos.listIterator();
+        name_lastname1.setText(ite.next().getName());
+        name_lastname2.setText(ite.next().getName());
+        name_lastname3.setText(ite.next().getName());
+        name_lastname4.setText(ite.next().getName());
+        name_lastname5.setText(ite.next().getName());
+
     }
 
     @FXML
@@ -201,42 +194,73 @@ public class ContactsController implements Initializable {
         ArrayList<User> users = new ArrayList<>();
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("User_login.ser"))) {
             owner = (User) in.readObject();
-            
+
         } catch (IOException ioe) {
-            
+
         } catch (ClassNotFoundException c) {
 
         }
     }
+    private int nVez = 1;
+    private boolean clickDown = false, clickup = false;
 
     @FXML
     private void subir(MouseEvent event) {
-        DoublyLinkedList<Contact> nuevaList = new DoublyLinkedList<>();
-        Iterator<Contact> backwardIterator = this.contactos.iteratorBackwardFrom(valorInicial+2, 5);
-        while (backwardIterator.hasNext()) {
-            nuevaList.add(backwardIterator.next());
+        int cont = 0;
+        ArrayList<Contact> nuevaList = new ArrayList<>();
+        if (nVez == 1 || clickDown == true) {
+            nuevaList.clear();
+            while (cont < 11) {
+                nuevaList.addFirst(ite.previous());
+                cont++;
+            }
+        } else {
+            nuevaList.clear();
+            while (cont < 5) {
+                nuevaList.addFirst(ite.previous());
+                cont++;
+            }
         }
+        nVez++;
+        clickDown = false;
+        clickup = true;
         name_lastname1.setText(nuevaList.get(0).getName());
         name_lastname2.setText(nuevaList.get(1).getName());
         name_lastname3.setText(nuevaList.get(2).getName());
         name_lastname4.setText(nuevaList.get(3).getName());
         name_lastname5.setText(nuevaList.get(4).getName());
-    
     }
 
     @FXML
     private void bajar(MouseEvent event) {
-        DoublyLinkedList<Contact> nuevaList = new DoublyLinkedList<>();
-        Iterator<Contact> forwardIterator = contactos.iteratorForwardFrom(valorInicial = valorInicial + 2, 5);
-        while (forwardIterator.hasNext()) {
-            nuevaList.add(forwardIterator.next());
+        int cont = 0;
+        ArrayList<Contact> nuevaList = new ArrayList<>();
+        if (clickup == true) {
+            nuevaList.clear();
+            while (cont < 11) {
+                nuevaList.addFirst(ite.next());
+                cont++;
+            }
+            name_lastname1.setText(nuevaList.get(4).getName());
+            name_lastname2.setText(nuevaList.get(3).getName());
+            name_lastname3.setText(nuevaList.get(2).getName());
+            name_lastname4.setText(nuevaList.get(1).getName());
+            name_lastname5.setText(nuevaList.get(0).getName());
+        } else {
+            nuevaList.clear();
+            while (cont < 5) {
+                nuevaList.add(ite.next());
+                cont++;
+            }
+            name_lastname1.setText(nuevaList.get(0).getName());
+            name_lastname2.setText(nuevaList.get(1).getName());
+            name_lastname3.setText(nuevaList.get(2).getName());
+            name_lastname4.setText(nuevaList.get(3).getName());
+            name_lastname5.setText(nuevaList.get(4).getName());
         }
-        name_lastname1.setText(nuevaList.get(0).getName());
-        name_lastname2.setText(nuevaList.get(1).getName());
-        name_lastname3.setText(nuevaList.get(2).getName());
-        name_lastname4.setText(nuevaList.get(3).getName());
-        name_lastname5.setText(nuevaList.get(4).getName());
-        System.out.println(valorInicial);
+        nVez++;
+        clickDown = true;
+        clickup = false;
     }
 
     @FXML
@@ -245,10 +269,10 @@ public class ContactsController implements Initializable {
 
     @FXML
     private void agregar_contacto(MouseEvent event) throws IOException {
-          Parent root = FXMLLoader.load(getClass().getResource("newcontact.fxml"));
-          Scene scene = new Scene(root);
-          Stage stage = (Stage) header.getScene().getWindow();
-           stage.setScene(scene); 
+        Parent root = FXMLLoader.load(getClass().getResource("newcontact.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) header.getScene().getWindow();
+        stage.setScene(scene);
     }
 
 }

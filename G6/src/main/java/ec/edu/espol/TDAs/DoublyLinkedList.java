@@ -7,6 +7,7 @@ package ec.edu.espol.TDAs;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 /**
  *
@@ -296,6 +297,65 @@ public class DoublyLinkedList<E> implements Serializable, List<E> {
             pos++;
         }
         return false;
+    }
+
+    public ListIterator<E> listIterator() {
+        if (isEmpty()) {
+            return null;
+        }
+        return new ListIterator<E>() {
+            DoublyNode<E> cursor = head;
+
+            @Override
+            public boolean hasNext() {
+                return cursor != null;
+            }
+
+            @Override
+            public E next() {
+                E tmp = cursor.getElement();
+                cursor = cursor.getNext();
+                return tmp;
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return cursor != null;
+            }
+
+            @Override
+            public E previous() {
+                E tmp = cursor.getElement();
+                cursor = cursor.getPrevious();
+                return tmp;
+            }
+
+            @Override
+            public int nextIndex() {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+
+            @Override
+            public int previousIndex() {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+
+            @Override
+            public void set(E e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+
+            @Override
+            public void add(E e) {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+
+        };
     }
 
     @Override

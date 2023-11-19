@@ -3,16 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.contacts;
+
 import ec.edu.espol.TDAs.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ListIterator;
 import javafx.scene.image.Image;
+
 /**
  *
  * @author HOME
  */
 public class MainTest {
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
 //        System.out.println("hola mundo");
 //        
 //        ArrayList<Telephone> telephoneNumbers = new ArrayList<>();
@@ -295,7 +299,7 @@ public class MainTest {
 //        contacts.addLast(user8);
 //        contacts.addLast(user9);
 //        contacts.addLast(user10);
-        
-        
+
+
     }
 }
