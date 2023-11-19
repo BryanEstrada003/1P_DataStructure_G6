@@ -5,9 +5,7 @@
 package com.mycompany.mavenproject1;
 
 import com.mycompany.contacts.Contact;
-import com.mycompany.contacts.OnContactsSavedListener;
 import com.mycompany.contacts.Util;
-import ec.edu.espol.TDAs.ArrayList;
 import ec.edu.espol.TDAs.DoublyLinkedList;
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +24,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -38,7 +35,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -46,7 +42,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -529,6 +524,29 @@ public class NewcontactController implements Initializable {
           stage.setScene(scene); 
     }
 
+        private void SaveContact(){
+        
+            Button btn_save = new Button("SAVE CONTACTS");
+            btn_save.getStyleClass().add("button_");
+            contentBox.getChildren().add(btn_save);
+            btn_save.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+                @Override
+                public void handle(Event event) {
+                    
+                }
+            
+          });
+       
+        }
+        
+        // Aquí van los funcionar para guarda todos los datos 
+        // por ejemplos 
+//    private List<Telephone> getTelephoneNumbers;
+//    private List < Address> getAaddress;
+//    private List<Email> getEmails;
+//    private List<SocialMedia> getSocialsMedia;
+//    private List<Date> getDatesInterest;
+//    private List<RelatedContact> getRelatedContacts;
     }
 
 
