@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.TDAs;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Comparator;
  * @author Jonanyu 11.1
  * @param <E>
  */
-public interface List<E> extends Iterable<E> {
+public interface List<E> extends Iterable<E>, Serializable {
 
     public E removeFirst();
 

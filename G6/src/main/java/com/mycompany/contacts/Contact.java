@@ -5,13 +5,14 @@
 package com.mycompany.contacts;
 
 import ec.edu.espol.TDAs.*;
+import java.io.Serializable;
 import javafx.scene.image.Image;
 
 /**
  *
  * @author HOME
  */
-public abstract class Contact {
+public abstract class Contact implements Serializable  {
     private String name;
     private String profilePhoto;
     private List<Telephone> telephoneNumbers;
@@ -21,6 +22,7 @@ public abstract class Contact {
     private List<SocialMedia> socialsMedia;
     private List<Date> datesInterest;
     private List<RelatedContact> relatedContacts;
+    private static final long serialVersionUID = 274965647874716638L;
     
     public Contact(String name, String profilePhoto,List<Telephone> telephoneNumbers, List<String> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
         this.name = name;

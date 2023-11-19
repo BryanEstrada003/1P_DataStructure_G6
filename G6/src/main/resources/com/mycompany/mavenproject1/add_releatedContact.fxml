@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="page_RContact" fx:id="principal_page" prefHeight="511.0" prefWidth="452.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.Add_releatedContactController">
+    <stylesheets>
+        <URL value="@/styles/login.css" />
+    </stylesheets>
+   <children>
+      <Label contentDisplay="CENTER" layoutX="11.0" layoutY="14.0" prefHeight="55.0" prefWidth="445.0" text="ADD NEW RELEATED CONTACT" textFill="WHITE">
+         <font>
+            <Font name="Modak" size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="save" layoutX="186.0" layoutY="452.0" mnemonicParsing="false" onMouseClicked="#saveContact" prefHeight="28.0" prefWidth="84.0" text="SAVE" />
+      <ScrollPane id="list_contact" fx:id="scrollpane" layoutX="14.0" layoutY="83.0" prefHeight="324.0" prefWidth="431.0" styleClass="list_contact" stylesheets="@../../../styles/login.css">
+         <content>
+            <VBox id="list_contact" fx:id="list_contact" prefHeight="333.0" prefWidth="421.0" styleClass="list_contact" stylesheets="@../../../styles/login.css" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

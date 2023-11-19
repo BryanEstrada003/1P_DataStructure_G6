@@ -4,10 +4,12 @@
  */
 package com.mycompany.contacts;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jonanyu 11.1
  */
-public enum TipoContact {
+public enum TipoContact implements Serializable  {
     person,company
 }

@@ -4,14 +4,16 @@
  */
 package com.mycompany.contacts;
 
+import java.io.Serializable;
+
 /**
  *
  * @author HOME
  */
-public class RelatedContact {
+public class RelatedContact implements Serializable  {
     private String contactType;
     private Contact contact;
-
+    private static final long serialVersionUID = 274965647874716638L;
     public RelatedContact(String contactType, Contact contact) {
         this.contactType = contactType;
         this.contact = contact;

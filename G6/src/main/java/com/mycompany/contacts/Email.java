@@ -4,14 +4,17 @@
  */
 package com.mycompany.contacts;
 
+import java.io.Serializable;
+
 /**
  *
  * @author HOME
  */
-public class Email {
+public class Email implements Serializable {
     private String emailType;
     private String email;
-
+    private static final long serialVersionUID = 274965647874716638L;
+    
     public Email(String emailType, String email) {
         this.emailType = emailType;
         this.email = email;

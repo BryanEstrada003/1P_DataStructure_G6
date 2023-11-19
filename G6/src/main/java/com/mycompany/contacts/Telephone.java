@@ -4,14 +4,17 @@
  */
 package com.mycompany.contacts;
 
+import java.io.Serializable;
+
 /**
  *
  * @author HOME
  */
-public class Telephone {
+public class Telephone implements Serializable  {
     private String numberType;
     private String telephoneNumber;
-
+    private static final long serialVersionUID = 274965647874716638L;
+    
     public Telephone(String numberType, String telephoneNumber) {
         this.numberType = numberType;
         this.telephoneNumber = telephoneNumber;

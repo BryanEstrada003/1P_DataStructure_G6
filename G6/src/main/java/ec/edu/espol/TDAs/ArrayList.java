@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.TDAs;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -11,7 +12,7 @@ import java.util.Iterator;
  *
  * @author Jonanyu 11.1
  */
-public class ArrayList<E> implements List<E> {
+public class ArrayList<E> implements Serializable, List<E> {
 
     private E[] elements;
     private int MAX_SIZE = 100;

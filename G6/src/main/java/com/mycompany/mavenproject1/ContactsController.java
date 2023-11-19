@@ -4,12 +4,8 @@
  */
 package com.mycompany.mavenproject1;
 
-import com.mycompany.contacts.Company;
 import com.mycompany.contacts.Contact;
-import com.mycompany.contacts.Person;
 import com.mycompany.contacts.User;
-import com.mycompany.contacts.User_login;
-import com.mycompany.contacts.Util;
 import ec.edu.espol.TDAs.DoublyLinkedList;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,12 +14,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.application.Platform;
@@ -35,11 +28,13 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 import java.util.Optional;
-import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -142,35 +137,47 @@ public class ContactsController implements Initializable {
         search.getStyleClass().add("text-field");
         subir.setImage(new Image("Iconos/subir.png"));
         bajar.setImage(new Image("Iconos/bajar.png"));
+        profile_picture.setPreserveRatio(true);
+        profile_picture.setSmooth(true);
+        profile_picture.setFitWidth(80);
+        profile_picture.setFitHeight(80);
+        profile_picture.setImage(new Image("Profile_pictures/" +owner.getPersonal_user()+"/"+ owner.getPersonal_user()+".png"));
+        name_lastname.setText(owner.getName() + owner.getLastname());
+//        profile_picture.setFitWidth(80); 
+//        profile_picture.setFitHeight(80);
+//        profile_picture.setPreserveRatio(true); 
+//        profile_picture.setSmooth(true); 
+        
+        
 
-        if (owner != null) {
-            name_lastname.setText(Util.title(owner.getName()) + "  " + Util.title(owner.getLastname()));
-        } else {
-            name_lastname.setText("Name  Lastname");
-        }
-
-        try {
-            String personal_image = "Profile_pictures/" + owner.getPersonal_user() + "/" + owner.getPersonal_user() + ".png";
-            System.out.println(personal_image);
-            profile_picture.setImage(new Image(personal_image));
-        } catch (Exception e) {
-            profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
-        }
-//        this.contactos = Util.listaContacto();
-
-        DoublyLinkedList<Contact> nuevaList = new DoublyLinkedList<>();
-        Iterator<Contact> forwardIterator = contactos.iteratorForwardFrom(valorInicial, 5);
-        while (forwardIterator.hasNext()) {
-            nuevaList.add(forwardIterator.next());
-        }
-        name_lastname1.setText(nuevaList.get(0).getName());
-        name_lastname2.setText(nuevaList.get(1).getName());
-        name_lastname3.setText(nuevaList.get(2).getName());
-        name_lastname4.setText(nuevaList.get(3).getName());
-        name_lastname5.setText(nuevaList.get(4).getName());
-        for (Contact c : this.contactos) {
-            System.out.println(c.getName());
-        }
+//        if (owner != null) {
+//            name_lastname.setText(Util.title(owner.getName()) + "  " + Util.title(owner.getLastname()));
+//        } else {
+//            name_lastname.setText("Name  Lastname");
+//        }
+//
+//        try {
+//            String personal_image = "Profile_pictures/" + owner.getPersonal_user() + "/" + owner.getPersonal_user() + ".png";
+//            System.out.println(personal_image);
+//            profile_picture.setImage(new Image(personal_image));
+//        } catch (Exception e) {
+//            profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
+//        }
+////        this.contactos = Util.listaContacto();
+//
+//        DoublyLinkedList<Contact> nuevaList = new DoublyLinkedList<>();
+//        Iterator<Contact> forwardIterator = contactos.iteratorForwardFrom(valorInicial, 5);
+//        while (forwardIterator.hasNext()) {
+//            nuevaList.add(forwardIterator.next());
+//        }
+//        name_lastname1.setText(nuevaList.get(0).getName());
+//        name_lastname2.setText(nuevaList.get(1).getName());
+//        name_lastname3.setText(nuevaList.get(2).getName());
+//        name_lastname4.setText(nuevaList.get(3).getName());
+//        name_lastname5.setText(nuevaList.get(4).getName());
+//        for (Contact c : this.contactos) {
+//            System.out.println(c.getName());
+//        }
     }
 
     @FXML
@@ -194,8 +201,9 @@ public class ContactsController implements Initializable {
         ArrayList<User> users = new ArrayList<>();
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("User_login.ser"))) {
             owner = (User) in.readObject();
+            
         } catch (IOException ioe) {
-
+            
         } catch (ClassNotFoundException c) {
 
         }
@@ -236,8 +244,11 @@ public class ContactsController implements Initializable {
     }
 
     @FXML
-    private void agregar_contacto(MouseEvent event) {
-
+    private void agregar_contacto(MouseEvent event) throws IOException {
+          Parent root = FXMLLoader.load(getClass().getResource("newcontact.fxml"));
+          Scene scene = new Scene(root);
+          Stage stage = (Stage) header.getScene().getWindow();
+           stage.setScene(scene); 
     }
 
 }

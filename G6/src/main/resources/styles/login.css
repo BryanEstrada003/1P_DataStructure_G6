@@ -105,4 +105,11 @@
     -fx-font-size: 14px;   
 }
 
+#page_RContact{
+    -fx-background-color: #345a70;
+}
+.list_contact{
+    -fx-background-color: #345a70;    
+}
+
 

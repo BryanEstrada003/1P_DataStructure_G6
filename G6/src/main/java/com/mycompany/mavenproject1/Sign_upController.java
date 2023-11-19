@@ -72,11 +72,13 @@ public class Sign_upController implements Initializable {
     private ImageView flecha_regresar;
     @FXML
     private Label upload_image;
+    private int confirmation_photo = 0 ;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         upload_image.setText("UPLOAD IMAGE");
         logo_app.setImage(new Image("Iconos/Logo-sf.png"));
         logo_user.setImage(new Image("Iconos/usuario.png"));
@@ -89,8 +91,22 @@ public class Sign_upController implements Initializable {
         user.getStyleClass().add("text-field");
         lastname.getStyleClass().add("text-field");
         button_sign_up.getStyleClass().add("button_");
+        generate_image();
+
     }    
 
+    private void generate_image() {     
+        Path sourcePath = Paths.get("src/main/resources/Iconos/cambiar_foto.png");
+        Path targetPath = Paths.get("src/main/resources/Users/p_user.png");
+        try {
+            if (Files.notExists(targetPath.getParent())) {
+                Files.createDirectories(targetPath.getParent());
+            }
+            Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void register(MouseEvent event) throws IOException {
         ArrayList<String> p_users = User.getPersonalUsers();
@@ -131,26 +147,34 @@ public class Sign_upController implements Initializable {
         file.setTitle("CHOOSE PROFILE PICTURE ");
         file.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         File selectedFile = file.showOpenDialog(null);
+        
         if (selectedFile != null) {
             Image image = new Image(selectedFile.toURI().toString());
             image_user.setImage(image);
             upload_image.setText("");
+            
+            Path sourcePath = selectedFile.toPath();
+            Path targetPath = Paths.get("src/main/resources/Users/p_user.png");
+            
+            try {
+                if (Files.notExists(targetPath.getParent())) {
+                    System.out.println(targetPath.getParent());
+                    Files.createDirectories(targetPath.getParent());
+                }
+                
+                Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                Files.delete(sourcePath);
+                confirmation_photo = 1;
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,"ISSUES TO MOVE FOLDER");
+                alert.setTitle("MOVE FOLDER");
+                alert.setHeaderText("INFORMATION");
+                ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+                alert.getButtonTypes().setAll(okButton);
+                alert.showAndWait();
+            }
         }
-        Path sourcePath = selectedFile.toPath();
-        Path targetPath = Paths.get("src/main/resources/Users/p_user.png");
-        try {
-            Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION,"ISSUES TO MOVE FOLDER");
-            alert.setTitle("MOVE FOLDER");
-            alert.setHeaderText("INFORMATION");
-            ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-            alert.getButtonTypes().setAll(okButton);
-            alert.showAndWait();
-        }
-        
-        }
-
+    }
     @FXML
     private void regresar(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));

@@ -5,26 +5,13 @@
 package com.mycompany.contacts;
 
 import ec.edu.espol.TDAs.ArrayList;
-import ec.edu.espol.TDAs.DoublyLinkedList;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import java.io.Serializable;
 
 import ec.edu.espol.TDAs.DoublyLinkedList;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import ec.edu.espol.TDAs.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -339,7 +326,7 @@ public class Util implements Serializable {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nameFile))) {
             out.writeObject(contacs);
         } catch (IOException ioe) {
-
+            ioe.printStackTrace();
         }
     }
     public static ArrayList<Contact> readListFromFileSer(String nombre) {
@@ -357,5 +344,12 @@ public class Util implements Serializable {
                 
         }
         return users;
+    }
+    
+    public static DoublyLinkedList<Contact> changetoDoublyLinkedList(ArrayList<Contact> al_contacts)  {
+        DoublyLinkedList<Contact> contactos = new DoublyLinkedList();
+         contactos.addAll(al_contacts);
+        return contactos;
+        
     }
 }

@@ -4,6 +4,7 @@
  */
 package com.mycompany.contacts;
 
+import java.io.Serializable;
 import javafx.scene.image.Image;
 
 
@@ -11,10 +12,11 @@ import javafx.scene.image.Image;
  *
  * @author HOME
  */
-class Address {
+class Address implements Serializable {
     private String addressType;
     private String description;
     private String geographyUbication;
+    private static final long serialVersionUID = 274965647874716638L;
 
     public Address(String addressType, String description, String geographyUbication) {
         this.addressType = addressType;

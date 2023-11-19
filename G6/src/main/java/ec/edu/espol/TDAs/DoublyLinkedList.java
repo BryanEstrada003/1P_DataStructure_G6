@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.TDAs;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
 
@@ -12,7 +13,7 @@ import java.util.Iterator;
  * @author Jonanyu 11.1
  * @param <E>
  */
-public class DoublyLinkedList<E> implements List<E> {
+public class DoublyLinkedList<E> implements Serializable, List<E> {
 
     private DoublyNode<E> head;
 

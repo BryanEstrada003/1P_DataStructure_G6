@@ -124,7 +124,7 @@ public class User implements Serializable {
             Files.move(actualPath, targetPath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING, "ISSUES TO MOVE FOLDER");
+            Alert alert = new Alert(Alert.AlertType.WARNING, "ISSUES TO MOVE PERSONAL FOLDER");
             alert.setTitle("MOVE FOLDER");
             alert.setHeaderText("WARNING");
             ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);

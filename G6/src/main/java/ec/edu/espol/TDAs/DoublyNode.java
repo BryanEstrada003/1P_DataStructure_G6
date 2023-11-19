@@ -4,12 +4,14 @@
  */
 package ec.edu.espol.TDAs;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jonanyu 11.1
  * @param <E>
  */
-public class DoublyNode<E> {
+public class DoublyNode<E> implements Serializable {
     private E element;
     private DoublyNode<E> next;
     private DoublyNode<E> previous;

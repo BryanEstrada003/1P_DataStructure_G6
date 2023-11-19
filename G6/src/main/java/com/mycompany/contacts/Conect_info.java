@@ -17,6 +17,8 @@ import java.util.ArrayList;
  * @author angelozurita
  */
 public class Conect_info<E> implements Serializable {
+    private static final long serialVersionUID = 274965647874716638L;
+    
     public ArrayList<E> readListFromFileSer(String nombre) {
         ArrayList<E> users = new ArrayList<>();
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(nombre)))
