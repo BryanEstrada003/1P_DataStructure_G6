@@ -47,6 +47,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 /**
  * FXML Controller class
  *
@@ -69,7 +70,6 @@ public class NewcontactController implements Initializable {
     private HBox add_RC;
     private Label process;
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         id_registro = "A0000";
@@ -82,7 +82,7 @@ public class NewcontactController implements Initializable {
         newcontact_page.getStyleClass().add("blackbackground");
 
         contentBox = new VBox();
-        contentBox.setMinSize(835, 751);
+        contentBox.setMinSize(835, 751); // 835, 751
         contentBox.setMaxWidth(835);
         contentBox.getStyleClass().add("blackbackground");
 
@@ -97,7 +97,7 @@ public class NewcontactController implements Initializable {
         container_SocialMedia();
         createHBox_photo();
         container_AddImportantsDate();
-        container_AddRelatedContacts("ADD RELEATED CONTACT","");
+        container_AddRelatedContacts("ADD RELEATED CONTACT", "");
         updateRelatedContact();
         principal.setContent(contentBox);
         principal.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -113,18 +113,18 @@ public class NewcontactController implements Initializable {
         ImageView im1 = new ImageView(new Image("Iconos/flecha-izquierda.png"));
         im1.setFitHeight(60);
         im1.setFitWidth(60);
-         im1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
+        im1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
             @Override
             public void handle(Event event) {
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("contacts.fxml"));
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) principal.getScene().getWindow();
-                    stage.setScene(scene); 
+                    stage.setScene(scene);
                 } catch (IOException ex) {
                 }
             }
-             
+
         });
         Text titulo = new Text();
         titulo.getStyleClass().add("titutlo");
@@ -458,96 +458,94 @@ public class NewcontactController implements Initializable {
         contacts.getStyleClass().add("blackbackgorund");
         contacts.setAlignment(Pos.CENTER);
 
-         add_RC = createAddOptions(LabelText1, "Iconos/agregar.png", event -> {
+        add_RC = createAddOptions(LabelText1, "Iconos/agregar.png", event -> {
             try {
                 AgregarContacto();
             } catch (IOException ex) {
-                
+
             }
         });
         process = new Label();
         process.setText(confirmation);
-          process.getStyleClass().add("confirmation");
+        process.getStyleClass().add("confirmation");
         contacts.getChildren().addAll(add_RC, process);
         contentBox.getChildren().add(contacts);
     }
-   private VBox container_AddRelatedContacts_2(String LabelText1, String confirmation) {
+
+    private VBox container_AddRelatedContacts_2(String LabelText1, String confirmation) {
         VBox contacts = new VBox();
         contacts.getStyleClass().add("blackbackgorund");
         contacts.setAlignment(Pos.CENTER);
 
-         add_RC = createAddOptions(LabelText1, "Iconos/agregar.png", event -> {
+        add_RC = createAddOptions(LabelText1, "Iconos/agregar.png", event -> {
             try {
                 AgregarContacto();
             } catch (IOException ex) {
-                
+
             }
         });
         process = new Label();
         process.setText(confirmation);
-          process.getStyleClass().add("confirmation");
+        process.getStyleClass().add("confirmation");
         contacts.getChildren().addAll(add_RC, process);
         contentBox.getChildren().add(contacts);
         return contacts;
     }
-    
-   private void updateRelatedContact() {
-    lista_contacto = Util.changetoDoublyLinkedList(Util.readListFromFileSer("ContactosSeleccionados.ser"));
-    if (lista_contacto.size() != 0 ) {
-        Platform.runLater(() -> {
-            process.setText("NEW CONTACTS SUCCESSFULLY ADDED");
-            Label add_date_l = (Label) add_RC.getChildren().get(1);
-            add_date_l.setText("EDIT RELEATED CONTACT");
-        });
+
+    private void updateRelatedContact() {
+        lista_contacto = Util.changetoDoublyLinkedList(Util.readListFromFileSer("ContactosSeleccionados.ser"));
+        if (lista_contacto.size() != 0) {
+            Platform.runLater(() -> {
+                process.setText("NEW CONTACTS SUCCESSFULLY ADDED");
+                Label add_date_l = (Label) add_RC.getChildren().get(1);
+                add_date_l.setText("EDIT RELEATED CONTACT");
+            });
+        }
     }
-}
+
     private void AgregarContacto() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("add_releatedContact.fxml"));
         Parent root = loader.load();
-        Add_releatedContactController controller = loader.getController(); 
+        Add_releatedContactController controller = loader.getController();
         Scene scene = new Scene(root);
         Stage dialogStage = new Stage();
         dialogStage.setTitle("RELEATED CONTACT");
         dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.initOwner(principal.getScene().getWindow()); 
+        dialogStage.initOwner(principal.getScene().getWindow());
         dialogStage.setScene(scene);
-        dialogStage.showAndWait(); 
+        dialogStage.showAndWait();
         updateRelatedContact();
     }
 
     // setear lista ; 
-
     private void regresar(MouseEvent event) throws IOException {
-          Parent root = FXMLLoader.load(getClass().getResource("contacts.fxml"));
-          Scene scene = new Scene(root);
-          Stage stage = (Stage) newcontact_page.getScene().getWindow();
-          stage.setScene(scene); 
+        Parent root = FXMLLoader.load(getClass().getResource("contacts.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) newcontact_page.getScene().getWindow();
+        stage.setScene(scene);
     }
 
-        private void SaveContact(){
-        
-            Button btn_save = new Button("SAVE CONTACTS");
-            btn_save.getStyleClass().add("button_");
-            contentBox.getChildren().add(btn_save);
-            btn_save.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
-                @Override
-                public void handle(Event event) {
-                    
-                }
-            
-          });
-       
-        }
-        
-        // Aquí van los funcionar para guarda todos los datos 
-        // por ejemplos 
+    private void SaveContact() {
+
+        Button btn_save = new Button("SAVE CONTACTS");
+        btn_save.getStyleClass().add("button_");
+        contentBox.getChildren().add(btn_save);
+        btn_save.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
+            @Override
+            public void handle(Event event) {
+
+            }
+
+        });
+
+    }
+
+    // Aquí van los funcionar para guarda todos los datos 
+    // por ejemplos 
 //    private List<Telephone> getTelephoneNumbers;
 //    private List < Address> getAaddress;
 //    private List<Email> getEmails;
 //    private List<SocialMedia> getSocialsMedia;
 //    private List<Date> getDatesInterest;
 //    private List<RelatedContact> getRelatedContacts;
-    }
-
-
-
+}
