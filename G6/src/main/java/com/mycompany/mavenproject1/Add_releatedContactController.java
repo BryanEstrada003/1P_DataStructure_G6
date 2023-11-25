@@ -1,27 +1,28 @@
-    /*
+/*
      * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
      * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
-     */
-    package com.mycompany.mavenproject1;
+ */
+package com.mycompany.mavenproject1;
 
-    import com.mycompany.contacts.Contact;
+import com.mycompany.contacts.Contact;
 import com.mycompany.contacts.OnContactsSavedListener;
-    import com.mycompany.contacts.Util;
-    import ec.edu.espol.TDAs.ArrayList;
-    import java.net.URL;
-    import java.util.ResourceBundle;
-    import javafx.fxml.FXML;
-    import javafx.fxml.Initializable;
-    import javafx.scene.control.Button;
-    import javafx.scene.control.CheckBox;
-    import javafx.scene.control.ScrollPane;
-    import javafx.scene.input.MouseEvent;
-    import javafx.scene.layout.AnchorPane;
-    import javafx.scene.layout.HBox;
-    import javafx.scene.layout.VBox;
-    import javafx.scene.text.Font;
-    import javafx.scene.text.Text;
-    import javafx.stage.Stage;
+import com.mycompany.contacts.Util;
+import ec.edu.espol.TDAs.ArrayList;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -40,7 +41,7 @@ public class Add_releatedContactController implements Initializable {
     private Button save;
     @FXML
     private ScrollPane scrollpane;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.contactos = Util.listaContacto();
@@ -61,7 +62,12 @@ public class Add_releatedContactController implements Initializable {
             Text name = new Text(c.getName());
             name.getStyleClass().add("text-field");
             CheckBox checkBox = new CheckBox("ADD");
-            contactIndi.getChildren().addAll(name, checkBox);
+            TextField contactType = new TextField();
+            contactType.setPromptText("Contact type");
+            contactType.setPrefSize(90, 60);
+            contactType.setMaxSize(90, 40);
+            contactType.setMinSize(90, 40);
+            contactIndi.getChildren().addAll(name, contactType, checkBox);
             contactIndi.getStyleClass().add("blackbackgorund");
             list_contact.getChildren().add(contactIndi);
         }
@@ -77,7 +83,7 @@ public class Add_releatedContactController implements Initializable {
                 nuevaList.add(contactos.get(i));
             }
         }
-         System.out.println(nuevaList.size());
+        System.out.println(nuevaList.size());
         Util.saveListToFile("ContactosSeleccionados.ser", nuevaList);
         ArrayList<Contact> nuevaLista = Util.readListFromFileSer("ContactosSeleccionados.ser");
         System.out.println(nuevaLista.size());
@@ -87,4 +93,3 @@ public class Add_releatedContactController implements Initializable {
         }
     }
 }
-

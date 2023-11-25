@@ -36,6 +36,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -98,7 +99,9 @@ public class NewcontactController implements Initializable {
         createHBox_photo();
         container_AddImportantsDate();
         container_AddRelatedContacts("ADD RELEATED CONTACT", "");
+        SaveContact();
         updateRelatedContact();
+
         principal.setContent(contentBox);
         principal.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         principal.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -302,13 +305,35 @@ public class NewcontactController implements Initializable {
         HBox container_address = new HBox();
         container_address.setAlignment(Pos.CENTER);
         container_address.getStyleClass().add("blackbackgorund");
-        TextField address = new TextField();
-        address.setPromptText("ADDRESS");
-        address.getStyleClass().add("text-field");
-        address.setPrefSize(750, 60);
-        address.setMaxSize(750, 60);
-        address.setMinSize(750, 60);
-        container_address.getChildren().add(address);
+        container_address.setPrefSize(750, 60);
+        container_address.setMaxSize(750, 60);
+        container_address.setMinSize(750, 60);
+        
+        TextField textField1 = new TextField();
+        textField1.setPromptText("Tipo dirección");
+        textField1.setPrefSize(150, 30);
+        textField1.setStyle("-fx-text-fill: blue;");
+
+        TextArea textField2 = new TextArea();
+        textField2.setPromptText("Descripción");
+        textField2.setPrefSize(600, 200);
+        textField2.setStyle("-fx-text-fill: blue;");
+        
+        TextField textField3 = new TextField();
+        textField3.setPromptText("Link");
+        textField3.setPrefSize(150, 30);
+        textField3.setStyle("-fx-text-fill: blue;");
+
+        container_address.getChildren().addAll(textField1, textField2, textField3);
+        
+
+//        TextField address = new TextField();
+//        address.setPromptText("ADDRESS");
+//        address.getStyleClass().add("text-field");
+//        address.setPrefSize(750, 60);
+//        address.setMaxSize(750, 60);
+//        address.setMinSize(750, 60);
+//        container_address.getChildren().add(address);
         contentBox.getChildren().add(container_address);
     }
 
