@@ -6,14 +6,19 @@ package com.mycompany.mavenproject1;
 
 import com.mycompany.contacts.Contact;
 import com.mycompany.contacts.OnContactsSavedListener;
+import com.mycompany.contacts.RelatedContact;
+import com.mycompany.contacts.TipoRelacion;
 import com.mycompany.contacts.Util;
 import ec.edu.espol.TDAs.ArrayList;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -23,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import com.mycompany.contacts.TipoRelacion;
 
 /**
  * FXML Controller class
@@ -62,12 +68,27 @@ public class Add_releatedContactController implements Initializable {
             Text name = new Text(c.getName());
             name.getStyleClass().add("text-field");
             CheckBox checkBox = new CheckBox("ADD");
-            TextField contactType = new TextField();
-            contactType.setPromptText("Contact type");
-            contactType.setPrefSize(90, 60);
-            contactType.setMaxSize(90, 40);
-            contactType.setMinSize(90, 40);
-            contactIndi.getChildren().addAll(name, contactType, checkBox);
+            
+            ObservableList<String> options = FXCollections.observableArrayList(
+                    TipoRelacion.familiar.toString(),
+                    TipoRelacion.amistad.toString(),
+                    TipoRelacion.asistente.toString(),
+                    TipoRelacion.asociacion.toString(),
+                    TipoRelacion.colega.toString(),
+                    TipoRelacion.sitio_laboral.toString()
+            );
+
+            // Crear un ComboBox y configurarlo con la lista de opciones
+            ComboBox<String> tipoRelacion = new ComboBox<>(options);
+            tipoRelacion.setPromptText("Selecciona una opción");
+
+            // Manejar eventos de selección
+            tipoRelacion.setOnAction(event -> {
+                String selectedOption = tipoRelacion.getSelectionModel().getSelectedItem();
+                System.out.println("Opción seleccionada: " + selectedOption);
+            });
+            
+            contactIndi.getChildren().addAll(name, tipoRelacion,checkBox);
             contactIndi.getStyleClass().add("blackbackgorund");
             list_contact.getChildren().add(contactIndi);
         }

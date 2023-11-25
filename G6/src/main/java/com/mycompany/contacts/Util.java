@@ -166,8 +166,8 @@ public class Util implements Serializable {
         datesInterest_4.add(new Date("amistad", LocalDate.parse("6/11/2020", DateTimeFormatter.ofPattern("d/M/yyyy"))));
 
         ArrayList<RelatedContact> relatedContacts_4 = new ArrayList<>();
-        relatedContacts_4.add(new RelatedContact(TipoRelacion.familiar, user1));
-        relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad, user2));
+        relatedContacts_4.add(new RelatedContact(TipoRelacion.familiar.toString(), user1));
+        relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
 
         Contact user4 = new Person(
                 "Ana",
@@ -203,8 +203,8 @@ public class Util implements Serializable {
         datesInterest_5.add(new Date("amistad", LocalDate.parse("6/11/2020", DateTimeFormatter.ofPattern("d/M/yyyy"))));
 
         ArrayList<RelatedContact> relatedContacts_5 = new ArrayList<>();
-        relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad, user4));
-        relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad, user2));
+        relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad.toString(), user4));
+        relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
 
         Contact user5 = new Person(
                 "Pedro",
@@ -281,12 +281,12 @@ public class Util implements Serializable {
                 relatedContacts_3
         );
 
-        relatedContacts.add(new RelatedContact(TipoRelacion.amistad, user2));
-        relatedContacts.add(new RelatedContact(TipoRelacion.asociacion, user3));
-        relatedContacts_2.add(new RelatedContact(TipoRelacion.amistad, user1));
-        relatedContacts_2.add(new RelatedContact(TipoRelacion.asociacion, user3));
-        relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente, user1));
-        relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente, user2));
+        relatedContacts.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
+        relatedContacts.add(new RelatedContact(TipoRelacion.asociacion.toString(), user3));
+        relatedContacts_2.add(new RelatedContact(TipoRelacion.amistad.toString(), user1));
+        relatedContacts_2.add(new RelatedContact(TipoRelacion.asociacion.toString(), user3));
+        relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente.toString(), user1));
+        relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente.toString(), user2));
 
         DoublyLinkedList<Contact> contacts = new DoublyLinkedList<Contact>();
         contacts.addLast(user1);
@@ -492,8 +492,8 @@ public class Util implements Serializable {
         datesInterest_4.add(new Date("amistad", LocalDate.parse("6/11/2020", DateTimeFormatter.ofPattern("d/M/yyyy"))));
 
         ArrayList<RelatedContact> relatedContacts_4 = new ArrayList<>();
-        relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad, user1));
-        relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad, user2));
+        relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad.toString(), user1));
+        relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
 
         Contact user4 = new Person(
                 "Ana",
@@ -529,8 +529,8 @@ public class Util implements Serializable {
         datesInterest_5.add(new Date("amistad", LocalDate.parse("6/11/2020", DateTimeFormatter.ofPattern("d/M/yyyy"))));
 
         ArrayList<RelatedContact> relatedContacts_5 = new ArrayList<>();
-        relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad, user4));
-        relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad, user2));
+        relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad.toString(), user4));
+        relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
 
         Contact user5 = new Person(
                 "Pedro",
@@ -607,12 +607,12 @@ public class Util implements Serializable {
                 relatedContacts_3
         );
 
-        relatedContacts.add(new RelatedContact(TipoRelacion.amistad, user2));
-        relatedContacts.add(new RelatedContact(TipoRelacion.asociacion, user3));
-        relatedContacts_2.add(new RelatedContact(TipoRelacion.amistad, user1));
-        relatedContacts_2.add(new RelatedContact(TipoRelacion.asociacion, user3));
-        relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente, user1));
-        relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente, user2));
+        relatedContacts.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
+        relatedContacts.add(new RelatedContact(TipoRelacion.asociacion.toString(), user3));
+        relatedContacts_2.add(new RelatedContact(TipoRelacion.amistad.toString(), user1));
+        relatedContacts_2.add(new RelatedContact(TipoRelacion.asociacion.toString(), user3));
+        relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente.toString(), user1));
+        relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente.toString(), user2));
 
         DoublyLinkedList<Contact> contacts = new DoublyLinkedList<>();
         contacts.addLast(user1);
