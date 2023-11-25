@@ -11,19 +11,19 @@ import java.io.Serializable;
  * @author HOME
  */
 public class RelatedContact implements Serializable  {
-    private String contactType;
+    private TipoRelacion contactType;
     private Contact contact;
     private static final long serialVersionUID = 274965647874716638L;
-    public RelatedContact(String contactType, Contact contact) {
+    public RelatedContact(TipoRelacion contactType, Contact contact) {
         this.contactType = contactType;
         this.contact = contact;
     }
 
-    public String getContactType() {
+    public TipoRelacion getContactType() {
         return contactType;
     }
 
-    public void setContactType(String contactType) {
+    public void setContactType(TipoRelacion contactType) {
         this.contactType = contactType;
     }
 
@@ -37,7 +37,7 @@ public class RelatedContact implements Serializable  {
 
     @Override
     public String toString() {
-        return "tipo=" + contactType + ", contacto=" + contact + '}';
+        return "tipo=" + contactType.toString() + ", contacto=" + contact + '}';
     }
     
     
