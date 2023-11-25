@@ -14,12 +14,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="login_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="837.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.LoginController">
+<AnchorPane id="AnchorPane" fx:id="login_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="733.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.LoginController">
     <stylesheets>
         <URL value="@/styles/login.css" />
     </stylesheets>
      <children>
-        <VBox alignment="CENTER" layoutY="219.0" prefHeight="564.0" prefWidth="837.0" spacing="50.0">
+        <VBox alignment="CENTER" layoutY="219.0" prefHeight="376.0" prefWidth="733.0" spacing="30.0">
             <children>
             <HBox alignment="CENTER" prefHeight="66.0" prefWidth="602.0" spacing="10.0">
                <children>
@@ -28,7 +28,7 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </ImageView>
-                  <TextField fx:id="user" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="500.0" promptText="USER" />
+                  <TextField fx:id="user" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="523.0" promptText="USER" />
                </children>
                <VBox.margin>
                   <Insets left="10.0" />
@@ -41,7 +41,7 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </ImageView>
-                  <PasswordField fx:id="password" alignment="CENTER" prefHeight="60.0" prefWidth="500.0" promptText="PASSWORD" />
+                  <PasswordField fx:id="password" alignment="CENTER" prefHeight="60.0" prefWidth="523.0" promptText="PASSWORD" />
                </children>
                <VBox.margin>
                   <Insets left="10.0" />
@@ -84,8 +84,8 @@
             </HBox>
             </children>
         </VBox>
-      <ImageView fx:id="logo_app" fitHeight="147.0" fitWidth="206.0" layoutX="337.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="title_app" layoutX="227.0" layoutY="128.0" prefHeight="125.0" prefWidth="509.0" text="SAFE CONTACTS" textFill="WHITE">
+      <ImageView fx:id="logo_app" fitHeight="106.0" fitWidth="155.0" layoutX="337.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="title_app" layoutX="117.0" layoutY="120.0" prefHeight="88.0" prefWidth="500.0" text="SAFE CONTACTS" textFill="WHITE">
          <font>
             <Font name="Modak" size="64.0" />
          </font>
