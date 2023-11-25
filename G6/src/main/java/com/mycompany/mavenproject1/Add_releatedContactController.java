@@ -5,7 +5,6 @@
 package com.mycompany.mavenproject1;
 
 import com.mycompany.contacts.Contact;
-import com.mycompany.contacts.OnContactsSavedListener;
 import com.mycompany.contacts.RelatedContact;
 import com.mycompany.contacts.TipoRelacion;
 import com.mycompany.contacts.Util;

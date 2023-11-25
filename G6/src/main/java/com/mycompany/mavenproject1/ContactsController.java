@@ -68,8 +68,6 @@ public class ContactsController implements Initializable {
     private Label name_lastname;
     private User owner;
     @FXML
-    private AnchorPane nav;
-    @FXML
     private TextField search;
     @FXML
     private VBox Vbox_contacts;
@@ -134,7 +132,6 @@ public class ContactsController implements Initializable {
         lupa.setImage(new Image("Iconos/buscar.png"));
         principal_page.getStyleClass().add("blackbackgorund");
         header.getStyleClass().add("blackbackgorund");
-        nav.getStyleClass().add("blackbackgorund");
         show_contact.getStyleClass().add("blackbackgorund");
         search.getStyleClass().add("text-field");
         subir.setImage(new Image("Iconos/subir.png"));
@@ -144,7 +141,7 @@ public class ContactsController implements Initializable {
         profile_picture.setFitWidth(80);
         profile_picture.setFitHeight(80);
         profile_picture.setImage(new Image("Profile_pictures/" + owner.getPersonal_user() + "/" + owner.getPersonal_user() + ".png"));
-        name_lastname.setText(owner.getName() + owner.getLastname());
+        name_lastname.setText(owner.getName() +" "+owner.getLastname());
 //        profile_picture.setFitWidth(80); 
 //        profile_picture.setFitHeight(80);
 //        profile_picture.setPreserveRatio(true); 
@@ -271,6 +268,7 @@ public class ContactsController implements Initializable {
     private void agregar_contacto(MouseEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("newcontact.fxml"));
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/login.css");
         Stage stage = (Stage) header.getScene().getWindow();
         stage.setScene(scene);
     }

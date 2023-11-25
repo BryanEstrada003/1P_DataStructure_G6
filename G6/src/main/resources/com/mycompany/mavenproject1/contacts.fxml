@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="principal_page" fx:id="principal_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="733.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.ContactsController">
+<AnchorPane id="principal_page" fx:id="principal_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="733.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.ContactsController">
     <stylesheets>
         <URL value="@/styles/login.css" />
     </stylesheets>
@@ -219,7 +219,7 @@
             </ImageView>
             <VBox alignment="CENTER_LEFT" prefHeight="28.0" prefWidth="470.0" spacing="4.0">
                <children>
-                  <Label fx:id="name_lastname" prefHeight="24.0" prefWidth="34.0" textFill="WHITE">
+                  <Label fx:id="name_lastname" prefHeight="36.0" prefWidth="424.0" textFill="WHITE">
                      <VBox.margin>
                         <Insets left="20.0" />
                      </VBox.margin>
@@ -242,11 +242,11 @@
             </VBox>
          </children>
       </HBox>
-      <AnchorPane fx:id="nav" layoutY="565.0" prefHeight="27.0" prefWidth="733.0">
+      <HBox alignment="CENTER" layoutY="566.0" prefHeight="26.0" prefWidth="733.0">
          <children>
-            <ImageView fx:id="salir" fitHeight="26.0" fitWidth="28.0" layoutX="386.0" layoutY="1.0" onMouseClicked="#salir" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="423.0" />
+            <ImageView fx:id="salir" fitHeight="26.0" fitWidth="28.0" onMouseClicked="#salir" pickOnBounds="true" preserveRatio="true" />
          </children>
-      </AnchorPane>
+      </HBox>
       <ImageView fx:id="subir" fitHeight="54.0" fitWidth="57.0" layoutX="661.0" layoutY="281.0" onMouseClicked="#subir" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="bajar" fitHeight="54.0" fitWidth="57.0" layoutX="661.0" layoutY="511.0" onMouseClicked="#bajar" pickOnBounds="true" preserveRatio="true" />
    </children>

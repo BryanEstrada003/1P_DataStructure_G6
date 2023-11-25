@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author HOME
  */
-class SocialMedia implements Serializable  {
+public class SocialMedia implements Serializable  {
     private String socialMedia;
     private String user;
     private static final long serialVersionUID = 274965647874716638L;

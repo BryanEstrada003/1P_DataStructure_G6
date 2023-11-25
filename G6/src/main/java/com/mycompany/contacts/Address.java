@@ -12,24 +12,14 @@ import javafx.scene.image.Image;
  *
  * @author HOME
  */
-class Address implements Serializable {
-    private String addressType;
+public class Address implements Serializable {
     private String description;
     private String geographyUbication;
     private static final long serialVersionUID = 274965647874716638L;
 
-    public Address(String addressType, String description, String geographyUbication) {
-        this.addressType = addressType;
+    public Address(String description, String geographyUbication) {
         this.description = description;
         this.geographyUbication = geographyUbication;
-    }
-
-    public String getAddressType() {
-        return addressType;
-    }
-
-    public void setAddressType(String addressType) {
-        this.addressType = addressType;
     }
 
     public String getDescription() {
