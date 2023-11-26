@@ -593,7 +593,7 @@ public class NewcontactController implements Initializable {
             try {
                 AgregarContacto();
             } catch (IOException ex) {
-
+                System.out.println("error de que? ns");
             }
         });
         process = new Label();
