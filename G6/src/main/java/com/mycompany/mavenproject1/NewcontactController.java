@@ -8,6 +8,7 @@ import com.mycompany.contacts.Contact;
 import com.mycompany.contacts.Email;
 import com.mycompany.contacts.Telephone;
 import com.mycompany.contacts.Address;
+import com.mycompany.contacts.Company;
 import com.mycompany.contacts.Date;
 import com.mycompany.contacts.Person;
 import com.mycompany.contacts.RelatedContact;
@@ -18,7 +19,10 @@ import ec.edu.espol.TDAs.ArrayList;
 import ec.edu.espol.TDAs.DoublyLinkedList;
 import ec.edu.espol.TDAs.List;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -85,7 +89,7 @@ public class NewcontactController implements Initializable {
     private String directoryPath;
     private String tipo = "";
     private TextField last_d;
-    private DoublyLinkedList<Contact> lista_contacto;
+    private List<RelatedContact> lista_contacto;
     private HBox add_RC;
     private Label process;
     private Boolean edit_new ;
@@ -112,17 +116,48 @@ public class NewcontactController implements Initializable {
         return id_registro_E;
     }
 
-    public void setId_registro_E(String id_registro_E) {
-        this.id_registro_E = id_registro_E;
+    public void setId_registro_E(String id_registro) {
+        this.id_registro_E = id_registro;
     }
 
-    public Contact getContactbyId(String id_registro_E){
+    public Contact getActual_contact() {
+        return actual_contact;
+    }
+
+    public void setActual_contact(Contact actual_contact) {
+        this.actual_contact = actual_contact;
+    }
+    public void setactualContact() {
+        Contact contact1 = null;
+       try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("Id_re.ser")))
+        {
+            contact1 = (Contact)in.readObject();
+        }
+        catch(IOException ioe)
+        {
+            
+        }
+        catch(ClassNotFoundException c )
+        {
+                
+        }
+        this.actual_contact = contact1 ;
+        File file = new File("Id_re.ser");
+        if (file.exists()) 
+            file.delete();
+
+
+    }
+    public void getandSetContactbyId(String id_registro_E){
         DoublyLinkedList<Contact> lista_contactos  =  Util.listaContacto2();
-        for(Contact c1 : lista_contactos)
-            if(c1.getID_re().compareTo(id_registro_E) == 0){
-                return c1;
+        for(Contact c1 : lista_contactos){
+            System.out.println(c1);
+            if (id_registro_E!= null ){
+                if(c1.getID_re().compareTo(id_registro_E) == 0){
+                    setActual_contact(c1);
+                }
             }
-        return null;
+        }
     }
     
     public void setIndices_ContentBox() {
@@ -138,7 +173,6 @@ public class NewcontactController implements Initializable {
     
     public String getNextIdRegistro(){
         DoublyLinkedList<Contact> lista_contactos  =  Util.listaContacto2();
-        System.out.println(lista_contactos.size());
         Queue<String> orden = new PriorityQueue<>(new Comparator<String>(){
             @Override
             public int compare(String o1, String o2) {
@@ -146,6 +180,7 @@ public class NewcontactController implements Initializable {
             }  
         });
         for(Contact c: lista_contactos ){
+            System.out.println(c);
             orden.offer(c.getID_re());
         }
         String actual = orden.poll();
@@ -161,7 +196,7 @@ public class NewcontactController implements Initializable {
             alert.showAndWait();
         }
         else{
-            char prefix = currentId.charAt(0);
+            char prefix = currentId.charAt(0); 
             int number = Integer.parseInt(currentId.substring(1));
             number++;
             if (number > 9999) {
@@ -174,9 +209,24 @@ public class NewcontactController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        id_registro = getNextIdRegistro();
+        try{
+            setactualContact();
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("error con getandSetContactbyId(id_registro_E);");
+        }
+        
+        if (actual_contact != null ){
+            id_registro = actual_contact.getID_re();
+        }else{
+            id_registro = getNextIdRegistro();
+        }
+
         System.out.println(id_registro);
-        number_photos = 0;
+        if (actual_contact != null ){
+            number_photos = actual_contact.getPhotos().size();
+            System.out.println(number_photos);
+        }
         setIndices_ContentBox();
         cssFile = getClass().getResource("/styles/login.css").toExternalForm();
         principal.getStylesheets().add(cssFile);
@@ -190,8 +240,6 @@ public class NewcontactController implements Initializable {
         contentBox.setMaxWidth(width);
         contentBox.getStyleClass().add("blackbackground");
         
-        // si hay un contacto se pone true 
-        edit_new = false;
 
         contentBox.setAlignment(Pos.TOP_CENTER);
 
@@ -214,15 +262,7 @@ public class NewcontactController implements Initializable {
         principal.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         
 
-        for(Node e :contentBox.getChildren() ){
-            System.out.println(e);
-        }
         System.out.println("El tamaño de contentBox es "+ contentBox.getChildren().size());
-
-        // Esto tenemos que cambiar
-        if (actual_contact != null ){
-            lista_contacto = Util.changetoDoublyLinkedList(actual_contact.getRelatedContacts());
-        }
 
     }
 
@@ -265,8 +305,12 @@ public class NewcontactController implements Initializable {
         Text info_upload = new Text("UPLOAD IMAGE");
         info_upload.getStyleClass().add("upload_image");
         ImageView profile_picture = new ImageView(new Image("Iconos/cambiar_foto.png"));
-        if (actual_contact != null ){
-            profile_picture = new ImageView(new Image(actual_contact.getProfilePhoto()));
+        if (actual_contact != null  && actual_contact.getProfilePhoto()!= null){
+            try{
+                profile_picture = new ImageView(new Image(actual_contact.getProfilePhoto()));
+            }catch(Exception e){
+                profile_picture = new ImageView(new Image("Iconos/cambiar_foto.png"));
+            }
         }
         final ImageView profile_picture_e = profile_picture;
         profile_picture_e.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
@@ -405,6 +449,7 @@ public class NewcontactController implements Initializable {
             phones.getChildren().add(new_phone);
             new_phone.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> phones.getChildren().remove(new_phone));
         });
+        phones.getChildren().add(add_phone);
         if (actual_contact != null ){
            List<Telephone> telefonos_actuales = actual_contact.getTelephoneNumbers();
            for (int i = 0 ; i<telefonos_actuales.size() ; i++){
@@ -415,7 +460,7 @@ public class NewcontactController implements Initializable {
            }
         }
         
-        phones.getChildren().add(add_phone);
+
         contentBox.getChildren().add(phones);
     }
 
@@ -429,6 +474,7 @@ public class NewcontactController implements Initializable {
             emails.getChildren().add(new_email);
             new_email.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> emails.getChildren().remove(new_email));
         });
+        emails.getChildren().add(add_email);
         if (actual_contact != null ){
            List<Email> emails_actuales = actual_contact.getEmails();
            for (int i = 0 ; i<emails_actuales.size() ; i++){
@@ -438,7 +484,7 @@ public class NewcontactController implements Initializable {
                new_email.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> emails.getChildren().remove(new_email));
            }
         }
-        emails.getChildren().add(add_email);
+
         contentBox.getChildren().add(emails);
     }
 
@@ -558,6 +604,7 @@ public class NewcontactController implements Initializable {
             address.getChildren().add(new_addres);
             new_addres.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> address.getChildren().remove(new_addres));
         });
+        address.getChildren().add(add_address);
         if (actual_contact != null ){
            List<Address> address_actuales = actual_contact.getAddress();
            for (int i = 0 ; i<address_actuales.size() ; i++){
@@ -567,7 +614,7 @@ public class NewcontactController implements Initializable {
                new_addres.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> address.getChildren().remove(new_addres));
            }
         }
-        address.getChildren().add(add_address);
+
         contentBox.getChildren().add(address);
     }
     private HBox createHBox_Addres(String iconPath, String promptText1, String promptText2) {
@@ -630,6 +677,7 @@ public class NewcontactController implements Initializable {
             social_medias.getChildren().add(new_socialmedia);
             new_socialmedia.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> social_medias.getChildren().remove(new_socialmedia));
         });
+        social_medias.getChildren().add(add_social_media);        
         if (actual_contact != null ){
            List<SocialMedia> SocialMedias_actuales = actual_contact.getSocialsMedia();
            for (int i = 0 ; i<SocialMedias_actuales.size() ; i++){
@@ -639,7 +687,7 @@ public class NewcontactController implements Initializable {
                new_socialmedia.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> social_medias.getChildren().remove(new_socialmedia));
            }
         }
-        social_medias.getChildren().add(add_social_media);
+
         contentBox.getChildren().add(social_medias);
     }
 
@@ -722,7 +770,23 @@ public class NewcontactController implements Initializable {
             alert.showAndWait();
         }
     }
+    public static List<String> getImagesFromDirectory(String directoryPath) {
+        File dir = new File(directoryPath);
+        FilenameFilter imageFilter = (dir1, name) -> {
+            String lowercaseName = name.toLowerCase();
+            return lowercaseName.endsWith(".jpg") ||
+                   lowercaseName.endsWith(".png") || lowercaseName.endsWith(".gif");
+        };
 
+        File[] imageFiles = dir.listFiles(imageFilter);
+        List<String> imageFilePaths = new ArrayList<>();
+        if (imageFiles != null) {
+            for (File imageFile : imageFiles) {
+                imageFilePaths.add(imageFile.getAbsolutePath());
+            }
+        }
+        return imageFilePaths;
+    }
     private void container_AddImportantsDate() {
         VBox dates = new VBox();
         dates.getStyleClass().add("blackbackgorund");
@@ -733,6 +797,7 @@ public class NewcontactController implements Initializable {
             dates.getChildren().add(new_hbox_date);
             new_hbox_date.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> dates.getChildren().remove(new_hbox_date));
         });
+        dates.getChildren().add(add_date);
         if (actual_contact != null ){
            List<Date> dates_actuales = actual_contact.getDatesInterest();
            for (int i = 0 ; i<dates_actuales.size() ; i++){
@@ -742,7 +807,7 @@ public class NewcontactController implements Initializable {
                new_date.getChildren().get(0).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> dates.getChildren().remove(new_date));
            }
         }
-        dates.getChildren().add(add_date);
+
         contentBox.getChildren().add(dates);
     }
 
@@ -850,19 +915,33 @@ public class NewcontactController implements Initializable {
 
     
    private void updateRelatedContact() {
-    lista_contacto = Util.changetoDoublyLinkedList(Util.readListFromFileSer("ContactosSeleccionados.ser"));
-    if (lista_contacto.size() != 0 && edit_new ) {
+     try{
+         lista_contacto = Util.<RelatedContact>readListFromFileSer("ContactosSeleccionados"+actual_contact.getID_re()+".ser");
+     }catch(Exception io1){
+         lista_contacto = null;
+     }
+     if(lista_contacto != null){
+        actual_contact.setRelatedContacts(lista_contacto);
+     }
+    try{
+        if (lista_contacto.size() != 0) {
         Platform.runLater(() -> {
             process.setText("NEW CONTACTS SUCCESSFULLY ADDED");
             Label add_date_l = (Label) add_RC.getChildren().get(1);
             add_date_l.setText("EDIT RELEATED CONTACT");
         });
     }
+    }catch(Exception ie){
+        
+    }
+
+    
 }
     private void AgregarContacto() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("add_releatedContact.fxml"));
         Parent root = loader.load();
         Add_releatedContactController controller = loader.getController();
+        controller.setId_registro_E(id_registro_E);
         Scene scene = new Scene(root);
         Stage dialogStage = new Stage();
         dialogStage.setTitle("RELEATED CONTACT");
@@ -950,29 +1029,29 @@ public class NewcontactController implements Initializable {
             return new Date(type, date);
         });
     }
+
+   private Contact newContact(){
+        String type_Contact = typeDropdown.getValue();
+   
+        TipoContact miEnumValor = TipoContact.valueOf(type_Contact);
+        
+        String name = get_NameOrLastname(0);
+        List<Telephone> l_telephones = getPhones();
+        List<Email> l_email = getEmails();
+        List<Address> l_address = getAddresses();
+        List<SocialMedia> l_socialmedias = getSocialMedias();
+        List<Date> l_dates = getDates();
+        List<String> l_photos = getImagesFromDirectory(directoryPath);
+        String profile_pi = Paths.get(directoryPath + "/" + "personalprofile.png").toString();
+        if (miEnumValor == TipoContact.person) {
+           String last_name = get_NameOrLastname(1);
+           Contact c1 = new Person(id_registro,name,last_name,profile_pi,l_telephones,l_photos,l_address,l_email,l_socialmedias,l_dates,lista_contacto);
+        }
+        else{
+            Contact c1 = new Company(id_registro,name,profile_pi,l_telephones,l_photos,l_address,l_email,l_socialmedias,l_dates,lista_contacto);
+        }
+        
+        return null;
+       
+   }
 }
-
-//   private Contact newContact(){
-//        String type_Contact = typeDropdown.getValue();
-//   
-//        TipoContact miEnumValor = TipoContact.valueOf(type_Contact);
-//        
-//        String name = get_NameOrLastname(0);
-//        List<Telephone> l_telephones = getPhones();
-//        List<Email> l_email = getEmails();
-//        List<Address> l_address = getAddresses();
-//        List<SocialMedia> l_socialmedias = getSocialMedias();
-//        List<Date> l_dates = getDates();
-//        
-//        
-//        if (miEnumValor == TipoContact.person) {
-//           String last_name = get_NameOrLastname(1);
-//           Contact c1 = new Person(name,last_name,l_telephones,l_email,l_address,l_socialmedias,l_dates,lista_contacto);
-//        }
-//        
-//        
-//        
-//        return null;
-//       
-//   }
-

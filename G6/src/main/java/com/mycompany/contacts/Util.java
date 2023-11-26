@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author angelozurita
  */
-public class Util implements Serializable {
+public class Util<E> implements Serializable {
 
     public static String title(String palabra) {
         String result = palabra.toUpperCase().charAt(0) + palabra.substring(1, palabra.length()).toLowerCase();
@@ -28,7 +28,9 @@ public class Util implements Serializable {
     }
 
     public static ArrayList<Contact> listaContacto() {
-
+        ArrayList<Address> direcciones = new ArrayList<>();
+        direcciones.add(new Address("home", "bloque acacias"));
+        direcciones.add(new Address("work", "9 de octubre"));
         ArrayList<Telephone> telephoneNumbers = new ArrayList<>();
         telephoneNumbers.add(new Telephone("home", "2345678"));
         telephoneNumbers.add(new Telephone("cell", "0987629425"));
@@ -65,7 +67,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers,
                 photos,
-                new Address("home", "bloque acacias"),
+                direcciones,
                 emails,
                 socialsMedia,
                 datesInterest,
@@ -104,7 +106,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_2,
                 photos_2,
-                new Address("home", "Florida Norte"),
+                direcciones,
                 emails_2,
                 socialsMedia_2,
                 datesInterest_2,
@@ -140,7 +142,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_3,
                 photos_3,
-                new Address("Sucursal", "Florida Norte"),
+                direcciones,
                 emails_3,
                 socialsMedia_3,
                 datesInterest_3,
@@ -179,7 +181,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_4,
                 photos_4,
-                new Address("Trabajo", "Av. Principal"),
+                direcciones,
                 emails_4,
                 socialsMedia_4,
                 datesInterest_4,
@@ -217,7 +219,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_5,
                 photos_5,
-                new Address("Casa", "Calle Secundaria"),
+                direcciones,
                 emails_5,
                 socialsMedia_5,
                 datesInterest_5,
@@ -230,7 +232,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_3,
                 photos_3,
-                new Address("Oficina", "Tech Street"),
+                direcciones,
                 emails_3,
                 socialsMedia_3,
                 datesInterest_3,
@@ -243,7 +245,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_3,
                 photos_3,
-                new Address("Tienda", "Fashion Avenue"),
+                direcciones,
                 emails_3,
                 socialsMedia_3,
                 datesInterest_3,
@@ -257,7 +259,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_5,
                 photos_5,
-                new Address("Hogar", "María's House"),
+                direcciones,
                 emails_3,
                 socialsMedia_5,
                 datesInterest_5,
@@ -271,7 +273,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_5,
                 photos_5,
-                new Address("Trabajo", "Juan's Workplace"),
+                direcciones,
                 emails_5,
                 socialsMedia_5,
                 datesInterest_5,
@@ -284,7 +286,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_3,
                 photos_3,
-                new Address("Restaurante", "Food Street"),
+                direcciones,
                 emails_3,
                 socialsMedia_3,
                 datesInterest_3,
@@ -332,18 +334,18 @@ public class Util implements Serializable {
         return nuevaLisr;
     }
 
-    public static void saveListToFile(String nameFile, ArrayList<RelatedContact> contacs) {
+    public static <E> void saveListToFile(String nameFile, ArrayList<E> contacs) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nameFile))) {
             out.writeObject(contacs);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
-    public static ArrayList<Contact> readListFromFileSer(String nombre) {
-        ArrayList<Contact> users = new ArrayList<>();
+    public static <E> ArrayList<E> readListFromFileSer(String nombre) {
+        ArrayList<E> users = new ArrayList<>();
         try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(nombre)))
         {
-            users = (ArrayList<Contact>)in.readObject();
+            users = (ArrayList<E>)in.readObject();
         }
         catch(IOException ioe)
         {
@@ -358,13 +360,16 @@ public class Util implements Serializable {
     
     public static DoublyLinkedList<Contact> changetoDoublyLinkedList(ArrayList<Contact> al_contacts)  {
         DoublyLinkedList<Contact> contactos = new DoublyLinkedList();
-         contactos.addAll(al_contacts);
+        contactos.addAll(al_contacts);
         return contactos;
         
     }
     //Esto es de prueba
   public static DoublyLinkedList<Contact> listaContacto2() {
 
+        ArrayList<Address> direcciones = new ArrayList<>();
+        direcciones.add(new Address("home", "bloque acacias"));
+        direcciones.add(new Address("work", "9 de octubre"));
         ArrayList<Telephone> telephoneNumbers = new ArrayList<>();
         telephoneNumbers.add(new Telephone("home", "2345678"));
         telephoneNumbers.add(new Telephone("cell", "0987629425"));
@@ -401,7 +406,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers,
                 photos,
-                new Address("home", "bloque acacias"),
+                direcciones,
                 emails,
                 socialsMedia,
                 datesInterest,
@@ -440,7 +445,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_2,
                 photos_2,
-                new Address("home", "Florida Norte"),
+                direcciones,
                 emails_2,
                 socialsMedia_2,
                 datesInterest_2,
@@ -476,7 +481,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_3,
                 photos_3,
-                new Address("Sucursal", "Florida Norte"),
+                direcciones,
                 emails_3,
                 socialsMedia_3,
                 datesInterest_3,
@@ -505,7 +510,7 @@ public class Util implements Serializable {
         datesInterest_4.add(new Date("amistad", LocalDate.parse("6/11/2020", DateTimeFormatter.ofPattern("d/M/yyyy"))));
 
         ArrayList<RelatedContact> relatedContacts_4 = new ArrayList<>();
-        relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad.toString(), user1));
+        relatedContacts_4.add(new RelatedContact(TipoRelacion.familiar.toString(), user1));
         relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
 
         Contact user4 = new Person(
@@ -515,7 +520,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_4,
                 photos_4,
-                new Address("Trabajo", "Av. Principal"),
+                direcciones,
                 emails_4,
                 socialsMedia_4,
                 datesInterest_4,
@@ -553,7 +558,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_5,
                 photos_5,
-                new Address("Casa", "Calle Secundaria"),
+                direcciones,
                 emails_5,
                 socialsMedia_5,
                 datesInterest_5,
@@ -566,7 +571,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_3,
                 photos_3,
-                new Address("Oficina", "Tech Street"),
+                direcciones,
                 emails_3,
                 socialsMedia_3,
                 datesInterest_3,
@@ -579,7 +584,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_3,
                 photos_3,
-                new Address("Tienda", "Fashion Avenue"),
+                direcciones,
                 emails_3,
                 socialsMedia_3,
                 datesInterest_3,
@@ -593,7 +598,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_5,
                 photos_5,
-                new Address("Hogar", "María's House"),
+                direcciones,
                 emails_3,
                 socialsMedia_5,
                 datesInterest_5,
@@ -607,7 +612,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_5,
                 photos_5,
-                new Address("Trabajo", "Juan's Workplace"),
+                direcciones,
                 emails_5,
                 socialsMedia_5,
                 datesInterest_5,
@@ -620,7 +625,7 @@ public class Util implements Serializable {
                 "file: url",
                 telephoneNumbers_3,
                 photos_3,
-                new Address("Restaurante", "Food Street"),
+                direcciones,
                 emails_3,
                 socialsMedia_3,
                 datesInterest_3,
@@ -634,7 +639,7 @@ public class Util implements Serializable {
         relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente.toString(), user1));
         relatedContacts_3.add(new RelatedContact(TipoRelacion.asistente.toString(), user2));
 
-        DoublyLinkedList<Contact> contacts = new DoublyLinkedList<>();
+        DoublyLinkedList<Contact> contacts = new DoublyLinkedList<Contact>();
         contacts.addLast(user1);
         contacts.addLast(user2);
         contacts.addLast(user3);
@@ -646,7 +651,19 @@ public class Util implements Serializable {
         contacts.addLast(user9);
         contacts.addLast(user10);
 
-        return contacts;
+        DoublyLinkedList<Contact> listContactos = new DoublyLinkedList<>();
+        for (int i = 0; i < contacts.size() - 1; i++) {
+            listContactos.add(contacts.get(i));
+
+        }
+        
+        
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Contactos.ser"))) {
+            out.writeObject(listContactos);
+        } catch (IOException ioe) {
+
+        }
+        return listContactos;
 
     }
 }

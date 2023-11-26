@@ -9,9 +9,12 @@ import com.mycompany.contacts.User;
 import com.mycompany.contacts.Util;
 import ec.edu.espol.TDAs.ArrayList;
 import ec.edu.espol.TDAs.DoublyLinkedList;
+import ec.edu.espol.TDAs.List;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -161,7 +164,7 @@ public class ContactsController implements Initializable {
 //        } catch (Exception e) {
 //            profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
 //        }
-            this.contactos = Util.listaContacto2();
+        this.contactos = Util.listaContacto2();
         this.ite = this.contactos.listIterator();
         name_lastname1.setText(ite.next().getName());
         name_lastname2.setText(ite.next().getName());
@@ -267,15 +270,18 @@ public class ContactsController implements Initializable {
 
     @FXML
     private void agregar_contacto(MouseEvent event) throws IOException {
-        DoublyLinkedList<Contact> lista_contactos = Util.listaContacto2();
-        Contact c1 = lista_contactos.get(0);
+//        DoublyLinkedList<Contact> lista_contactos = Util.listaContacto2();
+//        Contact c1 = lista_contactos.get(0);
+//        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Id_re.ser"))) {
+//            out.writeObject(c1);
+//        } catch (IOException ioe) {
+//
+//        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("newcontact.fxml"));
         Parent root = loader.load();
         NewcontactController newContactController = loader.getController();
-        newContactController.setId_registro_E(c1.getID_re());
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/login.css");
-        Stage stage = (Stage) header.getScene().getWindow();
+        Stage stage = (Stage) subir.getScene().getWindow();
         stage.setScene(scene);
     }
 

@@ -4,28 +4,28 @@
  */
 package com.mycompany.mavenproject1;
 
-    import com.mycompany.contacts.Contact;
+import com.mycompany.contacts.Contact;
 import com.mycompany.contacts.RelatedContact;
 import com.mycompany.contacts.TipoRelacion;
-    import com.mycompany.contacts.Util;
-    import ec.edu.espol.TDAs.ArrayList;
-    import java.net.URL;
-    import java.util.ResourceBundle;
+import com.mycompany.contacts.Util;
+import ec.edu.espol.TDAs.ArrayList;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-    import javafx.fxml.FXML;
-    import javafx.fxml.Initializable;
-    import javafx.scene.control.Button;
-    import javafx.scene.control.CheckBox;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-    import javafx.scene.control.ScrollPane;
-    import javafx.scene.input.MouseEvent;
-    import javafx.scene.layout.AnchorPane;
-    import javafx.scene.layout.HBox;
-    import javafx.scene.layout.VBox;
-    import javafx.scene.text.Font;
-    import javafx.scene.text.Text;
-    import javafx.stage.Stage;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 
 /**
@@ -47,7 +47,17 @@ public class Add_releatedContactController implements Initializable {
     private Button save;
     @FXML
     private ScrollPane scrollpane;
+    private String id_registro_E;
 
+    public String getId_registro_E() {
+        return id_registro_E;
+    }
+
+    public void setId_registro_E(String id_registro_E) {
+        this.id_registro_E = id_registro_E;
+    }
+
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.contactos = Util.listaContacto();
@@ -113,9 +123,7 @@ public class Add_releatedContactController implements Initializable {
             }
         }
         System.out.println(nuevaList.size());
-        Util.saveListToFile("ContactosSeleccionados.ser", nuevaList);
-        ArrayList<Contact> nuevaLista = Util.readListFromFileSer("ContactosSeleccionados.ser");
-        System.out.println(nuevaLista.size());
+        Util.<RelatedContact>saveListToFile("ContactosSeleccionados"+id_registro_E+".ser", nuevaList);
         Stage stage = (Stage) save.getScene().getWindow();
         if (stage != null) {
             stage.close();
