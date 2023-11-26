@@ -20,10 +20,6 @@
             <artifactId>javafx-fxml</artifactId>
             <version>13</version>
         </dependency>
-<<<<<<< HEAD
-=======
-        
->>>>>>> 8f779d76a20b33fdc931c2ac2f77d8aa2a3ff1e2
     </dependencies>
     <build>
         <plugins>
