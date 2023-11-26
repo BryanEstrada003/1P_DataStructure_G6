@@ -13,18 +13,21 @@ import javafx.scene.image.Image;
  * @author HOME
  */
 public abstract class Contact implements Serializable  {
+    private String ID_re;
     private String name;
+    private String lastname;
     private String profilePhoto;
     private List<Telephone> telephoneNumbers;
     private List<String> photos;
-    private Address address;
+    private List<Address> address;
     private List<Email> emails;
     private List<SocialMedia> socialsMedia;
     private List<Date> datesInterest;
     private List<RelatedContact> relatedContacts;
     private static final long serialVersionUID = 274965647874716638L;
-    
-    public Contact(String name, String profilePhoto,List<Telephone> telephoneNumbers, List<String> photos, Address address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
+
+    public Contact(String ID_re, String name, String profilePhoto, List<Telephone> telephoneNumbers, List<String> photos, List<Address> address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
+        this.ID_re = ID_re;
         this.name = name;
         this.profilePhoto = profilePhoto;
         this.telephoneNumbers = telephoneNumbers;
@@ -35,6 +38,27 @@ public abstract class Contact implements Serializable  {
         this.datesInterest = datesInterest;
         this.relatedContacts = relatedContacts;
     }
+    public Contact(String ID_re, String name, String lastname,String profilePhoto, List<Telephone> telephoneNumbers, List<String> photos, List<Address> address, List<Email> emails, List<SocialMedia> socialsMedia, List<Date> datesInterest, List<RelatedContact> relatedContacts) {
+        this.ID_re = ID_re;
+        this.name = name;
+        this.lastname = lastname;
+        this.profilePhoto = profilePhoto;
+        this.telephoneNumbers = telephoneNumbers;
+        this.photos = photos;
+        this.address = address;
+        this.emails = emails;
+        this.socialsMedia = socialsMedia;
+        this.datesInterest = datesInterest;
+        this.relatedContacts = relatedContacts;
+    }
+    public String getID_re() {
+        return ID_re;
+    }
+
+    public void setID_re(String ID_re) {
+        this.ID_re = ID_re;
+    }
+    
 
     public String getName() {
         return name;
@@ -68,11 +92,11 @@ public abstract class Contact implements Serializable  {
         this.photos = photos;
     }
 
-    public Address getAddress() {
+    public List<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(List<Address> address) {
         this.address = address;
     }
 
@@ -106,6 +130,14 @@ public abstract class Contact implements Serializable  {
 
     public void setRelatedContacts(List<RelatedContact> relatedContacts) {
         this.relatedContacts = relatedContacts;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
     
 }

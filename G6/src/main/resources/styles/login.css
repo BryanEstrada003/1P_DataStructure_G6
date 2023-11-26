@@ -59,6 +59,14 @@
     -fx-border-radius: 10px;
     -fx-background-radius: 20px;
 }
+.button2_{
+    -fx-background-color: #444444; 
+    -fx-text-fill:#93b8c9;
+    -fx-font-weight: bold; 
+    font-size: 60px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 20px;
+}
 .icon {
     -fx-fill: #c0c0c0; 
 }

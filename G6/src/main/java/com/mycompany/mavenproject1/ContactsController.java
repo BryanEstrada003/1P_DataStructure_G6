@@ -108,6 +108,7 @@ public class ContactsController implements Initializable {
     @FXML
     private VBox clasification5;
 
+
     private DoublyLinkedList<Contact> contactos;
     private ListIterator<Contact> ite;
 
@@ -160,7 +161,7 @@ public class ContactsController implements Initializable {
 //        } catch (Exception e) {
 //            profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
 //        }
-        this.contactos = Util.listaContacto2();
+            this.contactos = Util.listaContacto2();
         this.ite = this.contactos.listIterator();
         name_lastname1.setText(ite.next().getName());
         name_lastname2.setText(ite.next().getName());
@@ -266,7 +267,12 @@ public class ContactsController implements Initializable {
 
     @FXML
     private void agregar_contacto(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("newcontact.fxml"));
+        DoublyLinkedList<Contact> lista_contactos = Util.listaContacto2();
+        Contact c1 = lista_contactos.get(0);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("newcontact.fxml"));
+        Parent root = loader.load();
+        NewcontactController newContactController = loader.getController();
+        newContactController.setId_registro_E(c1.getID_re());
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/login.css");
         Stage stage = (Stage) header.getScene().getWindow();

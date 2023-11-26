@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="sign_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="733.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.Sign_upController">
+<AnchorPane id="AnchorPane" fx:id="sign_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="733.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.Sign_upController">
     <stylesheets>
         <URL value="@/styles/login.css" />
     </stylesheets>
@@ -71,7 +71,7 @@
                   <Font name="Modak" size="24.0" />
                </font>
             </Label>
-            <ImageView fx:id="image_user" fitHeight="88.0" fitWidth="153.0" layoutX="282.0" layoutY="12.0" onMouseClicked="#change_image" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="image_user" fitHeight="88.0" fitWidth="153.0" layoutX="300.0" layoutY="10.0" onMouseClicked="#change_image" pickOnBounds="true" preserveRatio="true" />
             <HBox layoutX="1.0" layoutY="130.0" prefHeight="100.0" prefWidth="715.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="111.0" prefWidth="415.0" spacing="20.0">

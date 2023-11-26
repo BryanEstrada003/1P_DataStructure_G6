@@ -59,6 +59,7 @@ public class Util implements Serializable {
 //        System.out.println(socialsMedia);
         //List<RelatedContact> relatedContacts
         Contact user1 = new Person(
+                "A0001",
                 "Michael",
                 "Estrada",
                 "file: url",
@@ -97,6 +98,7 @@ public class Util implements Serializable {
         ArrayList<RelatedContact> relatedContacts_2 = new ArrayList<>();
 
         Contact user2 = new Person(
+                "A0002",
                 "Pepe",
                 "Ramirez",
                 "file: url",
@@ -133,6 +135,7 @@ public class Util implements Serializable {
         ArrayList<RelatedContact> relatedContacts_3 = new ArrayList<>();
 
         Contact user3 = new Company(
+                "A0003",
                 "Company S.A",
                 "file: url",
                 telephoneNumbers_3,
@@ -170,6 +173,7 @@ public class Util implements Serializable {
         relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
 
         Contact user4 = new Person(
+                "A0004",
                 "Ana",
                 "López",
                 "file: url",
@@ -207,6 +211,7 @@ public class Util implements Serializable {
         relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
 
         Contact user5 = new Person(
+                "A0005",
                 "Pedro",
                 "García",
                 "file: url",
@@ -220,6 +225,7 @@ public class Util implements Serializable {
         );
 
         Contact user6 = new Company(
+                "A0006",
                 "Tech Solutions",
                 "file: url",
                 telephoneNumbers_3,
@@ -232,6 +238,7 @@ public class Util implements Serializable {
         );
 
         Contact user7 = new Company(
+                "A0007",
                 "Fashion Trends",
                 "file: url",
                 telephoneNumbers_3,
@@ -244,6 +251,7 @@ public class Util implements Serializable {
         );
 
         Contact user8 = new Person(
+                "A0008",
                 "María",
                 "Pérez",
                 "file: url",
@@ -257,6 +265,7 @@ public class Util implements Serializable {
         );
 
         Contact user9 = new Person(
+                "A0009",
                 "Juan",
                 "Martínez",
                 "file: url",
@@ -270,6 +279,7 @@ public class Util implements Serializable {
         );
 
         Contact user10 = new Company(
+                "A0010",
                 "Food Delight",
                 "file: url",
                 telephoneNumbers_3,
@@ -385,6 +395,7 @@ public class Util implements Serializable {
 //        System.out.println(socialsMedia);
         //List<RelatedContact> relatedContacts
         Contact user1 = new Person(
+                "A0001",
                 "Michael",
                 "Estrada",
                 "file: url",
@@ -423,6 +434,7 @@ public class Util implements Serializable {
         ArrayList<RelatedContact> relatedContacts_2 = new ArrayList<>();
 
         Contact user2 = new Person(
+                "A0002",
                 "Pepe",
                 "Ramirez",
                 "file: url",
@@ -459,6 +471,7 @@ public class Util implements Serializable {
         ArrayList<RelatedContact> relatedContacts_3 = new ArrayList<>();
 
         Contact user3 = new Company(
+                "A0003",
                 "Company S.A",
                 "file: url",
                 telephoneNumbers_3,
@@ -496,6 +509,7 @@ public class Util implements Serializable {
         relatedContacts_4.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
 
         Contact user4 = new Person(
+                "A0004",
                 "Ana",
                 "López",
                 "file: url",
@@ -533,6 +547,7 @@ public class Util implements Serializable {
         relatedContacts_5.add(new RelatedContact(TipoRelacion.amistad.toString(), user2));
 
         Contact user5 = new Person(
+                "A0005",
                 "Pedro",
                 "García",
                 "file: url",
@@ -546,6 +561,7 @@ public class Util implements Serializable {
         );
 
         Contact user6 = new Company(
+                "A0006",
                 "Tech Solutions",
                 "file: url",
                 telephoneNumbers_3,
@@ -558,6 +574,7 @@ public class Util implements Serializable {
         );
 
         Contact user7 = new Company(
+                "A0007",
                 "Fashion Trends",
                 "file: url",
                 telephoneNumbers_3,
@@ -570,6 +587,7 @@ public class Util implements Serializable {
         );
 
         Contact user8 = new Person(
+                "A0008",
                 "María",
                 "Pérez",
                 "file: url",
@@ -583,6 +601,7 @@ public class Util implements Serializable {
         );
 
         Contact user9 = new Person(
+                "A0009",
                 "Juan",
                 "Martínez",
                 "file: url",
@@ -596,6 +615,7 @@ public class Util implements Serializable {
         );
 
         Contact user10 = new Company(
+                "A0010",
                 "Food Delight",
                 "file: url",
                 telephoneNumbers_3,
