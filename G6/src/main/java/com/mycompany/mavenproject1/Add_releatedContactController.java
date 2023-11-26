@@ -38,6 +38,8 @@ public class Add_releatedContactController implements Initializable {
     private VBox list_contact;
     private ArrayList<Contact> contactos;
     private String cssFile;
+    private static ArrayList<RelatedContact> relatedContacts;
+    private static TipoRelacion tipoRel = TipoRelacion.ninguno;
     @FXML
     private AnchorPane principal_page;
     @FXML
@@ -58,8 +60,9 @@ public class Add_releatedContactController implements Initializable {
         list_contact.getStyleClass().add("blackbackground");
         scrollpane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollpane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
+        relatedContacts = new ArrayList<>();
         // Inicializa la lista de contactos
+        RelatedContact rc;
         for (Contact c : this.contactos) {
             HBox contactIndi = new HBox(20);
             Text name = new Text(c.getName());
@@ -72,33 +75,40 @@ public class Add_releatedContactController implements Initializable {
                     TipoRelacion.asistente.toString(),
                     TipoRelacion.asociacion.toString(),
                     TipoRelacion.colega.toString(),
-                    TipoRelacion.sitio_laboral.toString()
+                    TipoRelacion.sitio_laboral.toString(),
+                    TipoRelacion.ninguno.toString()
             );
 
             // Crear un ComboBox y configurarlo con la lista de opciones
             ComboBox<String> tipoRelacion = new ComboBox<>(options);
             tipoRelacion.setPromptText("Selecciona una opción");
-
+            
+            
             // Manejar eventos de selección
             tipoRelacion.setOnAction(event -> {
                 String selectedOption = tipoRelacion.getSelectionModel().getSelectedItem();
-                System.out.println("Opción seleccionada: " + selectedOption);
+                tipoRel = TipoRelacion.parse(selectedOption);                
             });
+            rc = new RelatedContact(tipoRel.toString(),c);
+            
             
             contactIndi.getChildren().addAll(name, tipoRelacion,checkBox);
             contactIndi.getStyleClass().add("blackbackgorund");
             list_contact.getChildren().add(contactIndi);
+            System.out.println(rc);
+            relatedContacts.add(rc);
+            
         }
     }
 
     @FXML
     private void saveContact(MouseEvent event) {
-        ArrayList<Contact> nuevaList = new ArrayList<>();
+        ArrayList<RelatedContact> nuevaList = new ArrayList<>();
         for (int i = 0; i < list_contact.getChildren().size(); i++) {
             HBox contactIndi = (HBox) list_contact.getChildren().get(i);
-            CheckBox checkBox = (CheckBox) contactIndi.getChildren().get(1);
+            CheckBox checkBox = (CheckBox) contactIndi.getChildren().get(2);
             if (checkBox.isSelected()) {
-                nuevaList.add(contactos.get(i));
+                nuevaList.add(relatedContacts.get(i));
             }
         }
         System.out.println(nuevaList.size());

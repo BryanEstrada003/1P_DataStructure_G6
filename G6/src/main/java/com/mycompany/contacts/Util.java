@@ -332,7 +332,7 @@ public class Util implements Serializable {
         return nuevaLisr;
     }
 
-    public static void saveListToFile(String nameFile, ArrayList<Contact> contacs) {
+    public static void saveListToFile(String nameFile, ArrayList<RelatedContact> contacs) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nameFile))) {
             out.writeObject(contacs);
         } catch (IOException ioe) {
