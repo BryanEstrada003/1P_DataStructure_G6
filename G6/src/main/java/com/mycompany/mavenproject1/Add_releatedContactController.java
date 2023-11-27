@@ -5,6 +5,7 @@
 package com.mycompany.mavenproject1;
 
 import com.mycompany.contacts.Contact;
+import com.mycompany.contacts.Id_register;
 import com.mycompany.contacts.RelatedContact;
 import com.mycompany.contacts.TipoRelacion;
 import com.mycompany.contacts.Util;
@@ -54,32 +55,39 @@ public class Add_releatedContactController implements Initializable {
     @FXML
     private ScrollPane scrollpane;
     private String id_registro_E;
+    private String name_archivo;
 
     public String getId_registro_E() {
         return id_registro_E;
     }
 
-
-    public void setId_registro_E() {
-        String id_re = null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("id_re_add.ser"))) {
-            id_re = (String) in.readObject();
+    public void setId_registro_dE() {
+        Id_register id_re = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("PassInformation/id_re_add.ser"))) {
+            id_re = (Id_register) in.readObject();
+            System.out.println("id_re");
         } catch (IOException ioe) {
-
+            System.out.println("Aquí esta el error al momento de leer el PassInformation/id_re_add.ser");
         } catch (ClassNotFoundException c) {
 
         }
-        this.id_registro_E = id_re;
-        File file = new File("id_re_add.ser");
-        if (file.exists()) {
-            file.delete();
+        this.id_registro_E = id_re.getId_register();
+        name_archivo = "ContactosSeleccionados/ContactosSeleccionados"+id_registro_E+".ser";
+        try{
+            File file = new File("PassInformation/id_re_add.ser");
+            if (file.exists()) {
+                file.delete();
+            }
+        }catch(Exception e){
+            
         }
+        
 
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setId_registro_E();
+        setId_registro_dE();
         this.contactos = Util.listaContacto2();
         cssFile = getClass().getResource("/styles/login.css").toExternalForm();
         principal_page.getStylesheets().add(cssFile);
@@ -114,8 +122,7 @@ public class Add_releatedContactController implements Initializable {
             // Crear un ComboBox y configurarlo con la lista de opciones
             ComboBox<String> tipoRelacion = new ComboBox<>(options);
             tipoRelacion.setPromptText("Selecciona una opción");
-            
-            
+
             // Manejar eventos de selección
             tipoRelacion.setOnAction(event -> {
                 String selectedOption = tipoRelacion.getSelectionModel().getSelectedItem();
@@ -145,7 +152,8 @@ public class Add_releatedContactController implements Initializable {
             }
         }
         System.out.println(nuevaList.size());
-        Util.<RelatedContact>saveListToFile("ContactosSeleccionados"+id_registro_E+".ser", nuevaList);
+        System.out.println(id_registro_E);
+        Util.<RelatedContact>saveListToFile(name_archivo, nuevaList);
         Stage stage = (Stage) save.getScene().getWindow();
         if (stage != null) {
             stage.close();

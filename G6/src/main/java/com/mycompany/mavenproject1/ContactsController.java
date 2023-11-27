@@ -372,7 +372,7 @@ public class ContactsController implements Initializable {
     private void agregar_contacto(MouseEvent event) throws IOException {
 //        DoublyLinkedList<Contact> lista_contactos = Util.listaContacto2();
 //        Contact c1 = lista_contactos.get(0);
-//        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Id_re.ser"))) {
+//        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Contact_edit.ser"))) {
 //            out.writeObject(c1);
 //        } catch (IOException ioe) {
 //

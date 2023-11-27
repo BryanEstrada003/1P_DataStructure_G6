@@ -10,6 +10,7 @@ import com.mycompany.contacts.Telephone;
 import com.mycompany.contacts.Address;
 import com.mycompany.contacts.Company;
 import com.mycompany.contacts.Date;
+import com.mycompany.contacts.Id_register;
 import com.mycompany.contacts.Person;
 import com.mycompany.contacts.RelatedContact;
 import com.mycompany.contacts.SocialMedia;
@@ -133,7 +134,7 @@ public class NewcontactController implements Initializable {
 
     public void setactualContact() {
         Contact contact1 = null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("Id_re.ser"))) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("PassInformation/Contact_edit.ser"))) {
             contact1 = (Contact) in.readObject();
         } catch (IOException ioe) {
 
@@ -141,19 +142,23 @@ public class NewcontactController implements Initializable {
 
         }
         this.actual_contact = contact1;
-        File file = new File("Id_re.ser");
-        if (file.exists()) {
-            file.delete();
+        try{
+            File file = new File("PassInformation/Contact_edit.ser");
+            if (file.exists()) {
+                file.delete();
+            }
+        }catch(Exception ie){
+            
         }
+        
 
     }
 
     public void getandSetContactbyId(String id_registro_E) {
         DoublyLinkedList<Contact> lista_contactos = Util.listaContacto2();
         for (Contact c1 : lista_contactos) {
-            System.out.println(c1);
-            if (id_registro_E != null) {
-                if (c1.getID_re().compareTo(id_registro_E) == 0) {
+            if (id_registro != null) {
+                if (c1.getID_re().compareTo(id_registro) == 0) {
                     setActual_contact(c1);
                 }
             }
@@ -180,7 +185,6 @@ public class NewcontactController implements Initializable {
             }
         });
         for (Contact c : lista_contactos) {
-            System.out.println(c);
             orden.offer(c.getID_re());
         }
         String actual = orden.poll();
@@ -214,7 +218,6 @@ public class NewcontactController implements Initializable {
             setactualContact();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("error con getandSetContactbyId(id_registro_E);");
         }
 
         if (actual_contact != null) {
@@ -223,10 +226,8 @@ public class NewcontactController implements Initializable {
             id_registro = getNextIdRegistro();
         }
 
-        System.out.println(id_registro);
         if (actual_contact != null) {
             number_photos = actual_contact.getPhotos().size();
-            System.out.println(number_photos);
         }
         setIndices_ContentBox();
         cssFile = getClass().getResource("/styles/login.css").toExternalForm();
@@ -253,26 +254,20 @@ public class NewcontactController implements Initializable {
         createHBox_photo();
         container_AddImportantsDate();
         container_AddRelatedContacts("ADD RELEATED CONTACT", "");
-        SaveContact();
+        
 
         // Solo actualiza no agrega
         updateRelatedContact();
         principal.setContent(contentBox);
         principal.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         principal.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-<<<<<<< Updated upstream
         for (Node n : contentBox.getChildren()) {
             System.out.println(n);
             System.out.println(contentBox.getChildren().size());
         }
         System.out.println("El tamaño de contentBox es " + contentBox.getChildren().size());
-
-=======
         
-
-        System.out.println("El tamaño de contentBox es "+ contentBox.getChildren().size());
-        newContact();
->>>>>>> Stashed changes
+        SaveContact();
     }
 
     private void Container_Top() {
@@ -956,13 +951,15 @@ public class NewcontactController implements Initializable {
     }
 
     private void AgregarContacto() throws IOException {
+        System.out.println("El id de registro a ser es " + id_registro);
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("PassInformation/id_re_add.ser"))) {
+            out.writeObject(new Id_register(id_registro));
+        } catch (IOException ioe) {
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("add_releatedContact.fxml"));
         Parent root = loader.load();
         Add_releatedContactController controller = loader.getController();
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("id_re_add.ser"))) {
-            out.writeObject(id_registro_E);
-        } catch (IOException ioe) {
-        }
+
         Scene scene = new Scene(root);
         Stage dialogStage = new Stage();
         dialogStage.setTitle("RELEATED CONTACT");
@@ -1044,7 +1041,6 @@ public class NewcontactController implements Initializable {
             if (n != 0) {
                 HBox hbox = (HBox) container.getChildren().get(n);
                 TextField type = (TextField) hbox.getChildren().get(1);
-                System.out.println(hbox.getChildren().get(2));
                 DatePicker value_E = (DatePicker) hbox.getChildren().get(2);
                 // Obtén la fecha del DatePicker y conviértela a una cadena con el formato deseado
                 LocalDate date = value_E.getValue();
@@ -1064,9 +1060,7 @@ public class NewcontactController implements Initializable {
     }
 
     private List<Telephone> getPhones() {
-        System.out.println("phones");
         VBox get = (VBox) contentBox.getChildren().get(indices_ContentBox.get("container_AddPhone") + 1);
-        System.out.println(get.getChildren().get(0));
 //        HBox getH = (HBox) get.getChildren().get(0);
 //        System.out.println(getH.getChildren().get(0));
 //        System.out.println(getH.getChildren().get(1));
@@ -1075,29 +1069,21 @@ public class NewcontactController implements Initializable {
     }
 
     private List<Email> getEmails() {
-        System.out.println("emails");
-        System.out.println(contentBox.getChildren().get(indices_ContentBox.get("container_AddEmail")));
         VBox container_AddEmail = (VBox) contentBox.getChildren().get(indices_ContentBox.get("container_AddEmail"));
         return extractInfo(container_AddEmail, (type, address) -> new Email(type, address));
     }
 
     private List<Address> getAddresses() {
-        System.out.println("direcciones");
-        System.out.println(contentBox.getChildren().get(indices_ContentBox.get("container_address")));
         VBox container_AddAddress = (VBox) contentBox.getChildren().get(indices_ContentBox.get("container_address"));
         return extractInfo(container_AddAddress, (type, location) -> new Address(type, location));
     }
 
     private List<SocialMedia> getSocialMedias() {
-        System.out.println("redes sociales");
-        System.out.println(contentBox.getChildren().get(indices_ContentBox.get("container_SocialMedia")));
         VBox container_SocialMedias = (VBox) contentBox.getChildren().get(indices_ContentBox.get("container_SocialMedia"));
         return extractInfo(container_SocialMedias, (type, account) -> new SocialMedia(type, account));
     }
 
     private List<Date> getDates() {
-        System.out.println("fechas importantes");
-        System.out.println(contentBox.getChildren().get(indices_ContentBox.get("container_AddImportantsDate")));
         VBox container_dates = (VBox) contentBox.getChildren().get(indices_ContentBox.get("container_AddImportantsDate")); // Aquí debe haber un error, debería ser "container_Dates"
         return extractInfo_2(container_dates, (type, dateString) -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -1108,9 +1094,7 @@ public class NewcontactController implements Initializable {
 
     private Contact newContact() {
         String type_Contact = typeDropdown.getSelectionModel().getSelectedItem();
-        System.out.println(type_Contact);
         TipoContact miEnumValor = TipoContact.parse(type_Contact);
-        System.out.println(miEnumValor);
         String name = get_NameOrLastname(0);
         List<Telephone> l_telephones = getPhones();
         List<Email> l_email = getEmails();
