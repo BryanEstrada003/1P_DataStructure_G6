@@ -260,12 +260,19 @@ public class NewcontactController implements Initializable {
         principal.setContent(contentBox);
         principal.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         principal.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+<<<<<<< Updated upstream
         for (Node n : contentBox.getChildren()) {
             System.out.println(n);
             System.out.println(contentBox.getChildren().size());
         }
         System.out.println("El tamaño de contentBox es " + contentBox.getChildren().size());
 
+=======
+        
+
+        System.out.println("El tamaño de contentBox es "+ contentBox.getChildren().size());
+        newContact();
+>>>>>>> Stashed changes
     }
 
     private void Container_Top() {
