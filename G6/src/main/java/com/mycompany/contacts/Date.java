@@ -12,10 +12,11 @@ import java.time.*;
  * @author HOME
  */
 public class Date implements Serializable {
+
     private String dateType;
     private LocalDate date;
     private static final long serialVersionUID = 274965647874716638L;
-    
+
     public Date(String dateType, LocalDate date) {
         this.dateType = dateType;
         this.date = date;
@@ -37,10 +38,13 @@ public class Date implements Serializable {
         this.date = date;
     }
 
+    public String getDateAsString() {
+        return date.toString();
+    }
+
     @Override
     public String toString() {
         return "Date{" + "dateType=" + dateType + ", date=" + date + '}';
     }
-    
-    
+
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="generalPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.ShowContactController">
+   <bottom>
+      <HBox prefHeight="66.0" prefWidth="468.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="btnPrevious" fitHeight="53.0" fitWidth="58.0" onMouseClicked="#PreviousContact" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="7.0" top="6.0" />
+               </HBox.margin></ImageView>
+            <ImageView fx:id="btnNext" fitHeight="53.0" fitWidth="58.0" onMouseClicked="#NextContact" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="371.0" top="6.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <ScrollPane fx:id="infoContact" hbarPolicy="NEVER" prefHeight="539.0" prefWidth="466.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="ifocon" prefHeight="523.0" prefWidth="508.0">
+               <opaqueInsets>
+                  <Insets right="13.0" />
+               </opaqueInsets></VBox>
+         </content></ScrollPane>
+   </center>
+   <top>
+      <VBox fx:id="headContact" prefHeight="113.0" prefWidth="466.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="85.0" prefWidth="466.0">
+               <children>
+                  <ImageView fx:id="regresarScene" fitHeight="40.0" fitWidth="44.0" onMouseClicked="#btnRgresar" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="2.0" top="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="imageProfile" fitHeight="101.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="151.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label onMouseClicked="#clickEditar" text="EDITAR" textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+                     <HBox.margin>
+                        <Insets left="129.0" top="7.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold Italic" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="nameContact" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="194.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+</BorderPane>

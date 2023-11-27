@@ -76,7 +76,7 @@
          <children>
             <VBox fx:id="Vbox_contacts" prefHeight="308.0" prefWidth="631.0" spacing="7.0">
                <children>
-                  <HBox fx:id="contact1" onMouseClicked="#showcontact" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                  <HBox fx:id="contact1" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="profile_picture1" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -101,7 +101,7 @@
                         <VBox fx:id="clasification1" prefHeight="53.0" prefWidth="173.0" />
                      </children>
                   </HBox>
-                  <HBox onMouseClicked="#showcontact" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                  <HBox fx:id="contact2" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="profile_picture2" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -126,7 +126,7 @@
                         <VBox fx:id="clasification2" prefHeight="53.0" prefWidth="173.0" />
                      </children>
                   </HBox>
-                  <HBox onMouseClicked="#showcontact" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                  <HBox fx:id="contact3" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="profile_picture3" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -151,7 +151,7 @@
                         <VBox fx:id="clasification3" prefHeight="53.0" prefWidth="173.0" />
                      </children>
                   </HBox>
-                  <HBox onMouseClicked="#showcontact" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                  <HBox fx:id="contact4" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="profile_picture4" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
@@ -176,7 +176,7 @@
                         <VBox fx:id="clasification4" prefHeight="53.0" prefWidth="173.0" />
                      </children>
                   </HBox>
-                  <HBox onMouseDragged="#showcontact" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
+                  <HBox fx:id="contact5" prefHeight="53.0" prefWidth="781.0" spacing="10.0">
                      <children>
                         <ImageView fx:id="profile_picture5" fitHeight="53.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
