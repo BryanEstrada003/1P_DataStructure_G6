@@ -9,6 +9,12 @@ import com.mycompany.contacts.RelatedContact;
 import com.mycompany.contacts.TipoRelacion;
 import com.mycompany.contacts.Util;
 import ec.edu.espol.TDAs.ArrayList;
+import ec.edu.espol.TDAs.DoublyLinkedList;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -37,7 +43,7 @@ public class Add_releatedContactController implements Initializable {
 
     @FXML
     private VBox list_contact;
-    private ArrayList<Contact> contactos;
+    private DoublyLinkedList<Contact> contactos;
     private String cssFile;
     private static ArrayList<RelatedContact> relatedContacts;
     private static TipoRelacion tipoRel = TipoRelacion.ninguno;
@@ -53,14 +59,28 @@ public class Add_releatedContactController implements Initializable {
         return id_registro_E;
     }
 
-    public void setId_registro_E(String id_registro_E) {
-        this.id_registro_E = id_registro_E;
-    }
 
+    public void setId_registro_E() {
+        String id_re = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("id_re_add.ser"))) {
+            id_re = (String) in.readObject();
+        } catch (IOException ioe) {
+
+        } catch (ClassNotFoundException c) {
+
+        }
+        this.id_registro_E = id_re;
+        File file = new File("id_re_add.ser");
+        if (file.exists()) {
+            file.delete();
+        }
+
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.contactos = Util.listaContacto();
+        setId_registro_E();
+        this.contactos = Util.listaContacto2();
         cssFile = getClass().getResource("/styles/login.css").toExternalForm();
         principal_page.getStylesheets().add(cssFile);
         scrollpane.getStylesheets().add(cssFile);
@@ -72,6 +92,7 @@ public class Add_releatedContactController implements Initializable {
         scrollpane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollpane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         relatedContacts = new ArrayList<>();
+        System.out.println(id_registro_E);
         // Inicializa la lista de contactos
         RelatedContact rc;
         for (Contact c : this.contactos) {
@@ -108,13 +129,14 @@ public class Add_releatedContactController implements Initializable {
             list_contact.getChildren().add(contactIndi);
             System.out.println(rc);
             relatedContacts.add(rc);
+
             
         }
     }
 
     @FXML
     private void saveContact(MouseEvent event) {
-        ArrayList<RelatedContact> nuevaList = new ArrayList<>();
+        DoublyLinkedList<RelatedContact> nuevaList = new DoublyLinkedList<>();
         for (int i = 0; i < list_contact.getChildren().size(); i++) {
             HBox contactIndi = (HBox) list_contact.getChildren().get(i);
             CheckBox checkBox = (CheckBox) contactIndi.getChildren().get(2);
