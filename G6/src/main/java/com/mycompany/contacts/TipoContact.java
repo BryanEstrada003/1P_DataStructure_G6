@@ -11,5 +11,13 @@ import java.io.Serializable;
  * @author Jonanyu 11.1
  */
 public enum TipoContact implements Serializable  {
-    person,company
+    person,company;
+    
+    public static TipoContact parse(String text){
+        if(person.toString().compareTo(text)==0){
+            return person;
+        } else{
+            return company;
+        }
+    }
 }
