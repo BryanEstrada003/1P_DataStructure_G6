@@ -39,7 +39,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
 /**
  * FXML Controller class
  *
@@ -82,6 +81,11 @@ public class ShowContactController implements Initializable, Serializable {
         ifocon.getStyleClass().add("hbox-backgroundInfoCon");
         generalPane.getStyleClass().add("hbox-backgroundInfoCon");
         this.contactos = Util.listaContacto2();
+
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+
         this.itera = this.contactos.listIterator();
 
     }
@@ -213,7 +217,6 @@ public class ShowContactController implements Initializable, Serializable {
                 ContactosRelated.getChildren().add(infoContac);
 
             }
-        
 
             ifocon.getChildren().addAll(telephones, Date, Email, direccion, mediaSocial, ContactosRelated);
             tituloTelf.getStyleClass().add("text-title");
@@ -228,35 +231,51 @@ public class ShowContactController implements Initializable, Serializable {
             direccion.getStyleClass().add("vbox-style");
             mediaSocial.getStyleClass().add("vbox-style");
             ContactosRelated.getStyleClass().add("vbox-style");
-            
+
         }
     }
 
     public void encontrarConta() {
-        // Suponiendo que 'contactos' es una instancia de DoublyLinkedList<Contact>
-        ListIterator<Contact> iterator = contactos.listIterator();
-
-        while (iterator.hasNext()) {
-            Contact contactoActual = iterator.next();
+        while (itera.hasNext()) {
+            Contact contactoActual = itera.next();
             if (contactoActual.getName().equals(co.getName())) {
-                // Este es el contacto que estamos buscando
-                // Actualizar la UI con este contacto
-                
                 break;
             }
         }
     }
 
+    private int nvez = 0;
+    private boolean pre = false;
+    private boolean next = false;
+
     @FXML
     private void PreviousContact(MouseEvent event) {
-        encontrarConta();
+        if (nvez == 0) {
+            encontrarConta();
+            itera.previous();
+            itera.previous();
+        } else if (next == true) {
+            itera.previous();
+            itera.previous();
+        }
+        next = false;
         setContact(itera.previous());
+        pre = true;
+        nvez++;
     }
 
     @FXML
     private void NextContact(MouseEvent event) {
-//        encontrarConta();
+        if (nvez == 0) {
+            encontrarConta();
+        } else if (pre == true) {
+            itera.next();
+            itera.next();
+        }
+        pre = false;
         setContact(itera.next());
+        next = true;
+        nvez++;
     }
 
     @FXML

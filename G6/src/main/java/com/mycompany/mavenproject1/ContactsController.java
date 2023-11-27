@@ -173,6 +173,12 @@ public class ContactsController implements Initializable {
 //            profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
 //        }
         this.contactos = Util.listaContacto2();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+
+        System.out.println(this.contactos.size());
+        
         this.ite = this.contactos.listIterator();
         ArrayList<Contact> nuevaListg = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
