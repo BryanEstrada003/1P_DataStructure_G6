@@ -456,6 +456,57 @@ public class Util<E> implements Serializable {
         return orderForTelephoneSize;
     }
     
+    public static DoublyLinkedList<Contact> filterByTypeContact(DoublyLinkedList<Contact> list, TipoContact type){
+        if(list.isEmpty()){
+            return null;
+        }
+        if(type == TipoContact.person){
+            DoublyLinkedList<Contact> persons = new DoublyLinkedList<>();
+            for(Contact c: list){
+                if(c instanceof Person){
+                    persons.add(c);            
+                }
+            }       
+            return persons;
+        } else{
+            DoublyLinkedList<Contact> companies = new DoublyLinkedList<>();
+            for(Contact c: list){
+                if(c instanceof Company){
+                    companies.add(c);            
+                }
+            }       
+            return companies;
+        }     
+    }
     
-
+    public static DoublyLinkedList<Contact> filterIfEmails (DoublyLinkedList<Contact> list){
+        if(list.isEmpty()){
+            return null;
+        }
+        DoublyLinkedList<Contact> ifEmails = new DoublyLinkedList<>();
+        for(Contact c: list){
+            if(!c.getEmails().isEmpty()){
+                ifEmails.add(c);
+            }
+        }
+        
+        return null;
+    }
+    
+    public static DoublyLinkedList<Contact> filterIfSocialMedia (DoublyLinkedList<Contact> list){
+        if(list.isEmpty()){
+            return null;
+        }
+        DoublyLinkedList<Contact> ifEmails = new DoublyLinkedList<>();
+        for(Contact c: list){
+            if(!c.getSocialsMedia().isEmpty()){
+                ifEmails.add(c);
+            }
+        }
+        
+        return null;
+    }
+    
+    
+    
 }
