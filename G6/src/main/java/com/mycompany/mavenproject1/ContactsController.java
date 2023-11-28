@@ -4,19 +4,17 @@
  */
 package com.mycompany.mavenproject1;
 
+import com.mycompany.contacts.Company;
 import com.mycompany.contacts.Contact;
+import com.mycompany.contacts.Person;
 import com.mycompany.contacts.User;
 import com.mycompany.contacts.Util;
 import ec.edu.espol.TDAs.ArrayList;
 import ec.edu.espol.TDAs.DoublyLinkedList;
-import ec.edu.espol.TDAs.List;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -31,9 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-
 import java.util.Optional;
-import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -84,8 +80,6 @@ public class ContactsController implements Initializable {
     @FXML
     private Label name_lastname1;
     @FXML
-    private HBox contact1;
-    @FXML
     private VBox clasification1;
     @FXML
     private ImageView profile_picture2;
@@ -111,17 +105,13 @@ public class ContactsController implements Initializable {
     private Label name_lastname5;
     @FXML
     private VBox clasification5;
-
+    private Contact contacto1;
+    private Contact contacto2;
+    private Contact contacto3;
+    private Contact contacto4;
+    private Contact contacto5;
     private DoublyLinkedList<Contact> contactos;
     private ListIterator<Contact> ite;
-    @FXML
-    private HBox contact2;
-    @FXML
-    private HBox contact3;
-    @FXML
-    private HBox contact4;
-    @FXML
-    private HBox contact5;
 
     /**
      * Initializes the controller class.
@@ -177,55 +167,31 @@ public class ContactsController implements Initializable {
         this.contactos.removeLast();
         this.contactos.removeLast();
 
-        System.out.println(this.contactos.size());
-        
         this.ite = this.contactos.listIterator();
         ArrayList<Contact> nuevaListg = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             nuevaListg.add(ite.next());
+        }
+        
+        name_lastname1.setText(identificarContact(nuevaListg.get(0)));
+        profile_picture1.setImage(new Image("Iconos/address.png"));
+        this.contacto1 = nuevaListg.get(0);
+        name_lastname2.setText(identificarContact(nuevaListg.get(1)));
+        profile_picture2.setImage(new Image(nuevaListg.get(1).getProfilePhoto()));
+        this.contacto2 = nuevaListg.get(1);
+        name_lastname3.setText(identificarContact(nuevaListg.get(2)));
+        this.contacto3 = nuevaListg.get(2);
+        name_lastname4.setText(identificarContact(nuevaListg.get(3)));
+        this.contacto4 = nuevaListg.get(3);
+        name_lastname5.setText(identificarContact(nuevaListg.get(4)));
+        this.contacto5 = nuevaListg.get(4);
+    }
 
-        }   
-        name_lastname1.setText(nuevaListg.get(0).getName());
-        name_lastname2.setText(nuevaListg.get(1).getName());
-        name_lastname3.setText(nuevaListg.get(2).getName());
-        name_lastname4.setText(nuevaListg.get(3).getName());
-        name_lastname5.setText(nuevaListg.get(4).getName());
-        contact1.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaListg.get(0));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        contact2.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaListg.get(1));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        contact3.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaListg.get(2));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        contact4.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaListg.get(3));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        contact5.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaListg.get(4));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-
+    public String identificarContact(Contact co) {
+        if (co instanceof Person) {
+            return co.getName() + " " + co.getLastname();
+        }
+        return co.getName();
     }
 
     @FXML
@@ -245,17 +211,21 @@ public class ContactsController implements Initializable {
         }
     }
 
-    private void changeInterfaz(Contact c) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowContact.fxml"));
-        Parent root = loader.load();
+    private void changeInterfaz(Contact c) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowContact.fxml"));
+            Parent root = loader.load();
 
-        ShowContactController controller = loader.getController();
-        controller.setContact(c);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/showContact.css");
-        Stage stage = (Stage) header.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+            ShowContactController controller = loader.getController();
+            controller.setContact(c);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/showContact.css");
+            Stage stage = (Stage) header.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void set_owner() {
@@ -292,46 +262,17 @@ public class ContactsController implements Initializable {
         nVez++;
         clickDown = false;
         clickup = true;
-        name_lastname1.setText(nuevaList.get(0).getName());
-        name_lastname2.setText(nuevaList.get(1).getName());
-        name_lastname3.setText(nuevaList.get(2).getName());
-        name_lastname4.setText(nuevaList.get(3).getName());
-        name_lastname5.setText(nuevaList.get(4).getName());
-        contact1.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaList.get(0));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        contact2.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaList.get(1));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        contact3.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaList.get(2));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        contact4.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaList.get(3));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-        contact5.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-            try {
-                changeInterfaz(nuevaList.get(4));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
+        name_lastname1.setText(identificarContact(nuevaList.get(0)));
+        this.contacto1 = nuevaList.get(0);
+        name_lastname2.setText(identificarContact(nuevaList.get(1)));
+        this.contacto2 = nuevaList.get(1);
+        name_lastname3.setText(identificarContact(nuevaList.get(2)));
+        this.contacto3 = nuevaList.get(2);
+        name_lastname4.setText(identificarContact(nuevaList.get(3)));
+        this.contacto4 = nuevaList.get(3);
+        name_lastname5.setText(identificarContact(nuevaList.get(4)));
+        this.contacto5 = nuevaList.get(4);
+
     }
 
     @FXML
@@ -344,29 +285,37 @@ public class ContactsController implements Initializable {
                 nuevaList.addFirst(ite.next());
                 cont++;
             }
-            name_lastname1.setText(nuevaList.get(4).getName());
-            name_lastname2.setText(nuevaList.get(3).getName());
-            name_lastname3.setText(nuevaList.get(2).getName());
-            name_lastname4.setText(nuevaList.get(1).getName());
-            name_lastname5.setText(nuevaList.get(0).getName());
+            name_lastname1.setText(identificarContact(nuevaList.get(4)));
+            this.contacto1 = nuevaList.get(4);
+            name_lastname2.setText(identificarContact(nuevaList.get(3)));
+            this.contacto2 = nuevaList.get(3);
+            name_lastname3.setText(identificarContact(nuevaList.get(2)));
+            this.contacto3 = nuevaList.get(2);
+            name_lastname4.setText(identificarContact(nuevaList.get(1)));
+            this.contacto4 = nuevaList.get(1);
+            name_lastname5.setText(identificarContact(nuevaList.get(0)));
+            this.contacto5 = nuevaList.get(0);
         } else {
             nuevaList.clear();
             while (cont < 5) {
                 nuevaList.add(ite.next());
                 cont++;
             }
-            name_lastname1.setText(nuevaList.get(0).getName());
-            name_lastname2.setText(nuevaList.get(1).getName());
-            name_lastname3.setText(nuevaList.get(2).getName());
-            name_lastname4.setText(nuevaList.get(3).getName());
-            name_lastname5.setText(nuevaList.get(4).getName());
+            name_lastname1.setText(identificarContact(nuevaList.get(0)));
+            this.contacto1 = nuevaList.get(0);
+            name_lastname2.setText(identificarContact(nuevaList.get(1)));
+            this.contacto2 = nuevaList.get(1);
+            name_lastname3.setText(identificarContact(nuevaList.get(2)));
+            this.contacto3 = nuevaList.get(2);
+            name_lastname4.setText(identificarContact(nuevaList.get(3)));
+            this.contacto4 = nuevaList.get(3);
+            name_lastname5.setText(identificarContact(nuevaList.get(4)));
+            this.contacto5 = nuevaList.get(4);
         }
         nVez++;
         clickDown = true;
         clickup = false;
     }
-
- 
 
     @FXML
     private void agregar_contacto(MouseEvent event) throws IOException {
@@ -383,6 +332,31 @@ public class ContactsController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) subir.getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    @FXML
+    private void showContact1(MouseEvent event) {
+        changeInterfaz(this.contacto1);
+    }
+
+    @FXML
+    private void showContact2(MouseEvent event) {
+        changeInterfaz(this.contacto2);
+    }
+
+    @FXML
+    private void showContact3(MouseEvent event) {
+        changeInterfaz(this.contacto3);
+    }
+
+    @FXML
+    private void showContact4(MouseEvent event) {
+        changeInterfaz(this.contacto4);
+    }
+
+    @FXML
+    private void showContact5(MouseEvent event) {
+        changeInterfaz(this.contacto5);
     }
 
 }

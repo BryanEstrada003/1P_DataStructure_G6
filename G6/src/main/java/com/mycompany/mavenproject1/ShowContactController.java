@@ -121,8 +121,14 @@ public class ShowContactController implements Initializable, Serializable {
             }
 
             VBox Date = new VBox();
+            HBox titleImgDate = new HBox();
+            ImageView imgDate = new ImageView(new Image("Iconos/dateIcon.png"));
+            imgDate.setFitWidth(30);
+            imgDate.setFitHeight(30);
+            imgDate.setPreserveRatio(true);
             Text tituloDate = new Text(" Dates Interest");
-            Date.getChildren().add(tituloDate);
+            titleImgDate.getChildren().addAll(imgDate, tituloDate);
+            Date.getChildren().add(titleImgDate);
             for (Date dt : co.getDatesInterest()) {
                 HBox infoDate = new HBox();
                 Text nameDate = new Text(dt.getDateType() + ": ");
@@ -203,19 +209,22 @@ public class ShowContactController implements Initializable, Serializable {
             Text tituloConta = new Text("Contactos Relates");
             titleImaCOn.getChildren().addAll(imgCOn, tituloConta);
             ContactosRelated.getChildren().add(titleImaCOn);
-            for (RelatedContact ctr : co.getRelatedContacts()) {
-                HBox infoContac = new HBox();
-                Text typeContact = new Text(ctr.getContactType() + ": ");
-                typeContact.getStyleClass().add("text-normal");
-                Text contactName = new Text(ctr.getContact().getName());
-                contactName.getStyleClass().add("text-normal");
-                infoContac.getChildren().addAll(typeContact, contactName);
-                infoContac.getStyleClass().add("hbox-style");
-                infoContac.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-                    setContact(ctr.getContact());
-                });
-                ContactosRelated.getChildren().add(infoContac);
-
+            if (co.getRelatedContacts() != null) {
+                for (RelatedContact ctr : co.getRelatedContacts()) {
+                    HBox infoContac = new HBox();
+                    Text typeContact = new Text(ctr.getContactType() + ": ");
+                    typeContact.getStyleClass().add("text-normal");
+                    Text contactName = new Text(ctr.getContact().getName());
+                    contactName.getStyleClass().add("text-normal");
+                    infoContac.getChildren().addAll(typeContact, contactName);
+                    infoContac.getStyleClass().add("hbox-style");
+                    infoContac.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
+                        setContact(ctr.getContact());
+                    });
+                    ContactosRelated.getChildren().add(infoContac);
+                }
+            
+            
             }
 
             ifocon.getChildren().addAll(telephones, Date, Email, direccion, mediaSocial, ContactosRelated);
