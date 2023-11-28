@@ -16,7 +16,6 @@ import ec.edu.espol.TDAs.DoublyLinkedList;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-
 import java.io.Serializable;
 import java.net.URL;
 import java.util.Comparator;
@@ -82,10 +81,6 @@ public class ShowContactController implements Initializable, Serializable {
         generalPane.getStyleClass().add("hbox-backgroundInfoCon");
         this.contactos = Util.listaContacto2();
 
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-
         this.itera = this.contactos.listIterator();
 
     }
@@ -109,15 +104,17 @@ public class ShowContactController implements Initializable, Serializable {
             Text tituloTelf = new Text(" Telefonos");
             titletelf.getChildren().addAll(imgTel, tituloTelf);
             telephones.getChildren().add(titletelf);
-            for (Telephone te : co.getTelephoneNumbers()) {
-                HBox infoNum = new HBox();
-                Text numberType = new Text(te.getNumberType() + ": ");
-                numberType.getStyleClass().add("text-normal");
-                Text number = new Text(te.getTelephoneNumber());
-                number.getStyleClass().add("text-normal");
-                infoNum.getChildren().addAll(numberType, number);
-                infoNum.getStyleClass().add("hbox-style");
-                telephones.getChildren().add(infoNum);
+            if (co.getTelephoneNumbers() != null) {
+                for (Telephone te : co.getTelephoneNumbers()) {
+                    HBox infoNum = new HBox();
+                    Text numberType = new Text(te.getNumberType() + ": ");
+                    numberType.getStyleClass().add("text-normal");
+                    Text number = new Text(te.getTelephoneNumber());
+                    number.getStyleClass().add("text-normal");
+                    infoNum.getChildren().addAll(numberType, number);
+                    infoNum.getStyleClass().add("hbox-style");
+                    telephones.getChildren().add(infoNum);
+                }
             }
 
             VBox Date = new VBox();
@@ -129,15 +126,17 @@ public class ShowContactController implements Initializable, Serializable {
             Text tituloDate = new Text(" Dates Interest");
             titleImgDate.getChildren().addAll(imgDate, tituloDate);
             Date.getChildren().add(titleImgDate);
-            for (Date dt : co.getDatesInterest()) {
-                HBox infoDate = new HBox();
-                Text nameDate = new Text(dt.getDateType() + ": ");
-                nameDate.getStyleClass().add("text-normal");
-                Text date = new Text(dt.getDateAsString());
-                date.getStyleClass().add("text-normal");
-                infoDate.getChildren().addAll(nameDate, date);
-                infoDate.getStyleClass().add("hbox-style");
-                Date.getChildren().add(infoDate);
+            if (co.getDatesInterest() != null) {
+                for (Date dt : co.getDatesInterest()) {
+                    HBox infoDate = new HBox();
+                    Text nameDate = new Text(dt.getDateType() + ": ");
+                    nameDate.getStyleClass().add("text-normal");
+                    Text date = new Text(dt.getDateAsString());
+                    date.getStyleClass().add("text-normal");
+                    infoDate.getChildren().addAll(nameDate, date);
+                    infoDate.getStyleClass().add("hbox-style");
+                    Date.getChildren().add(infoDate);
+                }
             }
 
             VBox Email = new VBox();
@@ -149,15 +148,17 @@ public class ShowContactController implements Initializable, Serializable {
             Text tituloEmail = new Text(" Emails");
             titleImage.getChildren().addAll(imgV, tituloEmail);
             Email.getChildren().add(titleImage);
-            for (Email em : co.getEmails()) {
-                HBox infoEmail = new HBox();
-                Text typeemail = new Text(em.getEmailType() + ": ");
-                typeemail.getStyleClass().add("text-normal");
-                Text email = new Text(em.getEmail());
-                email.getStyleClass().add("text-normal");
-                infoEmail.getChildren().addAll(typeemail, email);
-                infoEmail.getStyleClass().add("hbox-style");
-                Email.getChildren().add(infoEmail);
+            if (co.getEmails() != null) {
+                for (Email em : co.getEmails()) {
+                    HBox infoEmail = new HBox();
+                    Text typeemail = new Text(em.getEmailType() + ": ");
+                    typeemail.getStyleClass().add("text-normal");
+                    Text email = new Text(em.getEmail());
+                    email.getStyleClass().add("text-normal");
+                    infoEmail.getChildren().addAll(typeemail, email);
+                    infoEmail.getStyleClass().add("hbox-style");
+                    Email.getChildren().add(infoEmail);
+                }
             }
 
             VBox direccion = new VBox();
@@ -169,15 +170,17 @@ public class ShowContactController implements Initializable, Serializable {
             Text titiloAdress = new Text(" Adress");
             titleDireccion.getChildren().addAll(imgV2, titiloAdress);
             direccion.getChildren().add(titleDireccion);
-            for (Address adre : co.getAddress()) {
-                HBox infoAdress = new HBox();
-                Text desAdress = new Text(adre.getDescription() + ": ");
-                desAdress.getStyleClass().add("text-normal");
-                Text geAdrre = new Text(adre.getGeographyUbication());
-                geAdrre.getStyleClass().add("text-normal");
-                infoAdress.getChildren().addAll(desAdress, geAdrre);
-                infoAdress.getStyleClass().add("hbox-style");
-                direccion.getChildren().add(infoAdress);
+            if (co.getAddress() != null) {
+                for (Address adre : co.getAddress()) {
+                    HBox infoAdress = new HBox();
+                    Text desAdress = new Text(adre.getDescription() + ": ");
+                    desAdress.getStyleClass().add("text-normal");
+                    Text geAdrre = new Text(adre.getGeographyUbication());
+                    geAdrre.getStyleClass().add("text-normal");
+                    infoAdress.getChildren().addAll(desAdress, geAdrre);
+                    infoAdress.getStyleClass().add("hbox-style");
+                    direccion.getChildren().add(infoAdress);
+                }
             }
 
             VBox mediaSocial = new VBox();
@@ -189,15 +192,17 @@ public class ShowContactController implements Initializable, Serializable {
             Text tituloSocial = new Text(" Social Media");
             titleImgSocial.getChildren().addAll(imgsoci, tituloSocial);
             mediaSocial.getChildren().add(titleImgSocial);
-            for (SocialMedia scm : co.getSocialsMedia()) {
-                HBox infoSocial = new HBox();
-                Text socialMedia = new Text(scm.getSocialMedia() + ": ");
-                socialMedia.getStyleClass().add("text-normal");
-                Text userSocia = new Text(scm.getUser());
-                userSocia.getStyleClass().add("text-normal");
-                infoSocial.getChildren().addAll(socialMedia, userSocia);
-                infoSocial.getStyleClass().add("hbox-style");
-                mediaSocial.getChildren().add(infoSocial);
+            if (co.getSocialsMedia() != null) {
+                for (SocialMedia scm : co.getSocialsMedia()) {
+                    HBox infoSocial = new HBox();
+                    Text socialMedia = new Text(scm.getSocialMedia() + ": ");
+                    socialMedia.getStyleClass().add("text-normal");
+                    Text userSocia = new Text(scm.getUser());
+                    userSocia.getStyleClass().add("text-normal");
+                    infoSocial.getChildren().addAll(socialMedia, userSocia);
+                    infoSocial.getStyleClass().add("hbox-style");
+                    mediaSocial.getChildren().add(infoSocial);
+                }
             }
 
             VBox ContactosRelated = new VBox();
@@ -223,8 +228,6 @@ public class ShowContactController implements Initializable, Serializable {
                     });
                     ContactosRelated.getChildren().add(infoContac);
                 }
-            
-            
             }
 
             ifocon.getChildren().addAll(telephones, Date, Email, direccion, mediaSocial, ContactosRelated);

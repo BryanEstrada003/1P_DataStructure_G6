@@ -4,7 +4,6 @@
  */
 package com.mycompany.mavenproject1;
 
-import com.mycompany.contacts.Company;
 import com.mycompany.contacts.Contact;
 import com.mycompany.contacts.Person;
 import com.mycompany.contacts.User;
@@ -34,7 +33,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -163,28 +161,14 @@ public class ContactsController implements Initializable {
 //            profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
 //        }
         this.contactos = Util.listaContacto2();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
 
         this.ite = this.contactos.listIterator();
         ArrayList<Contact> nuevaListg = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             nuevaListg.add(ite.next());
         }
-        
-        name_lastname1.setText(identificarContact(nuevaListg.get(0)));
-        profile_picture1.setImage(new Image("Iconos/address.png"));
-        this.contacto1 = nuevaListg.get(0);
-        name_lastname2.setText(identificarContact(nuevaListg.get(1)));
-        profile_picture2.setImage(new Image(nuevaListg.get(1).getProfilePhoto()));
-        this.contacto2 = nuevaListg.get(1);
-        name_lastname3.setText(identificarContact(nuevaListg.get(2)));
-        this.contacto3 = nuevaListg.get(2);
-        name_lastname4.setText(identificarContact(nuevaListg.get(3)));
-        this.contacto4 = nuevaListg.get(3);
-        name_lastname5.setText(identificarContact(nuevaListg.get(4)));
-        this.contacto5 = nuevaListg.get(4);
+        int[] arreglopos = {0, 1, 2, 3, 4};
+        setInterfazCont(arreglopos, nuevaListg);
     }
 
     public String identificarContact(Contact co) {
@@ -192,6 +176,20 @@ public class ContactsController implements Initializable {
             return co.getName() + " " + co.getLastname();
         }
         return co.getName();
+    }
+
+    public void setInterfazCont(int[] posic, ArrayList<Contact> nuevaListg) {
+        int indice1 = posic[0], indice2 = posic[1], indice3 = posic[2], indice4 = posic[3], indice5 = posic[4];
+        this.contacto1 = nuevaListg.get(indice1);
+        name_lastname1.setText(identificarContact(this.contacto1));
+        this.contacto2 = nuevaListg.get(indice2);
+        name_lastname2.setText(identificarContact(this.contacto2));
+        this.contacto3 = nuevaListg.get(indice3);
+        name_lastname3.setText(identificarContact(this.contacto3));
+        this.contacto4 = nuevaListg.get(indice4);
+        name_lastname4.setText(identificarContact(this.contacto4));
+        this.contacto5 = nuevaListg.get(indice5);
+        name_lastname5.setText(identificarContact(this.contacto5));
     }
 
     @FXML
@@ -262,16 +260,8 @@ public class ContactsController implements Initializable {
         nVez++;
         clickDown = false;
         clickup = true;
-        name_lastname1.setText(identificarContact(nuevaList.get(0)));
-        this.contacto1 = nuevaList.get(0);
-        name_lastname2.setText(identificarContact(nuevaList.get(1)));
-        this.contacto2 = nuevaList.get(1);
-        name_lastname3.setText(identificarContact(nuevaList.get(2)));
-        this.contacto3 = nuevaList.get(2);
-        name_lastname4.setText(identificarContact(nuevaList.get(3)));
-        this.contacto4 = nuevaList.get(3);
-        name_lastname5.setText(identificarContact(nuevaList.get(4)));
-        this.contacto5 = nuevaList.get(4);
+        int[] arreglopos = {0, 1, 2, 3, 4};
+        setInterfazCont(arreglopos, nuevaList);
 
     }
 
@@ -285,32 +275,16 @@ public class ContactsController implements Initializable {
                 nuevaList.addFirst(ite.next());
                 cont++;
             }
-            name_lastname1.setText(identificarContact(nuevaList.get(4)));
-            this.contacto1 = nuevaList.get(4);
-            name_lastname2.setText(identificarContact(nuevaList.get(3)));
-            this.contacto2 = nuevaList.get(3);
-            name_lastname3.setText(identificarContact(nuevaList.get(2)));
-            this.contacto3 = nuevaList.get(2);
-            name_lastname4.setText(identificarContact(nuevaList.get(1)));
-            this.contacto4 = nuevaList.get(1);
-            name_lastname5.setText(identificarContact(nuevaList.get(0)));
-            this.contacto5 = nuevaList.get(0);
+            int[] arreglopos = {4,3,2,1,0};
+            setInterfazCont(arreglopos, nuevaList);
         } else {
             nuevaList.clear();
             while (cont < 5) {
                 nuevaList.add(ite.next());
                 cont++;
             }
-            name_lastname1.setText(identificarContact(nuevaList.get(0)));
-            this.contacto1 = nuevaList.get(0);
-            name_lastname2.setText(identificarContact(nuevaList.get(1)));
-            this.contacto2 = nuevaList.get(1);
-            name_lastname3.setText(identificarContact(nuevaList.get(2)));
-            this.contacto3 = nuevaList.get(2);
-            name_lastname4.setText(identificarContact(nuevaList.get(3)));
-            this.contacto4 = nuevaList.get(3);
-            name_lastname5.setText(identificarContact(nuevaList.get(4)));
-            this.contacto5 = nuevaList.get(4);
+            int[] arreglopos = {0, 1, 2, 3, 4};
+            setInterfazCont(arreglopos, nuevaList);
         }
         nVez++;
         clickDown = true;
