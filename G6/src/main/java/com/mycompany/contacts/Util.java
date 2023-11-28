@@ -12,10 +12,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import ec.edu.espol.TDAs.DoublyLinkedList;
+import ec.edu.espol.TDAs.List;
 import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  *
@@ -374,7 +378,84 @@ public class Util<E> implements Serializable {
         DoublyLinkedList<Contact> contacts = Util.<Contact>readListFromFileSer("Contactos.ser");
         contacts.add(c);
         Util.<Contact>saveListToFile("Contactos.ser", contacts);
-
     }
+       
+    public static DoublyLinkedList<Contact> orderForNameAndType(DoublyLinkedList<Contact> list){ //ordena primero por tipo y luego por nombre
+        if(list.isEmpty()){
+            return null;
+        }
+        DoublyLinkedList<Contact> persons = new DoublyLinkedList<>();
+        DoublyLinkedList<Contact> companies = new DoublyLinkedList<>();
+        for(Contact c: list){
+            if(c instanceof Person){
+                persons.add(c);            
+            } else {
+                companies.add(c);
+            }
+        }
+        DoublyLinkedList<Contact> orderForNameAndType = new DoublyLinkedList<>();
+        PriorityQueue<Contact> orderNamePerson = new PriorityQueue<>((p1, p2)->{
+            int value = p1.getName().compareTo(p2.getName());        
+            if(value == 0){
+                value = p1.getLastname().compareTo(p1.getLastname());            
+            }
+            return value;
+        });  
+        for(Contact p: persons){orderNamePerson.offer(p);}
+        
+        PriorityQueue<Contact> orderNameCompany = new PriorityQueue<>((p1, p2)->{
+            int value = p1.getName().compareTo(p2.getName());        
+            
+            return value;
+        });
+        for(Contact c: companies){orderNameCompany.offer(c);}
+        
+        while(!orderNamePerson.isEmpty()){
+            orderForNameAndType.add(orderNamePerson.poll());
+        }
+        while(!orderNameCompany.isEmpty()){
+            orderForNameAndType.add(orderNameCompany.poll());
+        }       
+        return orderForNameAndType;
+        
+    }
+    
+    public static DoublyLinkedList<Contact> orderForName(DoublyLinkedList<Contact> list){ //ordena SOLO POR NOMBRE Y APELLIDO
+        if(list.isEmpty()){
+            return null;
+        }
+        
+        DoublyLinkedList<Contact> orderForName = new DoublyLinkedList<>();
+        PriorityQueue<Contact> order = new PriorityQueue<>((c1, c2)->{
+            int value = c1.getName().compareTo(c2.getName());  
+            if(c1.getLastname()!= null && c2.getLastname()!= null){
+                value = c1.getLastname().compareTo(c2.getLastname());
+            }
+            return value;            
+        });
+        for(Contact c: list){order.offer(c);}
+        
+        while(!order.isEmpty()){orderForName.add(order.poll());}
+                
+        return orderForName;        
+    }
+    
+    public static DoublyLinkedList<Contact> orderForTelephoneSize(DoublyLinkedList<Contact> list){ //ORDENAR POR LA CANTIDAD DE TELEFONOS
+        DoublyLinkedList<Contact> orderForTelephoneSize = new DoublyLinkedList<>();
+        
+        // Define el comparador para ordenar por la cantidad de teléfonos
+        Comparator<Contact> phoneCountComparator = Comparator.comparingInt(c -> c.getTelephoneNumbers().size());
+
+        // Utiliza una PriorityQueue con el comparador
+        PriorityQueue<Contact> order = new PriorityQueue<>(phoneCountComparator);
+        
+        for(Contact c: list){order.offer(c);}
+        
+        while(!order.isEmpty()){orderForTelephoneSize.add(order.poll());}
+    
+        return orderForTelephoneSize;
+    }
+    
+    
 
 }

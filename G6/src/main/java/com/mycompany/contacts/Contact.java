@@ -139,5 +139,5 @@ public abstract class Contact implements Serializable  {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-    
+
 }
