@@ -955,6 +955,7 @@ public class NewcontactController implements Initializable {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("PassInformation/id_re_add.ser"))) {
             out.writeObject(new Id_register(id_registro));
         } catch (IOException ioe) {
+            System.out.println("se cayooooooooo pipipi :c");
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("add_releatedContact.fxml"));
         Parent root = loader.load();
