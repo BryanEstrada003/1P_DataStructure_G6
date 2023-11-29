@@ -80,7 +80,11 @@ public class ShowContactController implements Initializable, Serializable {
         ifocon.getStyleClass().add("hbox-backgroundInfoCon");
         generalPane.getStyleClass().add("hbox-backgroundInfoCon");
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         this.contactos = Util.listaContacto2();
+=======
+        this.contactos = Util.listaContacto2();  
+>>>>>>> Stashed changes
 =======
         this.contactos = Util.listaContacto2();  
 >>>>>>> Stashed changes
