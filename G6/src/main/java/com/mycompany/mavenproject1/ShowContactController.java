@@ -79,7 +79,11 @@ public class ShowContactController implements Initializable, Serializable {
         nameContact.getStyleClass().add("text-field");
         ifocon.getStyleClass().add("hbox-backgroundInfoCon");
         generalPane.getStyleClass().add("hbox-backgroundInfoCon");
+<<<<<<< Updated upstream
         this.contactos = Util.listaContacto2();
+=======
+        this.contactos = Util.listaContacto2();  
+>>>>>>> Stashed changes
 
         this.itera = this.contactos.listIterator();
 
@@ -291,7 +295,19 @@ public class ShowContactController implements Initializable, Serializable {
     }
 
     @FXML
-    private void clickEditar(MouseEvent event) {
+    private void clickEditar(MouseEvent event) throws IOException {
+        
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("PassInformation/Contact_edit.ser"))) {
+            out.writeObject(co);
+        } catch (IOException ioe) {
+
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("newcontact.fxml"));
+        Parent root = loader.load();
+        NewcontactController newContactController = loader.getController();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) imageProfile.getScene().getWindow();
+        stage.setScene(scene);
 
     }
 

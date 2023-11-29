@@ -560,7 +560,7 @@ public class NewcontactController implements Initializable {
         TextField textField2 = new TextField();
         textField2.setPromptText(promptText2);
         textField2.setPrefSize(prefWidth2, 30);
-        textField2.setText(text1);
+        textField2.setText(text2);
 
         itemBox.getChildren().addAll(icon_delete, textField1, textField2);
         return itemBox;
