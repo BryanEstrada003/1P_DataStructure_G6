@@ -25,6 +25,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -34,7 +35,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -65,9 +68,11 @@ public class ShowContactController implements Initializable, Serializable {
     private VBox headContact;
     @FXML
     private BorderPane generalPane;
-
     private DoublyLinkedList<Contact> contactos;
     private ListIterator<Contact> itera;
+    private int nvezBo = 0;
+    private boolean prebutn = false;
+    private boolean nextbutn = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,14 +80,12 @@ public class ShowContactController implements Initializable, Serializable {
         btnPrevious.setImage(new Image("Iconos/anterior.png"));
         btnNext.setImage(new Image("Iconos/proximo.png"));
         imageProfile.setImage(new Image("Iconos/cambiar_foto.png"));
+        headContact.setAlignment(Pos.CENTER);
         regresarScene.setImage(new Image("Iconos/flecha-izquierda.png"));
-        nameContact.getStyleClass().add("text-field");
         ifocon.getStyleClass().add("hbox-backgroundInfoCon");
         generalPane.getStyleClass().add("hbox-backgroundInfoCon");
-
         this.contactos = Util.listaContacto2();
         this.itera = this.contactos.listIterator();
-
     }
 
     public void setContact(Contact c) {
@@ -93,8 +96,14 @@ public class ShowContactController implements Initializable, Serializable {
     private void updateUI() {
         ifocon.getChildren().clear();
         if (co != null) {
-            nameContact.setText(co.getName());
-            nameContact.getStyleClass().add("text-titleCon");
+            try {
+                imageProfile.setImage(new Image(Util.convertirUrl(co.getProfilePhoto())));
+            } catch (IllegalArgumentException E) {
+                System.out.println("No found ImageProfile URL");
+            }
+            headContact.setAlignment(Pos.CENTER);
+            nameContact.setText(Util.identificarContact(co));
+            nameContact.getStyleClass().add("text-title2");
             VBox telephones = new VBox();
             HBox titletelf = new HBox();
             ImageView imgTel = new ImageView(new Image("Iconos/phono.png"));
@@ -185,9 +194,9 @@ public class ShowContactController implements Initializable, Serializable {
 
             VBox mediaSocial = new VBox();
             HBox titleImgSocial = new HBox();
-            ImageView imgsoci = new ImageView(new Image("Iconos/address.png"));
-            imgsoci.setFitWidth(30);
-            imgsoci.setFitHeight(30);
+            ImageView imgsoci = new ImageView(new Image("Iconos/redes-sociales.png"));
+            imgsoci.setFitWidth(35);
+            imgsoci.setFitHeight(35);
             imgsoci.setPreserveRatio(true);
             Text tituloSocial = new Text(" Social Media");
             titleImgSocial.getChildren().addAll(imgsoci, tituloSocial);
@@ -207,11 +216,11 @@ public class ShowContactController implements Initializable, Serializable {
 
             VBox ContactosRelated = new VBox();
             HBox titleImaCOn = new HBox();
-            ImageView imgCOn = new ImageView(new Image("Iconos/address.png"));
-            imgCOn.setFitWidth(30);
-            imgCOn.setFitHeight(30);
+            ImageView imgCOn = new ImageView(new Image("Iconos/relacion.png"));
+            imgCOn.setFitWidth(38);
+            imgCOn.setFitHeight(38);
             imgCOn.setPreserveRatio(true);
-            Text tituloConta = new Text("Contactos Relates");
+            Text tituloConta = new Text(" Contactos Relates");
             titleImaCOn.getChildren().addAll(imgCOn, tituloConta);
             ContactosRelated.getChildren().add(titleImaCOn);
             if (co.getRelatedContacts() != null) {
@@ -230,8 +239,70 @@ public class ShowContactController implements Initializable, Serializable {
                 }
             }
 
-            ifocon.getChildren().addAll(telephones, Date, Email, direccion, mediaSocial, ContactosRelated);
+            VBox recorrerPhothos = new VBox(10);
+            recorrerPhothos.setAlignment(Pos.CENTER);
+            HBox flachasImga = new HBox(20);
+            flachasImga.setAlignment(Pos.CENTER);
+            DoublyLinkedList fotosUrl = Util.converUrlDoublyLinked(co.getPhotos());
+            ImageView nextBtn = new ImageView(new Image("Iconos/nextbtn.png"));
+            ImageView preBtn = new ImageView(new Image("Iconos/prebtn.png"));
+            nextBtn.setFitWidth(50);
+            nextBtn.setFitHeight(50);
+            nextBtn.setPreserveRatio(true);
+            preBtn.setFitWidth(50);
+            preBtn.setFitHeight(50);
+            preBtn.setPreserveRatio(true);
+            Text tiuloPhothos = new Text("Photos of " + co.getName());
+            ListIterator<String> iterador = fotosUrl.listIterator();
+
+            try {
+                ImageView foto = new ImageView(new Image(iterador.next()));
+                foto.getStyleClass().add("imageViewStyle");
+                foto.setFitWidth(260);
+                foto.setFitHeight(200);
+                Rectangle clip = new Rectangle(
+                        foto.getFitWidth(), foto.getFitHeight()
+                );
+                clip.setArcWidth(25);
+                clip.setArcHeight(25);
+                foto.setClip(clip);
+                StackPane imageContainer = new StackPane();
+                imageContainer.setPrefSize(foto.getFitWidth(), foto.getFitHeight());
+                imageContainer.getChildren().add(foto);
+                nextBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
+                    if (prebutn == true) {
+                        iterador.next();
+                        iterador.next();
+                    }
+                    prebutn = false;
+                    foto.setImage(new Image(iterador.next()));
+                    nextbutn = true;
+                    nvezBo++;
+                });
+                preBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
+                    if (nvezBo == 0) {
+                        iterador.previous();
+                        iterador.previous();
+                    } else if (nextbutn == true) {
+                        iterador.previous();
+                        iterador.previous();
+                    }
+                    nextbutn = false;
+                    foto.setImage(new Image(iterador.previous()));
+                    prebutn = true;
+                    nvezBo++;
+                });
+
+                flachasImga.getChildren().addAll(preBtn, nextBtn);
+
+                recorrerPhothos.getChildren().addAll(tiuloPhothos, foto, flachasImga);
+            } catch (IllegalArgumentException E) {
+                System.out.println("No found URLs Image");
+            }
+
+            ifocon.getChildren().addAll(telephones, Date, Email, direccion, mediaSocial, ContactosRelated, recorrerPhothos);
             tituloTelf.getStyleClass().add("text-title");
+            tiuloPhothos.getStyleClass().add("text-title");
             tituloDate.getStyleClass().add("text-title");
             titleDireccion.getStyleClass().add("text-title");
             tituloEmail.getStyleClass().add("text-title");
@@ -291,19 +362,7 @@ public class ShowContactController implements Initializable, Serializable {
     }
 
     @FXML
-    private void clickEditar(MouseEvent event) throws IOException {
-        
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("PassInformation/Contact_edit.ser"))) {
-            out.writeObject(co);
-        } catch (IOException ioe) {
-
-        }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("newcontact.fxml"));
-        Parent root = loader.load();
-        NewcontactController newContactController = loader.getController();
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) imageProfile.getScene().getWindow();
-        stage.setScene(scene);
+    private void clickEditar(MouseEvent event) {
 
     }
 

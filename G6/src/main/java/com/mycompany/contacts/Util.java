@@ -379,134 +379,172 @@ public class Util<E> implements Serializable {
         contacts.add(c);
         Util.<Contact>saveListToFile("Contactos.ser", contacts);
     }
-       
-    public static DoublyLinkedList<Contact> orderForNameAndType(DoublyLinkedList<Contact> list){ //ordena primero por tipo y luego por nombre
-        if(list.isEmpty()){
+
+    public static DoublyLinkedList<Contact> orderForNameAndType(DoublyLinkedList<Contact> list) { //ordena primero por tipo y luego por nombre
+        if (list.isEmpty()) {
             return null;
         }
         DoublyLinkedList<Contact> persons = new DoublyLinkedList<>();
         DoublyLinkedList<Contact> companies = new DoublyLinkedList<>();
-        for(Contact c: list){
-            if(c instanceof Person){
-                persons.add(c);            
+        for (Contact c : list) {
+            if (c instanceof Person) {
+                persons.add(c);
             } else {
                 companies.add(c);
             }
         }
         DoublyLinkedList<Contact> orderForNameAndType = new DoublyLinkedList<>();
-        PriorityQueue<Contact> orderNamePerson = new PriorityQueue<>((p1, p2)->{
-            int value = p1.getName().compareTo(p2.getName());        
-            if(value == 0){
-                value = p1.getLastname().compareTo(p1.getLastname());            
+        PriorityQueue<Contact> orderNamePerson = new PriorityQueue<>((p1, p2) -> {
+            int value = p1.getName().compareTo(p2.getName());
+            if (value == 0) {
+                value = p1.getLastname().compareTo(p1.getLastname());
             }
             return value;
-        });  
-        for(Contact p: persons){orderNamePerson.offer(p);}
-        
-        PriorityQueue<Contact> orderNameCompany = new PriorityQueue<>((p1, p2)->{
-            int value = p1.getName().compareTo(p2.getName());        
-            
+        });
+        for (Contact p : persons) {
+            orderNamePerson.offer(p);
+        }
+
+        PriorityQueue<Contact> orderNameCompany = new PriorityQueue<>((p1, p2) -> {
+            int value = p1.getName().compareTo(p2.getName());
+
             return value;
         });
-        for(Contact c: companies){orderNameCompany.offer(c);}
-        
-        while(!orderNamePerson.isEmpty()){
+        for (Contact c : companies) {
+            orderNameCompany.offer(c);
+        }
+
+        while (!orderNamePerson.isEmpty()) {
             orderForNameAndType.add(orderNamePerson.poll());
         }
-        while(!orderNameCompany.isEmpty()){
+        while (!orderNameCompany.isEmpty()) {
             orderForNameAndType.add(orderNameCompany.poll());
-        }       
+        }
         return orderForNameAndType;
-        
+
     }
-    
-    public static DoublyLinkedList<Contact> orderForName(DoublyLinkedList<Contact> list){ //ordena SOLO POR NOMBRE Y APELLIDO
-        if(list.isEmpty()){
+
+    public static DoublyLinkedList<Contact> orderForName(DoublyLinkedList<Contact> list) { //ordena SOLO POR NOMBRE Y APELLIDO
+        if (list.isEmpty()) {
             return null;
         }
-        
+
         DoublyLinkedList<Contact> orderForName = new DoublyLinkedList<>();
-        PriorityQueue<Contact> order = new PriorityQueue<>((c1, c2)->{
-            int value = c1.getName().compareTo(c2.getName());  
-            if(c1.getLastname()!= null && c2.getLastname()!= null){
+        PriorityQueue<Contact> order = new PriorityQueue<>((c1, c2) -> {
+            int value = c1.getName().compareTo(c2.getName());
+            if (c1.getLastname() != null && c2.getLastname() != null) {
                 value = c1.getLastname().compareTo(c2.getLastname());
             }
-            return value;            
+            return value;
         });
-        for(Contact c: list){order.offer(c);}
-        
-        while(!order.isEmpty()){orderForName.add(order.poll());}
-                
-        return orderForName;        
+        for (Contact c : list) {
+            order.offer(c);
+        }
+
+        while (!order.isEmpty()) {
+            orderForName.add(order.poll());
+        }
+
+        return orderForName;
     }
-    
-    public static DoublyLinkedList<Contact> orderForTelephoneSize(DoublyLinkedList<Contact> list){ //ORDENAR POR LA CANTIDAD DE TELEFONOS
+
+    public static DoublyLinkedList<Contact> orderForTelephoneSize(DoublyLinkedList<Contact> list) { //ORDENAR POR LA CANTIDAD DE TELEFONOS
         DoublyLinkedList<Contact> orderForTelephoneSize = new DoublyLinkedList<>();
-        
+
         // Define el comparador para ordenar por la cantidad de teléfonos
         Comparator<Contact> phoneCountComparator = Comparator.comparingInt(c -> c.getTelephoneNumbers().size());
 
         // Utiliza una PriorityQueue con el comparador
         PriorityQueue<Contact> order = new PriorityQueue<>(phoneCountComparator);
-        
-        for(Contact c: list){order.offer(c);}
-        
-        while(!order.isEmpty()){orderForTelephoneSize.add(order.poll());}
-    
+
+        for (Contact c : list) {
+            order.offer(c);
+        }
+
+        while (!order.isEmpty()) {
+            orderForTelephoneSize.add(order.poll());
+        }
+
         return orderForTelephoneSize;
     }
-    
-    public static DoublyLinkedList<Contact> filterByTypeContact(DoublyLinkedList<Contact> list, TipoContact type){
-        if(list.isEmpty()){
+
+    public static DoublyLinkedList<Contact> filterByTypeContact(DoublyLinkedList<Contact> list, TipoContact type) {
+        if (list.isEmpty()) {
             return null;
         }
-        if(type == TipoContact.person){
+        if (type == TipoContact.person) {
             DoublyLinkedList<Contact> persons = new DoublyLinkedList<>();
-            for(Contact c: list){
-                if(c instanceof Person){
-                    persons.add(c);            
+            for (Contact c : list) {
+                if (c instanceof Person) {
+                    persons.add(c);
                 }
-            }       
+            }
             return persons;
-        } else{
+        } else {
             DoublyLinkedList<Contact> companies = new DoublyLinkedList<>();
-            for(Contact c: list){
-                if(c instanceof Company){
-                    companies.add(c);            
+            for (Contact c : list) {
+                if (c instanceof Company) {
+                    companies.add(c);
                 }
-            }       
+            }
             return companies;
-        }     
+        }
     }
-    
-    public static DoublyLinkedList<Contact> filterIfEmails (DoublyLinkedList<Contact> list){
-        if(list.isEmpty()){
+
+    public static DoublyLinkedList<Contact> filterIfEmails(DoublyLinkedList<Contact> list) {
+        if (list.isEmpty()) {
             return null;
         }
         DoublyLinkedList<Contact> ifEmails = new DoublyLinkedList<>();
-        for(Contact c: list){
-            if(!c.getEmails().isEmpty()){
+        for (Contact c : list) {
+            if (!c.getEmails().isEmpty()) {
                 ifEmails.add(c);
             }
         }
-        
+
         return null;
     }
-    
-    public static DoublyLinkedList<Contact> filterIfSocialMedia (DoublyLinkedList<Contact> list){
-        if(list.isEmpty()){
+
+    public static DoublyLinkedList<Contact> filterIfSocialMedia(DoublyLinkedList<Contact> list) {
+        if (list.isEmpty()) {
             return null;
         }
         DoublyLinkedList<Contact> ifEmails = new DoublyLinkedList<>();
-        for(Contact c: list){
-            if(!c.getSocialsMedia().isEmpty()){
+        for (Contact c : list) {
+            if (!c.getSocialsMedia().isEmpty()) {
                 ifEmails.add(c);
             }
         }
-        
+
         return null;
     }
-    
-    
-    
+
+    public static DoublyLinkedList<String> converUrlDoublyLinked(List<String> listPhoto) {
+        DoublyLinkedList<String> phothos = new DoublyLinkedList<>();
+        for (String ph : listPhoto) {
+            phothos.add(convertirUrl(ph));
+        }
+        return phothos;
+    }
+
+    public static String convertirUrl(String url) {
+        String[] token = url.split("\\\\");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < token.length; i++) {
+            if (token[i].compareTo("Contacts") == 0) {
+                sb.append(token[i]).append("/");
+                sb.append(token[i + 1]).append("/");
+                sb.append(token[i + 2]);
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String identificarContact(Contact co) {
+        if (co instanceof Person) {
+            return co.getName() + " " + co.getLastname();
+        }
+        return co.getName();
+    }
+
 }

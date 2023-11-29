@@ -171,25 +171,20 @@ public class ContactsController implements Initializable {
         setInterfazCont(arreglopos, nuevaListg);
     }
 
-    public String identificarContact(Contact co) {
-        if (co instanceof Person) {
-            return co.getName() + " " + co.getLastname();
-        }
-        return co.getName();
-    }
+    
 
     public void setInterfazCont(int[] posic, ArrayList<Contact> nuevaListg) {
         int indice1 = posic[0], indice2 = posic[1], indice3 = posic[2], indice4 = posic[3], indice5 = posic[4];
         this.contacto1 = nuevaListg.get(indice1);
-        name_lastname1.setText(identificarContact(this.contacto1));
+        name_lastname1.setText(Util.identificarContact(this.contacto1));
         this.contacto2 = nuevaListg.get(indice2);
-        name_lastname2.setText(identificarContact(this.contacto2));
+        name_lastname2.setText(Util.identificarContact(this.contacto2));
         this.contacto3 = nuevaListg.get(indice3);
-        name_lastname3.setText(identificarContact(this.contacto3));
+        name_lastname3.setText(Util.identificarContact(this.contacto3));
         this.contacto4 = nuevaListg.get(indice4);
-        name_lastname4.setText(identificarContact(this.contacto4));
+        name_lastname4.setText(Util.identificarContact(this.contacto4));
         this.contacto5 = nuevaListg.get(indice5);
-        name_lastname5.setText(identificarContact(this.contacto5));
+        name_lastname5.setText(Util.identificarContact(this.contacto5));
     }
 
     @FXML
