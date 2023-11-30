@@ -99,6 +99,7 @@ public class ShowContactController implements Initializable, Serializable {
             try {
                 imageProfile.setImage(new Image(Util.convertirUrl(co.getProfilePhoto())));
             } catch (IllegalArgumentException E) {
+                imageProfile.setImage(new Image("Iconos/cambiar_foto.png"));
                 System.out.println("No found ImageProfile URL");
             }
             headContact.setAlignment(Pos.CENTER);
@@ -243,6 +244,7 @@ public class ShowContactController implements Initializable, Serializable {
             recorrerPhothos.setAlignment(Pos.CENTER);
             HBox flachasImga = new HBox(20);
             flachasImga.setAlignment(Pos.CENTER);
+            ListIterator<String> iterador;
             DoublyLinkedList fotosUrl = Util.converUrlDoublyLinked(co.getPhotos());
             ImageView nextBtn = new ImageView(new Image("Iconos/nextbtn.png"));
             ImageView preBtn = new ImageView(new Image("Iconos/prebtn.png"));
@@ -253,51 +255,52 @@ public class ShowContactController implements Initializable, Serializable {
             preBtn.setFitHeight(50);
             preBtn.setPreserveRatio(true);
             Text tiuloPhothos = new Text("Photos of " + co.getName());
-            ListIterator<String> iterador = fotosUrl.listIterator();
+            if (fotosUrl != null) {
+                iterador = fotosUrl.listIterator();
+                try {
+                    ImageView foto = new ImageView(new Image(iterador.next()));
+                    foto.getStyleClass().add("imageViewStyle");
+                    foto.setFitWidth(260);
+                    foto.setFitHeight(200);
+                    Rectangle clip = new Rectangle(
+                            foto.getFitWidth(), foto.getFitHeight()
+                    );
+                    clip.setArcWidth(25);
+                    clip.setArcHeight(25);
+                    foto.setClip(clip);
+                    StackPane imageContainer = new StackPane();
+                    imageContainer.setPrefSize(foto.getFitWidth(), foto.getFitHeight());
+                    imageContainer.getChildren().add(foto);
+                    nextBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
+                        if (prebutn == true) {
+                            iterador.next();
+                            iterador.next();
+                        }
+                        prebutn = false;
+                        foto.setImage(new Image(iterador.next()));
+                        nextbutn = true;
+                        nvezBo++;
+                    });
+                    preBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
+                        if (nvezBo == 0) {
+                            iterador.previous();
+                            iterador.previous();
+                        } else if (nextbutn == true) {
+                            iterador.previous();
+                            iterador.previous();
+                        }
+                        nextbutn = false;
+                        foto.setImage(new Image(iterador.previous()));
+                        prebutn = true;
+                        nvezBo++;
+                    });
 
-            try {
-                ImageView foto = new ImageView(new Image(iterador.next()));
-                foto.getStyleClass().add("imageViewStyle");
-                foto.setFitWidth(260);
-                foto.setFitHeight(200);
-                Rectangle clip = new Rectangle(
-                        foto.getFitWidth(), foto.getFitHeight()
-                );
-                clip.setArcWidth(25);
-                clip.setArcHeight(25);
-                foto.setClip(clip);
-                StackPane imageContainer = new StackPane();
-                imageContainer.setPrefSize(foto.getFitWidth(), foto.getFitHeight());
-                imageContainer.getChildren().add(foto);
-                nextBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-                    if (prebutn == true) {
-                        iterador.next();
-                        iterador.next();
-                    }
-                    prebutn = false;
-                    foto.setImage(new Image(iterador.next()));
-                    nextbutn = true;
-                    nvezBo++;
-                });
-                preBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-                    if (nvezBo == 0) {
-                        iterador.previous();
-                        iterador.previous();
-                    } else if (nextbutn == true) {
-                        iterador.previous();
-                        iterador.previous();
-                    }
-                    nextbutn = false;
-                    foto.setImage(new Image(iterador.previous()));
-                    prebutn = true;
-                    nvezBo++;
-                });
+                    flachasImga.getChildren().addAll(preBtn, nextBtn);
 
-                flachasImga.getChildren().addAll(preBtn, nextBtn);
-
-                recorrerPhothos.getChildren().addAll(tiuloPhothos, foto, flachasImga);
-            } catch (IllegalArgumentException E) {
-                System.out.println("No found URLs Image");
+                    recorrerPhothos.getChildren().addAll(tiuloPhothos, foto, flachasImga);
+                } catch (IllegalArgumentException E) {
+                    System.out.println("No found URLs Image");
+                }
             }
 
             ifocon.getChildren().addAll(telephones, Date, Email, direccion, mediaSocial, ContactosRelated, recorrerPhothos);
@@ -319,12 +322,17 @@ public class ShowContactController implements Initializable, Serializable {
     }
 
     public void encontrarConta() {
-        while (itera.hasNext()) {
-            Contact contactoActual = itera.next();
-            if (contactoActual.getName().equals(co.getName())) {
-                break;
+        try {
+            while (itera.hasNext()) {
+                Contact contactoActual = itera.next();
+                if (contactoActual.getName().equals(co.getName())) {
+                    break;
+                }
             }
+        } catch (NullPointerException E) {
+            System.out.println("Contact NullPointerException");
         }
+
     }
 
     private int nvez = 0;
@@ -333,32 +341,40 @@ public class ShowContactController implements Initializable, Serializable {
 
     @FXML
     private void PreviousContact(MouseEvent event) {
-        if (nvez == 0) {
-            encontrarConta();
-            itera.previous();
-            itera.previous();
-        } else if (next == true) {
-            itera.previous();
-            itera.previous();
+        try {
+            if (nvez == 0) {
+                encontrarConta();
+                itera.previous();
+                itera.previous();
+            } else if (next == true) {
+                itera.previous();
+                itera.previous();
+            }
+            next = false;
+            setContact(itera.previous());
+            pre = true;
+            nvez++;
+        } catch (NullPointerException E) {
+            System.out.println("Contact NullPointerException");
         }
-        next = false;
-        setContact(itera.previous());
-        pre = true;
-        nvez++;
     }
 
     @FXML
     private void NextContact(MouseEvent event) {
-        if (nvez == 0) {
-            encontrarConta();
-        } else if (pre == true) {
-            itera.next();
-            itera.next();
+        try {
+            if (nvez == 0) {
+                encontrarConta();
+            } else if (pre == true) {
+                itera.next();
+                itera.next();
+            }
+            pre = false;
+            setContact(itera.next());
+            next = true;
+            nvez++;
+        } catch (NullPointerException E) {
+            System.out.println("Contact NullPointerException");
         }
-        pre = false;
-        setContact(itera.next());
-        next = true;
-        nvez++;
     }
 
     @FXML

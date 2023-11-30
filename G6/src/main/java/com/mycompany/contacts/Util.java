@@ -521,9 +521,15 @@ public class Util<E> implements Serializable {
 
     public static DoublyLinkedList<String> converUrlDoublyLinked(List<String> listPhoto) {
         DoublyLinkedList<String> phothos = new DoublyLinkedList<>();
-        for (String ph : listPhoto) {
-            phothos.add(convertirUrl(ph));
-        }
+        try {
+            
+            for (String ph : listPhoto) {
+                phothos.add(convertirUrl(ph));
+            }
+
+        }catch(Exception E){
+                System.out.println("List Null");
+            }
         return phothos;
     }
 
