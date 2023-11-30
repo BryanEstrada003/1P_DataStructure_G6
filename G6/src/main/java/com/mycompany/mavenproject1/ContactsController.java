@@ -29,9 +29,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import java.util.Optional;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -110,6 +112,8 @@ public class ContactsController implements Initializable {
     private Contact contacto5;
     private DoublyLinkedList<Contact> contactos;
     private ListIterator<Contact> ite;
+    @FXML
+    private ComboBox<String> cbSortby;
 
     /**
      * Initializes the controller class.
@@ -160,31 +164,93 @@ public class ContactsController implements Initializable {
 //        } catch (Exception e) {
 //            profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
 //        }
-        this.contactos = Util.listaContacto2();
+        this.contactos = Util.listaContacto2();//ListaOriginal sin aplicar Filtros
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
+        this.contactos.removeLast();
 
-        this.ite = this.contactos.listIterator();
-        ArrayList<Contact> nuevaListg = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            nuevaListg.add(ite.next());
+        System.out.println(this.contactos.size());
+
+        if (this.contactos.size() < 5) {
+            this.ite = this.contactos.listIterator();
+            ArrayList<Contact> nuevaListg = new ArrayList<>();
+            for (int i = 0; i < this.contactos.size(); i++) {
+                nuevaListg.add(ite.next());
+            }
+            int[] arreglopos = {0, 1, 2, 3, 4};
+            setInterfazCont(arreglopos, nuevaListg);
+        } else {
+            this.ite = this.contactos.listIterator();
+            ArrayList<Contact> nuevaListg = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                nuevaListg.add(ite.next());
+            }
+            int[] arreglopos = {0, 1, 2, 3, 4};
+            setInterfazCont(arreglopos, nuevaListg);
+
         }
-        int[] arreglopos = {0, 1, 2, 3, 4};
-        setInterfazCont(arreglopos, nuevaListg);
-    }
+        cbSortby.getItems().add("Name and LastName");
+        cbSortby.getItems().add("Number of Telephones");
+        cbSortby.getItems().add("Type and Name");
 
-    
+    }
 
     public void setInterfazCont(int[] posic, ArrayList<Contact> nuevaListg) {
         int indice1 = posic[0], indice2 = posic[1], indice3 = posic[2], indice4 = posic[3], indice5 = posic[4];
-        this.contacto1 = nuevaListg.get(indice1);
-        name_lastname1.setText(Util.identificarContact(this.contacto1));
-        this.contacto2 = nuevaListg.get(indice2);
-        name_lastname2.setText(Util.identificarContact(this.contacto2));
-        this.contacto3 = nuevaListg.get(indice3);
-        name_lastname3.setText(Util.identificarContact(this.contacto3));
-        this.contacto4 = nuevaListg.get(indice4);
-        name_lastname4.setText(Util.identificarContact(this.contacto4));
-        this.contacto5 = nuevaListg.get(indice5);
-        name_lastname5.setText(Util.identificarContact(this.contacto5));
+        try {
+            this.contacto1 = nuevaListg.get(indice1);
+            name_lastname1.setText(Util.identificarContact(this.contacto1) + " " + this.contacto1.getTelephoneNumbers().size());
+            this.contacto2 = nuevaListg.get(indice2);
+            name_lastname2.setText(Util.identificarContact(this.contacto2) + " " + this.contacto2.getTelephoneNumbers().size());
+            this.contacto3 = nuevaListg.get(indice3);
+            name_lastname3.setText(Util.identificarContact(this.contacto3) + " " + this.contacto3.getTelephoneNumbers().size());
+            this.contacto4 = nuevaListg.get(indice4);
+            name_lastname4.setText(Util.identificarContact(this.contacto4) + " " + this.contacto4.getTelephoneNumbers().size());
+            this.contacto5 = nuevaListg.get(indice5);
+            name_lastname5.setText(Util.identificarContact(this.contacto5) + " " + this.contacto5.getTelephoneNumbers().size());
+        } catch (Exception e) {
+            System.out.println("pilas ");
+        }
     }
 
     @FXML
@@ -237,53 +303,57 @@ public class ContactsController implements Initializable {
 
     @FXML
     private void subir(MouseEvent event) {
-        int cont = 0;
-        ArrayList<Contact> nuevaList = new ArrayList<>();
-        if (nVez == 1 || clickDown == true) {
-            nuevaList.clear();
-            while (cont < 11) {
-                nuevaList.addFirst(ite.previous());
-                cont++;
+        if (this.contactos.size() >= 5) {
+            int cont = 0;
+            ArrayList<Contact> nuevaList = new ArrayList<>();
+            if (nVez == 1 || clickDown == true) {
+                nuevaList.clear();
+                while (cont < 11) {
+                    nuevaList.addFirst(ite.previous());
+                    cont++;
+                }
+            } else {
+                nuevaList.clear();
+                while (cont < 5) {
+                    nuevaList.addFirst(ite.previous());
+                    cont++;
+                }
             }
-        } else {
-            nuevaList.clear();
-            while (cont < 5) {
-                nuevaList.addFirst(ite.previous());
-                cont++;
-            }
+            nVez++;
+            clickDown = false;
+            clickup = true;
+            int[] arreglopos = {0, 1, 2, 3, 4};
+            setInterfazCont(arreglopos, nuevaList);
         }
-        nVez++;
-        clickDown = false;
-        clickup = true;
-        int[] arreglopos = {0, 1, 2, 3, 4};
-        setInterfazCont(arreglopos, nuevaList);
 
     }
 
     @FXML
     private void bajar(MouseEvent event) {
-        int cont = 0;
-        ArrayList<Contact> nuevaList = new ArrayList<>();
-        if (clickup == true) {
-            nuevaList.clear();
-            while (cont < 11) {
-                nuevaList.addFirst(ite.next());
-                cont++;
+        if (this.contactos.size() >= 5) {
+            int cont = 0;
+            ArrayList<Contact> nuevaList = new ArrayList<>();
+            if (clickup == true) {
+                nuevaList.clear();
+                while (cont < 11) {
+                    nuevaList.addFirst(ite.next());
+                    cont++;
+                }
+                int[] arreglopos = {4, 3, 2, 1, 0};
+                setInterfazCont(arreglopos, nuevaList);
+            } else {
+                nuevaList.clear();
+                while (cont < 5) {
+                    nuevaList.add(ite.next());
+                    cont++;
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaList);
             }
-            int[] arreglopos = {4,3,2,1,0};
-            setInterfazCont(arreglopos, nuevaList);
-        } else {
-            nuevaList.clear();
-            while (cont < 5) {
-                nuevaList.add(ite.next());
-                cont++;
-            }
-            int[] arreglopos = {0, 1, 2, 3, 4};
-            setInterfazCont(arreglopos, nuevaList);
+            nVez++;
+            clickDown = true;
+            clickup = false;
         }
-        nVez++;
-        clickDown = true;
-        clickup = false;
     }
 
     @FXML
@@ -326,6 +396,47 @@ public class ContactsController implements Initializable {
     @FXML
     private void showContact5(MouseEvent event) {
         changeInterfaz(this.contacto5);
+    }
+
+    @FXML
+    private void searchLupa(MouseEvent event) {
+    }
+
+    @FXML
+    private void selectSort(ActionEvent event) {
+        ComboBox cbSort = (ComboBox) event.getSource();
+        String criterio = (String) cbSort.getValue();
+        if (criterio.equals("Type and Name")) {
+            this.contactos = Util.orderForNameAndType(contactos);
+            this.ite = null;
+            this.ite = this.contactos.listIterator();
+            ArrayList<Contact> nuevaListg = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                nuevaListg.add(ite.next());
+            }
+            int[] arreglopos = {0, 1, 2, 3, 4};
+            setInterfazCont(arreglopos, nuevaListg);
+        } else if (criterio.equals("Name and LastName")) {
+            this.contactos = Util.orderForName(contactos);
+            this.ite = null;
+            this.ite = this.contactos.listIterator();
+            ArrayList<Contact> nuevaListg = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                nuevaListg.add(ite.next());
+            }
+            int[] arreglopos = {0, 1, 2, 3, 4};
+            setInterfazCont(arreglopos, nuevaListg);
+        } else {
+            this.contactos = Util.orderForTelephoneSize(contactos);
+            this.ite = null;
+            this.ite = this.contactos.listIterator();
+            ArrayList<Contact> nuevaListg = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                nuevaListg.add(ite.next());
+            }
+            int[] arreglopos = {0, 1, 2, 3, 4};
+            setInterfazCont(arreglopos, nuevaListg);
+        }
     }
 
 }

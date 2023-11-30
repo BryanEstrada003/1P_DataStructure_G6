@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
@@ -64,11 +65,17 @@
                </children>
             </HBox>
             <ImageView fx:id="newcontact" fitHeight="54.0" fitWidth="60.0" layoutX="639.0" layoutY="14.0" onMouseClicked="#agregar_contacto" pickOnBounds="true" preserveRatio="true" />
+            <ComboBox fx:id="cbSortby" layoutX="549.0" layoutY="103.0" onAction="#selectSort" prefWidth="150.0" />
+            <Label layoutX="463.0" layoutY="101.0" text="Sort by:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <HBox alignment="CENTER" layoutY="137.0" prefHeight="71.0" prefWidth="654.0" spacing="10.0">
          <children>
-            <ImageView fx:id="lupa" fitHeight="37.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="lupa" fitHeight="37.0" fitWidth="39.0" onMouseClicked="#searchLupa" pickOnBounds="true" preserveRatio="true" />
             <TextField fx:id="search" prefHeight="44.0" prefWidth="416.0" promptText="SEARCH" />
          </children>
       </HBox>

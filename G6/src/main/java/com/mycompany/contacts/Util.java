@@ -123,6 +123,8 @@ public class Util<E> implements Serializable {
             ArrayList<Telephone> telephoneNumbers_2 = new ArrayList<>();
             telephoneNumbers_2.add(new Telephone("home", "32489023"));
             telephoneNumbers_2.add(new Telephone("cell", "0953343514"));
+            telephoneNumbers_2.add(new Telephone("fsdfdsf", "09533435ffff14"));
+            telephoneNumbers_2.add(new Telephone("cfdsfd", "0953343514"));
 
             DoublyLinkedList<String> photos_2 = new DoublyLinkedList<>();
             photos_2.addLast("file1: url");
@@ -161,6 +163,7 @@ public class Util<E> implements Serializable {
 
             ArrayList<Telephone> telephoneNumbers_3 = new ArrayList<>();
             telephoneNumbers_3.add(new Telephone("oficina", "32489023"));
+            telephoneNumbers_3.add(new Telephone("ventas", "0953343514"));
             telephoneNumbers_3.add(new Telephone("ventas", "0953343514"));
 
             DoublyLinkedList<String> photos_3 = new DoublyLinkedList<>();
@@ -424,37 +427,37 @@ public class Util<E> implements Serializable {
 
     }
 
-    public static DoublyLinkedList<Contact> orderForName(DoublyLinkedList<Contact> list) { //ordena SOLO POR NOMBRE Y APELLIDO
-        if (list.isEmpty()) {
-            return null;
-        }
-
-        DoublyLinkedList<Contact> orderForName = new DoublyLinkedList<>();
-        PriorityQueue<Contact> order = new PriorityQueue<>((c1, c2) -> {
-            int value = c1.getName().compareTo(c2.getName());
-            if (c1.getLastname() != null && c2.getLastname() != null) {
-                value = c1.getLastname().compareTo(c2.getLastname());
-            }
-            return value;
-        });
-        for (Contact c : list) {
-            order.offer(c);
-        }
-
-        while (!order.isEmpty()) {
-            orderForName.add(order.poll());
-        }
-
-        return orderForName;
+    public static DoublyLinkedList<Contact> orderForName(DoublyLinkedList<Contact> list) {
+    if (list.isEmpty()) {
+        return null;
     }
+
+    DoublyLinkedList<Contact> orderForName = new DoublyLinkedList<>();
+    PriorityQueue<Contact> order = new PriorityQueue<>((c1, c2) -> {
+        int value = c1.getName().compareTo(c2.getName());
+        if (value == 0 && c1.getLastname() != null && c2.getLastname() != null) {
+            value = c1.getLastname().compareTo(c2.getLastname());
+        }
+        return value;
+    });
+
+    for (Contact c : list) {
+        order.offer(c);
+    }
+
+    while (!order.isEmpty()) {
+        orderForName.add(order.poll());
+    }
+
+    return orderForName;
+}
+
 
     public static DoublyLinkedList<Contact> orderForTelephoneSize(DoublyLinkedList<Contact> list) { //ORDENAR POR LA CANTIDAD DE TELEFONOS
         DoublyLinkedList<Contact> orderForTelephoneSize = new DoublyLinkedList<>();
 
-        // Define el comparador para ordenar por la cantidad de teléfonos
         Comparator<Contact> phoneCountComparator = Comparator.comparingInt(c -> c.getTelephoneNumbers().size());
 
-        // Utiliza una PriorityQueue con el comparador
         PriorityQueue<Contact> order = new PriorityQueue<>(phoneCountComparator);
 
         for (Contact c : list) {
@@ -522,14 +525,14 @@ public class Util<E> implements Serializable {
     public static DoublyLinkedList<String> converUrlDoublyLinked(List<String> listPhoto) {
         DoublyLinkedList<String> phothos = new DoublyLinkedList<>();
         try {
-            
+
             for (String ph : listPhoto) {
                 phothos.add(convertirUrl(ph));
             }
 
-        }catch(Exception E){
-                System.out.println("List Null");
-            }
+        } catch (Exception E) {
+            System.out.println("List Null");
+        }
         return phothos;
     }
 
