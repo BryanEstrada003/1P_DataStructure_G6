@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,7 +35,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
 /**
  * FXML Controller class
  *
@@ -46,7 +46,7 @@ public class Add_releatedContactController implements Initializable {
     private VBox list_contact;
     private DoublyLinkedList<Contact> contactos;
     private String cssFile;
-    private static ArrayList<RelatedContact> relatedContacts;
+    private static DoublyLinkedList<RelatedContact> relatedContacts;
     private static TipoRelacion tipoRel = TipoRelacion.ninguno;
     @FXML
     private AnchorPane principal_page;
@@ -72,19 +72,18 @@ public class Add_releatedContactController implements Initializable {
 
         }
         this.id_registro_E = id_re.getId_register();
-        name_archivo = "ContactosSeleccionados/ContactosSeleccionados"+id_registro_E+".ser";
-        try{
+        name_archivo = "ContactosSeleccionados/ContactosSeleccionados" + id_registro_E + ".ser";
+        try {
             File file = new File("PassInformation/id_re_add.ser");
             if (file.exists()) {
                 file.delete();
             }
-        }catch(Exception e){
-            
+        } catch (Exception e) {
+
         }
-        
 
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setId_registro_dE();
@@ -99,17 +98,16 @@ public class Add_releatedContactController implements Initializable {
         list_contact.getStyleClass().add("blackbackground");
         scrollpane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollpane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        relatedContacts = new ArrayList<>();
+        relatedContacts = new DoublyLinkedList<>();
         System.out.println(id_registro_E);
         // Inicializa la lista de contactos
-        RelatedContact rc;
         for (Contact c : this.contactos) {
-            HBox contactIndi = new HBox(20);
-            Text name = new Text(c.getName());
-            name.getStyleClass().add("text-field");
-            CheckBox checkBox = new CheckBox("ADD");
-            
-            ObservableList<String> options = FXCollections.observableArrayList(
+            HBox contactoIndi = new HBox(20);
+            Text nombre = new Text(c.getName());
+            nombre.getStyleClass().add("text-field");
+            CheckBox checkBox = new CheckBox("AÑADIR");
+
+            ObservableList<String> opciones = FXCollections.observableArrayList(
                     TipoRelacion.familiar.toString(),
                     TipoRelacion.amistad.toString(),
                     TipoRelacion.asistente.toString(),
@@ -120,24 +118,13 @@ public class Add_releatedContactController implements Initializable {
             );
 
             // Crear un ComboBox y configurarlo con la lista de opciones
-            ComboBox<String> tipoRelacion = new ComboBox<>(options);
+            ComboBox<String> tipoRelacion = new ComboBox<>(opciones);
             tipoRelacion.setPromptText("Selecciona una opción");
 
-            // Manejar eventos de selección
-            tipoRelacion.setOnAction(event -> {
-                String selectedOption = tipoRelacion.getSelectionModel().getSelectedItem();
-                tipoRel = TipoRelacion.parse(selectedOption);                
-            });
-            rc = new RelatedContact(tipoRel.toString(),c);
-            
-            
-            contactIndi.getChildren().addAll(name, tipoRelacion,checkBox);
-            contactIndi.getStyleClass().add("blackbackgorund");
-            list_contact.getChildren().add(contactIndi);
-            System.out.println(rc);
-            relatedContacts.add(rc);
+            contactoIndi.getChildren().addAll(nombre, tipoRelacion, checkBox);
+            contactoIndi.getStyleClass().add("blackbackgorund");
+            list_contact.getChildren().add(contactoIndi);
 
-            
         }
     }
 
@@ -148,10 +135,16 @@ public class Add_releatedContactController implements Initializable {
             HBox contactIndi = (HBox) list_contact.getChildren().get(i);
             CheckBox checkBox = (CheckBox) contactIndi.getChildren().get(2);
             if (checkBox.isSelected()) {
-                nuevaList.add(relatedContacts.get(i));
+                // Obtener el tipo de relación seleccionado en el ComboBox
+                String tipoSeleccionado = ((ComboBox<String>) contactIndi.getChildren().get(1)).getValue();
+                RelatedContact related = new RelatedContact(tipoSeleccionado != null ? tipoSeleccionado : TipoRelacion.ninguno.toString(), contactos.get(i));
+                nuevaList.add(related);
             }
         }
         System.out.println(nuevaList.size());
+        for (RelatedContact n : nuevaList) {
+            System.out.println(n);
+        }
         System.out.println(id_registro_E);
         Util.<RelatedContact>saveListToFile(name_archivo, nuevaList);
         Stage stage = (Stage) save.getScene().getWindow();
