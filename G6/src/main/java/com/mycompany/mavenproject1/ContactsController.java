@@ -56,7 +56,6 @@ public class ContactsController implements Initializable {
     private Label title_contacts;
     @FXML
     private ImageView newcontact;
-    @FXML
     private ImageView lupa;
     @FXML
     private Pane show_contact;
@@ -70,7 +69,6 @@ public class ContactsController implements Initializable {
     @FXML
     private Label name_lastname;
     private User owner;
-    @FXML
     private TextField search;
     @FXML
     private VBox Vbox_contacts;
@@ -145,11 +143,9 @@ public class ContactsController implements Initializable {
         newcontact.setImage(new Image("Iconos/crear_contacto.png"));
         groups.setImage(new Image("Iconos/flecha-izquierda.png"));
         salir.setImage(new Image("Iconos/salir.png"));
-        lupa.setImage(new Image("Iconos/buscar.png"));
         principal_page.getStyleClass().add("blackbackgorund");
         header.getStyleClass().add("blackbackgorund");
         show_contact.getStyleClass().add("blackbackgorund");
-        search.getStyleClass().add("text-field");
         subir.setImage(new Image("Iconos/subir.png"));
         bajar.setImage(new Image("Iconos/bajar.png"));
         profile_picture.setPreserveRatio(true);
@@ -385,9 +381,6 @@ public class ContactsController implements Initializable {
         changeInterfaz(this.contacto5);
     }
 
-    @FXML
-    private void searchLupa(MouseEvent event) {
-    }
 
     @FXML
     private void selectSort(ActionEvent event) {
@@ -804,6 +797,14 @@ public class ContactsController implements Initializable {
         if (estaSeleccionado) {
             chBoxSocial = true;
         }
+    }
+
+    @FXML
+    private void SelectiontoEliminate(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Eliminar.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) principal_page.getScene().getWindow();
+        stage.setScene(scene);
     }
 
 }

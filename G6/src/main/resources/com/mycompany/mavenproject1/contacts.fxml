@@ -6,7 +6,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -95,12 +94,6 @@
             <ImageView fx:id="imFil" fitHeight="31.0" fitWidth="39.0" layoutX="380.0" layoutY="14.0" onMouseClicked="#filtrar" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
-      <HBox alignment="CENTER" layoutY="137.0" prefHeight="71.0" prefWidth="654.0" spacing="10.0">
-         <children>
-            <ImageView fx:id="lupa" fitHeight="37.0" fitWidth="39.0" onMouseClicked="#searchLupa" pickOnBounds="true" preserveRatio="true" />
-            <TextField fx:id="search" prefHeight="44.0" prefWidth="416.0" promptText="SEARCH" />
-         </children>
-      </HBox>
       <Pane fx:id="show_contact" layoutY="286.0" prefHeight="308.0" prefWidth="631.0">
          <children>
             <VBox fx:id="Vbox_contacts" prefHeight="308.0" prefWidth="631.0" spacing="7.0">
@@ -236,7 +229,7 @@
             <Insets top="10.0" />
          </padding>
       </Pane>
-      <HBox layoutY="202.0" prefHeight="0.0" prefWidth="654.0" spacing="10.0" AnchorPane.rightAnchor="0.0">
+      <HBox layoutX="27.0" layoutY="206.0" prefHeight="0.0" prefWidth="654.0" spacing="10.0" AnchorPane.rightAnchor="52.0">
          <children>
             <ImageView fx:id="profile_picture" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
@@ -278,5 +271,10 @@
       </HBox>
       <ImageView fx:id="subir" fitHeight="54.0" fitWidth="57.0" layoutX="661.0" layoutY="281.0" onMouseClicked="#subir" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="bajar" fitHeight="54.0" fitWidth="57.0" layoutX="661.0" layoutY="511.0" onMouseClicked="#bajar" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="47.0" layoutY="151.0" onMouseClicked="#SelectiontoEliminate" text="SELECCIONAR" textFill="WHITE">
+         <font>
+            <Font name="Modak" size="26.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

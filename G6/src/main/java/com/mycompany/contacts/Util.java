@@ -569,5 +569,15 @@ public class Util<E> implements Serializable {
         }
         return listContact;
     }
-
+    
+    public static void DeleteContactfromFile(Contact e){
+        DoublyLinkedList<Contact> contactos = Util.listaContacto2();
+        Comparator<Contact> cmpID = (Contact c1, Contact c2) -> c1.getID_re().compareTo(c2.getID_re());
+        for(Contact co : contactos){
+            if(co.getID_re().compareTo(e.getID_re())== 0){
+                contactos.remove(e, cmpID);
+            }
+        }
+        serializeDoublyLinkedList(contactos,"Contactos.ser");
+    }
 }

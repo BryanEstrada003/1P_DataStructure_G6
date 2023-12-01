@@ -1034,6 +1034,14 @@ public class NewcontactController implements Initializable {
 
                 } else {
                     Util.addContact(c_new);
+                    try {
+                        Parent root = FXMLLoader.load(getClass().getResource("contacts.fxml"));
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) newcontact_page.getScene().getWindow();
+                        stage.setScene(scene);
+                    } catch (IOException ex) {
+                    }
+
                 }
 
             }

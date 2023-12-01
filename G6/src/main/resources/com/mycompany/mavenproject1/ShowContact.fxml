@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -43,6 +44,9 @@
                      <HBox.margin>
                         <Insets left="2.0" top="2.0" />
                      </HBox.margin>
+                     <image>
+                        <Image url="@../../../Iconos/anterior.png" />
+                     </image>
                   </ImageView>
                   <ImageView fx:id="imageProfile" fitHeight="101.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>

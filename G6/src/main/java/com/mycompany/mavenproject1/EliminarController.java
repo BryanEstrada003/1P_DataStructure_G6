@@ -24,7 +24,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -122,7 +125,6 @@ public class EliminarController implements Initializable {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 
-                    // Acciones a realizar cuando el estado del CheckBox cambia
 
                     if (checkBox.isSelected()) {
 
@@ -147,8 +149,26 @@ public class EliminarController implements Initializable {
     }
 
     @FXML
-    private void saveContact(MouseEvent event) {
+    private void saveContact(MouseEvent event) throws IOException {
+        try{
+            for(Contact ce : toEliminate){
+                Util.DeleteContactfromFile(ce);
+            }
+        }catch(Exception ioe ){
+            
+        }
+        Parent root = FXMLLoader.load(getClass().getResource("contacts.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) save.getScene().getWindow();
+        stage.setScene(scene);
 
-       
+    }
+
+    @FXML
+    private void btnRgresar(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("contacts.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) principal_page.getScene().getWindow();
+        stage.setScene(scene);
     }
 }
