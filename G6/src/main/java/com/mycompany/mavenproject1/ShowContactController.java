@@ -68,7 +68,9 @@ public class ShowContactController implements Initializable, Serializable {
     @FXML
     private BorderPane generalPane;
     private DoublyLinkedList<Contact> contactos;
+    private DoublyLinkedList<Contact> contactosOrig;
     private ListIterator<Contact> itera;
+
     private int nvezBo = 0;
     private boolean prebutn = false;
     private boolean nextbutn = false;
@@ -83,6 +85,7 @@ public class ShowContactController implements Initializable, Serializable {
         regresarScene.setImage(new Image("Iconos/flecha-izquierda.png"));
         ifocon.getStyleClass().add("hbox-backgroundInfoCon");
         generalPane.getStyleClass().add("hbox-backgroundInfoCon");
+        this.contactosOrig = Util.listaContacto2();
         this.contactos = Util.deserializeDoublyLinkedList("ContactsOrderFilter");
         this.itera = this.contactos.listIterator();
     }
@@ -320,13 +323,27 @@ public class ShowContactController implements Initializable, Serializable {
         }
     }
 
+
+
     public void encontrarConta() {
         try {
-            while (itera.hasNext()) {
+            int cont = 0;
+            while (cont < this.contactos.size()) {
                 Contact contactoActual = itera.next();
                 if (contactoActual.getName().equals(co.getName())) {
                     break;
                 }
+                cont++;
+            }
+            cont = 0;
+            itera = null;
+            itera = this.contactosOrig.listIterator();
+            while (cont < this.contactosOrig.size()) {
+                Contact contactoActual = itera.next();
+                if (contactoActual.getName().equals(co.getName())) {
+                    break;
+                }
+                cont++;
             }
         } catch (NullPointerException E) {
             System.out.println("Contact NullPointerException");
