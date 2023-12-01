@@ -1025,9 +1025,9 @@ public class NewcontactController implements Initializable {
                 //lo tengo que guardar en mi lista principal
                 if (c_new.getName() == null || c_new.getTelephoneNumbers() == null) {
                     //TRADUCIR
-                    Alert alert = new Alert(Alert.AlertType.WARNING, "FALTAN CAMPOS POR LLENAR");
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "FIELDS ARE MISSING");
                     alert.setTitle("Warning");
-                    alert.setHeaderText("Campos obligatorios sin llenar");
+                    alert.setHeaderText("Mandatory fields not filled in");
                     ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
                     alert.getButtonTypes().setAll(okButton);
                     alert.showAndWait();
