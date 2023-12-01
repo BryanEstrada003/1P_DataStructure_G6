@@ -48,9 +48,7 @@ public class EliminarController implements Initializable {
     private VBox list_contact;
     private DoublyLinkedList<Contact> contactos;
     private String cssFile;
-    private static DoublyLinkedList<RelatedContact> relatedContacts;
-    private static DoublyLinkedList<RelatedContact> relatedContactsCheck;
-    private static String tipoSeleccionado;
+    private static DoublyLinkedList<Contact> toEliminate;
     @FXML
     private AnchorPane principal_page;
     @FXML
@@ -60,38 +58,36 @@ public class EliminarController implements Initializable {
     private String id_registro_E;
     private String name_archivo;
 
-    public String getId_registro_E() {
-        return id_registro_E;
-    }
-
-    public void setId_registro_dE() {
-        Id_register id_re = null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("PassInformation/id_re_add.ser"))) {
-            id_re = (Id_register) in.readObject();
-            System.out.println("id_re");
-        } catch (IOException ioe) {
-            System.out.println("Aquí esta el error al momento de leer el PassInformation/id_re_add.ser");
-        } catch (ClassNotFoundException c) {
-
-        }
-        this.id_registro_E = id_re.getId_register();
-        name_archivo = "ContactosSeleccionados/ContactosSeleccionados" + id_registro_E + ".ser";
-        try {
-            File file = new File("PassInformation/id_re_add.ser");
-            if (file.exists()) {
-                file.delete();
-            }
-        } catch (Exception e) {
-
-        }
-
-    }
+//    public String getId_registro_E() {
+//        return id_registro_E;
+//    }
+//
+//    public void setId_registro_dE() {
+//        Id_register id_re = null;
+//        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("PassInformation/id_re_add.ser"))) {
+//            id_re = (Id_register) in.readObject();
+//            System.out.println("id_re");
+//        } catch (IOException ioe) {
+//            System.out.println("Aquí esta el error al momento de leer el PassInformation/id_re_add.ser");
+//        } catch (ClassNotFoundException c) {
+//
+//        }
+//        this.id_registro_E = id_re.getId_register();
+//        name_archivo = "ContactosSeleccionados/ContactosSeleccionados" + id_registro_E + ".ser";
+//        try {
+//            File file = new File("PassInformation/id_re_add.ser");
+//            if (file.exists()) {
+//                file.delete();
+//            }
+//        } catch (Exception e) {
+//
+//        }
+//
+//    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tipoSeleccionado = null;
 
-        setId_registro_dE();
         this.contactos = Util.listaContacto2();
         cssFile = getClass().getResource("/styles/login.css").toExternalForm();
         principal_page.getStylesheets().add(cssFile);
@@ -105,7 +101,7 @@ public class EliminarController implements Initializable {
         scrollpane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         System.out.println(id_registro_E);
 
-        relatedContactsCheck = new DoublyLinkedList<>();
+        toEliminate = new DoublyLinkedList<>();
         // Inicializa la lista de contactos
 
         for (Contact c : this.contactos) {
@@ -114,42 +110,11 @@ public class EliminarController implements Initializable {
             nombre.getStyleClass().add("text-field");
             CheckBox checkBox = new CheckBox();
 
-            ObservableList<String> opciones = FXCollections.observableArrayList(
-                    TipoRelacion.familiar.toString(),
-                    TipoRelacion.amistad.toString(),
-                    TipoRelacion.asistente.toString(),
-                    TipoRelacion.asociacion.toString(),
-                    TipoRelacion.colega.toString(),
-                    TipoRelacion.sitio_laboral.toString(),
-                    TipoRelacion.ninguno.toString()
-            );
 
-            // Crear un ComboBox y configurarlo con la lista de opciones
-            ComboBox<String> tipoRelacion = new ComboBox<>(opciones);
-            tipoRelacion.setPromptText("Select an option");
-            tipoRelacion.setOnAction(event -> {
-                tipoSeleccionado = tipoRelacion.getValue();
-                System.out.println("Tipo Seleccionado: " + tipoSeleccionado);
-            });
-
-            Comparator<RelatedContact> cmp = (RelatedContact c1, RelatedContact c2) -> {
-                return c1.getContact().getID_re().compareTo(c2.getContact().getID_re());
+            Comparator<Contact> cmp = (Contact c1, Contact c2) -> {
+                return c1.getID_re().compareTo(c2.getID_re());
             };
-            File file = new File(name_archivo);
-            if (file.exists()) {
-                relatedContacts = Util.readListFromFileSer(name_archivo);
-                if (!relatedContacts.isEmpty()) {
-                int index = relatedContacts.indexOf(new RelatedContact("", c), cmp);
-                if (index != -1 && index != -2) {
-                    RelatedContact r = relatedContacts.get(index);
-
-                    tipoRelacion.getSelectionModel().select(r.getContactType());
-                    checkBox.setSelected(true);
-                    relatedContactsCheck.add(r);
-                }
-
-            }
-            }
+            
 
             
 
@@ -158,29 +123,27 @@ public class EliminarController implements Initializable {
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 
                     // Acciones a realizar cuando el estado del CheckBox cambia
-                    RelatedContact rc = new RelatedContact(tipoSeleccionado, c);
 
                     if (checkBox.isSelected()) {
 
-                        int index = relatedContactsCheck.indexOf(rc, cmp);
+                        int index = toEliminate.indexOf(c, cmp);
                         if (index != -1 && index != -2) {
-                            relatedContactsCheck.remove(rc, cmp);
+                            toEliminate.remove(c, cmp);
 
                         }
-                        relatedContactsCheck.add(rc);
-                        System.out.println(rc);
+                        toEliminate.add(c);
+                        System.out.println(c);
                     }
 
                 }
             });
 
-            contactoIndi.getChildren().addAll(checkBox, nombre, tipoRelacion);
+            contactoIndi.getChildren().addAll(checkBox, nombre);
             contactoIndi.getStyleClass().add("blackbackgorund");
             list_contact.getChildren().add(contactoIndi);
 
         }
 
-        tipoSeleccionado = null;
     }
 
     @FXML
