@@ -378,7 +378,15 @@ public class ShowContactController implements Initializable, Serializable {
     }
 
     @FXML
-    private void clickEditar(MouseEvent event) {
+    private void clickEditar(MouseEvent event) throws IOException {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("PassInformation/Contact_edit.ser"))) {
+            out.writeObject(co);
+        } catch (IOException ioe) {
+        }
+        Parent root = FXMLLoader.load(getClass().getResource("newcontact.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) generalPane.getScene().getWindow();
+        stage.setScene(scene);
 
     }
 

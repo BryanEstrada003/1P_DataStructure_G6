@@ -354,6 +354,9 @@ public class NewcontactController implements Initializable {
         typeDropdown = new ComboBox<>();
         typeDropdown.getItems().addAll("PERSON", "COMPANY");
         typeDropdown.setValue("PERSON");
+        if (typeDropdown.getValue().compareTo("COMPANY") == 0){
+            typeDropdown.setValue("COMPANY");
+        }
         typeDropdown.setOnAction(event -> {
             tipo = typeDropdown.getValue();
             adjustContentBasedOnTipo();
@@ -892,7 +895,21 @@ public class NewcontactController implements Initializable {
         VBox contacts = new VBox();
         contacts.getStyleClass().add("blackbackgorund");
         contacts.setAlignment(Pos.CENTER);
-
+        process = new Label();
+        process.setText(confirmation);
+        process.getStyleClass().add("confirmation");
+        process.getStyleClass().add("margin_left");
+        if (actual_contact != null){
+            try{
+                File file = new File("ContactosSeleccionados/ContactosSeleccionados" + actual_contact.getID_re() + ".ser");
+            if (file.exists()) {
+                process.setText("NEW CONTACTS SUCCESSFULLY ADDED");
+            }
+        }catch(Exception ie){
+            System.out.println("problemas al momento de new contacts SUCCESSFULLY ADDED x2");
+        }
+            
+        }
         add_RC = createAddOptions(LabelText1, "Iconos/agregar.png", event -> {
             try {
                 AgregarContacto();
@@ -900,9 +917,6 @@ public class NewcontactController implements Initializable {
 
             }
         });
-        process = new Label();
-        process.setText(confirmation);
-        process.getStyleClass().add("confirmation");
         contacts.getChildren().addAll(add_RC, process);
         contentBox.getChildren().add(contacts);
     }
@@ -911,6 +925,20 @@ public class NewcontactController implements Initializable {
         VBox contacts = new VBox();
         contacts.getStyleClass().add("blackbackgorund");
         contacts.setAlignment(Pos.CENTER);
+        process = new Label();
+        process.setText(confirmation);
+        process.getStyleClass().add("confirmation");
+        if (actual_contact != null){
+            try{
+                File file = new File("ContactosSeleccionados/ContactosSeleccionados" + actual_contact.getID_re() + ".ser");
+            if (file.exists()) {
+                process.setText("NEW CONTACTS SUCCESSFULLY ADDED");
+            }
+        }catch(Exception ie){
+            System.out.println("problemas al momento de new contacts SUCCESSFULLY ADDED x2");
+        }
+            
+        }
 
         add_RC = createAddOptions(LabelText1, "Iconos/agregar.png", event -> {
             try {
@@ -919,9 +947,7 @@ public class NewcontactController implements Initializable {
                 System.out.println("error de que? ns");
             }
         });
-        process = new Label();
-        process.setText(confirmation);
-        process.getStyleClass().add("confirmation");
+        
         contacts.getChildren().addAll(add_RC, process);
         contentBox.getChildren().add(contacts);
         return contacts;
@@ -929,7 +955,7 @@ public class NewcontactController implements Initializable {
 
     private void updateRelatedContact() {
         try {
-            lista_contacto = Util.<RelatedContact>readListFromFileSer("ContactosSeleccionados" + actual_contact.getID_re() + ".ser");
+            lista_contacto = Util.<RelatedContact>readListFromFileSer("ContactosSeleccionados/ContactosSeleccionados" + actual_contact.getID_re() + ".ser");
         } catch (Exception io1) {
             lista_contacto = null;
         }
@@ -960,7 +986,6 @@ public class NewcontactController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("add_releatedContact.fxml"));
         Parent root = loader.load();
         Add_releatedContactController controller = loader.getController();
-
         Scene scene = new Scene(root);
         Stage dialogStage = new Stage();
         dialogStage.setTitle("RELEATED CONTACT");
@@ -998,7 +1023,7 @@ public class NewcontactController implements Initializable {
                 Contact c_new = newContact();
                 System.out.println(c_new);
                 //lo tengo que guardar en mi lista principal
-                if (c_new.getName() == null || c_new.getPhotos() == null || c_new.getTelephoneNumbers() == null) {
+                if (c_new.getName() == null || c_new.getTelephoneNumbers() == null) {
                     //TRADUCIR
                     Alert alert = new Alert(Alert.AlertType.WARNING, "FALTAN CAMPOS POR LLENAR");
                     alert.setTitle("Warning");
