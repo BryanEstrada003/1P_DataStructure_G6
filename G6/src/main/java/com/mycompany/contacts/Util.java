@@ -383,7 +383,7 @@ public class Util<E> implements Serializable {
         Util.<Contact>saveListToFile("Contactos.ser", contacts);
     }
 
-    public static DoublyLinkedList<Contact> orderForNameAndType(DoublyLinkedList<Contact> list) { //ordena primero por tipo y luego por nombre
+    public static DoublyLinkedList<Contact> orderForNameAndType(DoublyLinkedList<Contact> list) {
         if (list.isEmpty()) {
             return null;
         }
@@ -400,7 +400,7 @@ public class Util<E> implements Serializable {
         PriorityQueue<Contact> orderNamePerson = new PriorityQueue<>((p1, p2) -> {
             int value = p1.getName().compareTo(p2.getName());
             if (value == 0) {
-                value = p1.getLastname().compareTo(p1.getLastname());
+                value = ((Person) p1).getLastname().compareTo(((Person) p2).getLastname());
             }
             return value;
         });
@@ -408,11 +408,7 @@ public class Util<E> implements Serializable {
             orderNamePerson.offer(p);
         }
 
-        PriorityQueue<Contact> orderNameCompany = new PriorityQueue<>((p1, p2) -> {
-            int value = p1.getName().compareTo(p2.getName());
-
-            return value;
-        });
+        PriorityQueue<Contact> orderNameCompany = new PriorityQueue<>((p1, p2) -> p1.getName().compareTo(p2.getName()));
         for (Contact c : companies) {
             orderNameCompany.offer(c);
         }
@@ -424,36 +420,34 @@ public class Util<E> implements Serializable {
             orderForNameAndType.add(orderNameCompany.poll());
         }
         return orderForNameAndType;
-
     }
 
     public static DoublyLinkedList<Contact> orderForName(DoublyLinkedList<Contact> list) {
-    if (list.isEmpty()) {
-        return null;
-    }
-
-    DoublyLinkedList<Contact> orderForName = new DoublyLinkedList<>();
-    PriorityQueue<Contact> order = new PriorityQueue<>((c1, c2) -> {
-        int value = c1.getName().compareTo(c2.getName());
-        if (value == 0 && c1.getLastname() != null && c2.getLastname() != null) {
-            value = c1.getLastname().compareTo(c2.getLastname());
+        if (list.isEmpty()) {
+            return null;
         }
-        return value;
-    });
 
-    for (Contact c : list) {
-        order.offer(c);
+        DoublyLinkedList<Contact> orderForName = new DoublyLinkedList<>();
+        PriorityQueue<Contact> order = new PriorityQueue<>((c1, c2) -> {
+            int value = c1.getName().compareTo(c2.getName());
+            if (value == 0 && c1.getLastname() != null && c2.getLastname() != null) {
+                value = c1.getLastname().compareTo(c2.getLastname());
+            }
+            return value;
+        });
+
+        for (Contact c : list) {
+            order.offer(c);
+        }
+
+        while (!order.isEmpty()) {
+            orderForName.add(order.poll());
+        }
+
+        return orderForName;
     }
 
-    while (!order.isEmpty()) {
-        orderForName.add(order.poll());
-    }
-
-    return orderForName;
-}
-
-
-    public static DoublyLinkedList<Contact> orderForTelephoneSize(DoublyLinkedList<Contact> list) { //ORDENAR POR LA CANTIDAD DE TELEFONOS
+    public static DoublyLinkedList<Contact> orderForTelephoneSize(DoublyLinkedList<Contact> list) {
         DoublyLinkedList<Contact> orderForTelephoneSize = new DoublyLinkedList<>();
 
         Comparator<Contact> phoneCountComparator = Comparator.comparingInt(c -> c.getTelephoneNumbers().size());
@@ -504,8 +498,7 @@ public class Util<E> implements Serializable {
                 ifEmails.add(c);
             }
         }
-
-        return null;
+        return ifEmails;
     }
 
     public static DoublyLinkedList<Contact> filterIfSocialMedia(DoublyLinkedList<Contact> list) {
@@ -550,10 +543,31 @@ public class Util<E> implements Serializable {
     }
 
     public static String identificarContact(Contact co) {
-        if (co instanceof Person) {
-            return co.getName() + " " + co.getLastname();
+        if (co == null) {
+            return "";
         }
-        return co.getName();
+        if (co instanceof Company) {
+            return co.getName();
+        }
+        return co.getName() + " " + co.getLastname();
+    }
+
+    public static void serializeDoublyLinkedList(DoublyLinkedList<Contact> listContact, String filename) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(listContact);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static DoublyLinkedList<Contact> deserializeDoublyLinkedList(String filename) {
+        DoublyLinkedList<Contact> listContact = new DoublyLinkedList<>();
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+            listContact = (DoublyLinkedList<Contact>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return listContact;
     }
 
 }

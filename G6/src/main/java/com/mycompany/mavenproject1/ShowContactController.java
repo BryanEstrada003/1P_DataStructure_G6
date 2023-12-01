@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.Comparator;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
 import javafx.event.Event;
@@ -84,7 +83,7 @@ public class ShowContactController implements Initializable, Serializable {
         regresarScene.setImage(new Image("Iconos/flecha-izquierda.png"));
         ifocon.getStyleClass().add("hbox-backgroundInfoCon");
         generalPane.getStyleClass().add("hbox-backgroundInfoCon");
-        this.contactos = Util.listaContacto2();
+        this.contactos = Util.deserializeDoublyLinkedList("ContactsOrderFilter");
         this.itera = this.contactos.listIterator();
     }
 
@@ -387,7 +386,6 @@ public class ShowContactController implements Initializable, Serializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) generalPane.getScene().getWindow();
         stage.setScene(scene);
-
     }
 
     @FXML
@@ -400,9 +398,4 @@ public class ShowContactController implements Initializable, Serializable {
             stage.show();
         }
     }
-
-    Comparator<Contact> cmpContac = (Contact c1, Contact c2) -> {
-        return c1.getName().compareTo(c2.getName());
-    };
-
 }

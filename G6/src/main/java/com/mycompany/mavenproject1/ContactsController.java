@@ -5,7 +5,7 @@
 package com.mycompany.mavenproject1;
 
 import com.mycompany.contacts.Contact;
-import com.mycompany.contacts.Person;
+import com.mycompany.contacts.TipoContact;
 import com.mycompany.contacts.User;
 import com.mycompany.contacts.Util;
 import ec.edu.espol.TDAs.ArrayList;
@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -29,10 +30,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import java.util.Optional;
+import java.util.TreeSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -114,6 +117,14 @@ public class ContactsController implements Initializable {
     private ListIterator<Contact> ite;
     @FXML
     private ComboBox<String> cbSortby;
+    @FXML
+    private ComboBox<String> cbFlType;
+    @FXML
+    private ImageView imFil;
+    @FXML
+    private CheckBox chfilEmail;
+    @FXML
+    private CheckBox socialNe;
 
     /**
      * Initializes the controller class.
@@ -130,6 +141,7 @@ public class ContactsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         set_owner();
+        imFil.setImage(new Image("Iconos/filtrar.png"));
         newcontact.setImage(new Image("Iconos/crear_contacto.png"));
         groups.setImage(new Image("Iconos/flecha-izquierda.png"));
         salir.setImage(new Image("Iconos/salir.png"));
@@ -164,52 +176,12 @@ public class ContactsController implements Initializable {
 //        } catch (Exception e) {
 //            profile_picture.setImage(new Image("Iconos/cambiar_foto.png"));
 //        }
-        this.contactos = Util.listaContacto2();//ListaOriginal sin aplicar Filtros
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-        this.contactos.removeLast();
-
-        System.out.println(this.contactos.size());
+        try {
+            this.contactos = Util.listaContacto2();//ListaOriginal sin aplicar Filtros
+            Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+        } catch (Exception e) {
+            System.out.println("Empty List");
+        }
 
         if (this.contactos.size() < 5) {
             this.ite = this.contactos.listIterator();
@@ -232,10 +204,25 @@ public class ContactsController implements Initializable {
         cbSortby.getItems().add("Name and LastName");
         cbSortby.getItems().add("Number of Telephones");
         cbSortby.getItems().add("Type and Name");
+        cbFlType.setValue("All");
+        cbFlType.getItems().add("Person");
+        cbFlType.getItems().add("Company");
+        cbFlType.getItems().add("All");
 
     }
 
+    public void funcioneli() {
+        for (int i = 0; i < 41; i++) {
+            this.contactos.removeLast();
+        }
+    }
+
     public void setInterfazCont(int[] posic, ArrayList<Contact> nuevaListg) {
+        name_lastname1.setText("");
+        name_lastname2.setText("");
+        name_lastname3.setText("");
+        name_lastname4.setText("");
+        name_lastname5.setText("");
         int indice1 = posic[0], indice2 = posic[1], indice3 = posic[2], indice4 = posic[3], indice5 = posic[4];
         try {
             this.contacto1 = nuevaListg.get(indice1);
@@ -249,7 +236,7 @@ public class ContactsController implements Initializable {
             this.contacto5 = nuevaListg.get(indice5);
             name_lastname5.setText(Util.identificarContact(this.contacto5) + " " + this.contacto5.getTelephoneNumbers().size());
         } catch (Exception e) {
-            System.out.println("pilas ");
+            System.out.println("Empty List");
         }
     }
 
@@ -404,38 +391,418 @@ public class ContactsController implements Initializable {
 
     @FXML
     private void selectSort(ActionEvent event) {
-        ComboBox cbSort = (ComboBox) event.getSource();
-        String criterio = (String) cbSort.getValue();
-        if (criterio.equals("Type and Name")) {
-            this.contactos = Util.orderForNameAndType(contactos);
-            this.ite = null;
-            this.ite = this.contactos.listIterator();
-            ArrayList<Contact> nuevaListg = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
-                nuevaListg.add(ite.next());
+        try {
+            ComboBox cbSort = (ComboBox) event.getSource();
+            String criterio = (String) cbSort.getValue();
+            if (criterio.equals("Type and Name")) {
+                this.contactos = Util.orderForNameAndType(contactos);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+            } else if (criterio.equals("Name and LastName")) {
+                this.contactos = Util.orderForName(contactos);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+            } else {
+                this.contactos = Util.orderForTelephoneSize(contactos);
+                this.ite = null;
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
             }
-            int[] arreglopos = {0, 1, 2, 3, 4};
-            setInterfazCont(arreglopos, nuevaListg);
-        } else if (criterio.equals("Name and LastName")) {
-            this.contactos = Util.orderForName(contactos);
-            this.ite = null;
-            this.ite = this.contactos.listIterator();
-            ArrayList<Contact> nuevaListg = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
-                nuevaListg.add(ite.next());
+        } catch (Exception e) {
+            System.out.println("Empty List");
+        }
+
+    }
+    private String criterioFIl = "all";
+
+    @FXML
+    private void filtType(ActionEvent event) {
+        ComboBox cbfi = (ComboBox) event.getSource();
+        String criterio = (String) cbfi.getValue();
+        criterio = criterio.toLowerCase();
+        criterioFIl = criterio;
+
+    }
+    private boolean chBoxemail;
+    private boolean chBoxSocial;
+    private DoublyLinkedList<Contact> listCompany;
+    private DoublyLinkedList<Contact> listPerson;
+    public Comparator<Contact> cmpID = (Contact c1, Contact c2) -> c1.getID_re().compareTo(c2.getID_re());
+
+    @FXML
+    private void filtrar(MouseEvent event) {
+        try {
+            if (criterioFIl.equals("person")) {
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = Util.filterByTypeContact(this.contactos, TipoContact.person);
+                listPerson = Util.filterByTypeContact(this.contactos, TipoContact.person);
+                this.ite = null;
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+            } else if (criterioFIl.equals("company")) {
+                this.contactos = Util.listaContacto2();
+
+                listCompany = Util.filterByTypeContact(this.contactos, TipoContact.company);
+                System.out.println(listCompany.size());
+                this.contactos = Util.filterByTypeContact(this.contactos, TipoContact.company);
+
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+
+            } else if (criterioFIl.equals("all")) {//caso cuando solamente elija uno de los 2 criterios
+                this.contactos = Util.listaContacto2();
+
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
             }
-            int[] arreglopos = {0, 1, 2, 3, 4};
-            setInterfazCont(arreglopos, nuevaListg);
-        } else {
-            this.contactos = Util.orderForTelephoneSize(contactos);
-            this.ite = null;
-            this.ite = this.contactos.listIterator();
-            ArrayList<Contact> nuevaListg = new ArrayList<>();
-            for (int i = 0; i < 5; i++) {
-                nuevaListg.add(ite.next());
+
+            if (criterioFIl.equals("person") && chBoxemail == true) {
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = quitarRepe(listPerson);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+            } else if (criterioFIl.equals("company") && chBoxemail == true) {
+
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = quitarRepe(listCompany);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+
+            } else if ((criterioFIl.equals("all")) && chBoxemail == true) {
+
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = Util.filterIfEmails(contactos);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
             }
-            int[] arreglopos = {0, 1, 2, 3, 4};
-            setInterfazCont(arreglopos, nuevaListg);
+
+            if (criterioFIl.equals("person") && chBoxSocial == true) {
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = quitarRepe2(listPerson);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+            } else if (criterioFIl.equals("company") && chBoxSocial == true) {
+                System.out.println(criterioFIl);
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = quitarRepe2(listCompany);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+
+            } else if ((criterioFIl.equals("all")) && chBoxSocial == true) {
+
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = Util.filterIfEmails(contactos);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+            }
+
+            if ((criterioFIl.equals("person")) && chBoxemail == true && chBoxSocial == true) {
+
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = quitarRepeAllTipo(this.listPerson);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+            } else if ((criterioFIl.equals("company")) && chBoxemail == true && chBoxSocial == true) {
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = quitarRepeAllTipo(this.listCompany);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+            } else if ((criterioFIl.equals("all")) && chBoxemail == true && chBoxSocial == true) {
+
+                this.contactos = Util.listaContacto2();
+
+                this.contactos = quitarRepeAllTipo(this.contactos);
+                Util.serializeDoublyLinkedList(this.contactos, "ContactsOrderFilter");
+                this.ite = null;
+                this.ite = this.contactos.listIterator();
+                ArrayList<Contact> nuevaListg = new ArrayList<>();
+                if (this.contactos.size() >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                } else {
+                    for (int i = 0; i < this.contactos.size(); i++) {
+                        nuevaListg.add(ite.next());
+                    }
+                }
+                int[] arreglopos = {0, 1, 2, 3, 4};
+                setInterfazCont(arreglopos, nuevaListg);
+            }
+        } catch (Exception e) {
+        }
+
+    }
+
+    public DoublyLinkedList<Contact> quitarRepeAllTipo(DoublyLinkedList listaAny) {
+
+        DoublyLinkedList<Contact> listsin = new DoublyLinkedList<>();
+        try {
+            listaAny.addAll(Util.filterIfEmails(listaAny));
+            listaAny.addAll(Util.filterIfSocialMedia(listaAny));
+            ListIterator<Contact> iteradorConjun = listaAny.listIterator();
+            TreeSet<Contact> quitarRepetido = new TreeSet<>(cmpID);
+
+            for (int i = 0; i < listaAny.size(); i++) {
+                quitarRepetido.add(iteradorConjun.next());
+            }
+
+            for (Contact c : quitarRepetido) {
+                listsin.add(c);
+            }
+        } catch (Exception e) {
+        }
+
+        return listsin;
+    }
+
+    public DoublyLinkedList<Contact> quitarRepe(DoublyLinkedList listaAny) {
+
+        DoublyLinkedList<Contact> listsin = new DoublyLinkedList<>();
+        try {
+            listaAny.addAll(Util.filterIfEmails(listaAny));
+            ListIterator<Contact> iteradorConjun = listaAny.listIterator();
+            TreeSet<Contact> quitarRepetido = new TreeSet<>(cmpID);
+
+            for (int i = 0; i < listaAny.size(); i++) {
+                quitarRepetido.add(iteradorConjun.next());
+            }
+
+            for (Contact c : quitarRepetido) {
+                listsin.add(c);
+            }
+        } catch (Exception e) {
+        }
+
+        return listsin;
+    }
+
+    public DoublyLinkedList<Contact> quitarRepe2(DoublyLinkedList listaAny) {
+        DoublyLinkedList<Contact> listsin = new DoublyLinkedList<>();
+        try {
+            listaAny.addAll(Util.filterIfSocialMedia(listaAny));
+            ListIterator<Contact> iteradorConjun = listaAny.listIterator();
+            TreeSet<Contact> quitarRepetido = new TreeSet<>(cmpID);
+
+            for (int i = 0; i < listaAny.size(); i++) {
+                quitarRepetido.add(iteradorConjun.next());
+            }
+
+            for (Contact c : quitarRepetido) {
+                listsin.add(c);
+            }
+        } catch (Exception e) {
+        }
+
+        return listsin;
+    }
+
+    @FXML
+    private void actionFilEmail(ActionEvent event) {
+        boolean estaSeleccionado = chfilEmail.isSelected();
+
+        if (estaSeleccionado) {
+            chBoxemail = true;
+        }
+    }
+
+    @FXML
+    private void btnSocialFil(ActionEvent event) {
+        boolean estaSeleccionado = socialNe.isSelected();
+
+        if (estaSeleccionado) {
+            chBoxSocial = true;
         }
     }
 
