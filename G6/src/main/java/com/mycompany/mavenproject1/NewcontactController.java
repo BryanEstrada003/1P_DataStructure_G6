@@ -985,7 +985,7 @@ public class NewcontactController implements Initializable {
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("add_releatedContact.fxml"));
         Parent root = loader.load();
-        Add_releatedContactController controller = loader.getController();
+        EliminarController controller = loader.getController();
         Scene scene = new Scene(root);
         Stage dialogStage = new Stage();
         dialogStage.setTitle("RELEATED CONTACT");

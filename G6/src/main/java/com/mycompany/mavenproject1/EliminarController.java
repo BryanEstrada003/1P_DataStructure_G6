@@ -42,7 +42,7 @@ import javafx.stage.Stage;
  *
  * @author angelozurita
  */
-public class Add_releatedContactController implements Initializable {
+public class EliminarController implements Initializable {
 
     @FXML
     private VBox list_contact;
@@ -186,18 +186,6 @@ public class Add_releatedContactController implements Initializable {
     @FXML
     private void saveContact(MouseEvent event) {
 
-        System.out.println(relatedContactsCheck.size());
-        if (!relatedContactsCheck.isEmpty()) {
-            for (RelatedContact n : relatedContactsCheck) {
-                System.out.println(n);
-            }
-        }
-
-        System.out.println(id_registro_E);
-        Util.<RelatedContact>saveListToFile(name_archivo, relatedContactsCheck);
-        Stage stage = (Stage) save.getScene().getWindow();
-        if (stage != null) {
-            stage.close();
-        }
+       
     }
 }
