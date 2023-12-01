@@ -140,7 +140,7 @@ public class ContactsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        set_owner();
+        set_owner();   
         imFil.setImage(new Image("Iconos/filtrar.png"));
         newcontact.setImage(new Image("Iconos/crear_contacto.png"));
         groups.setImage(new Image("Iconos/flecha-izquierda.png"));
@@ -226,15 +226,15 @@ public class ContactsController implements Initializable {
         int indice1 = posic[0], indice2 = posic[1], indice3 = posic[2], indice4 = posic[3], indice5 = posic[4];
         try {
             this.contacto1 = nuevaListg.get(indice1);
-            name_lastname1.setText(Util.identificarContact(this.contacto1) + " " + this.contacto1.getTelephoneNumbers().size());
+            name_lastname1.setText(Util.identificarContact(this.contacto1));
             this.contacto2 = nuevaListg.get(indice2);
-            name_lastname2.setText(Util.identificarContact(this.contacto2) + " " + this.contacto2.getTelephoneNumbers().size());
+            name_lastname2.setText(Util.identificarContact(this.contacto2));
             this.contacto3 = nuevaListg.get(indice3);
-            name_lastname3.setText(Util.identificarContact(this.contacto3) + " " + this.contacto3.getTelephoneNumbers().size());
+            name_lastname3.setText(Util.identificarContact(this.contacto3));
             this.contacto4 = nuevaListg.get(indice4);
-            name_lastname4.setText(Util.identificarContact(this.contacto4) + " " + this.contacto4.getTelephoneNumbers().size());
+            name_lastname4.setText(Util.identificarContact(this.contacto4));
             this.contacto5 = nuevaListg.get(indice5);
-            name_lastname5.setText(Util.identificarContact(this.contacto5) + " " + this.contacto5.getTelephoneNumbers().size());
+            name_lastname5.setText(Util.identificarContact(this.contacto5));
         } catch (Exception e) {
             System.out.println("Empty List");
         }
