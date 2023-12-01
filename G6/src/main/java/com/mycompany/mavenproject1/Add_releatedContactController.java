@@ -19,6 +19,8 @@ import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -47,7 +49,8 @@ public class Add_releatedContactController implements Initializable {
     private DoublyLinkedList<Contact> contactos;
     private String cssFile;
     private static DoublyLinkedList<RelatedContact> relatedContacts;
-    private static TipoRelacion tipoRel = TipoRelacion.ninguno;
+    private static DoublyLinkedList<RelatedContact> relatedContactsCheck;
+    private static String tipoSeleccionado;
     @FXML
     private AnchorPane principal_page;
     @FXML
@@ -86,6 +89,8 @@ public class Add_releatedContactController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tipoSeleccionado = null;
+
         setId_registro_dE();
         this.contactos = Util.listaContacto2();
         cssFile = getClass().getResource("/styles/login.css").toExternalForm();
@@ -98,14 +103,16 @@ public class Add_releatedContactController implements Initializable {
         list_contact.getStyleClass().add("blackbackground");
         scrollpane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollpane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        relatedContacts = new DoublyLinkedList<>();
         System.out.println(id_registro_E);
+
+        relatedContactsCheck = new DoublyLinkedList<>();
         // Inicializa la lista de contactos
+
         for (Contact c : this.contactos) {
             HBox contactoIndi = new HBox(20);
             Text nombre = new Text(c.getName());
             nombre.getStyleClass().add("text-field");
-            CheckBox checkBox = new CheckBox("AÑADIR");
+            CheckBox checkBox = new CheckBox();
 
             ObservableList<String> opciones = FXCollections.observableArrayList(
                     TipoRelacion.familiar.toString(),
@@ -119,34 +126,75 @@ public class Add_releatedContactController implements Initializable {
 
             // Crear un ComboBox y configurarlo con la lista de opciones
             ComboBox<String> tipoRelacion = new ComboBox<>(opciones);
-            tipoRelacion.setPromptText("Selecciona una opción");
+            tipoRelacion.setPromptText("Select an option");
+            tipoRelacion.setOnAction(event -> {
+                tipoSeleccionado = tipoRelacion.getValue();
+                System.out.println("Tipo Seleccionado: " + tipoSeleccionado);
+            });
 
-            contactoIndi.getChildren().addAll(nombre, tipoRelacion, checkBox);
+            Comparator<RelatedContact> cmp = (RelatedContact c1, RelatedContact c2) -> {
+                return c1.getContact().getID_re().compareTo(c2.getContact().getID_re());
+            };
+            File file = new File(name_archivo);
+            if (file.exists()) {
+                relatedContacts = Util.readListFromFileSer(name_archivo);
+                if (!relatedContacts.isEmpty()) {
+                int index = relatedContacts.indexOf(new RelatedContact("", c), cmp);
+                if (index != -1 && index != -2) {
+                    RelatedContact r = relatedContacts.get(index);
+
+                    tipoRelacion.getSelectionModel().select(r.getContactType());
+                    checkBox.setSelected(true);
+                    relatedContactsCheck.add(r);
+                }
+
+            }
+            }
+
+            
+
+            checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+
+                    // Acciones a realizar cuando el estado del CheckBox cambia
+                    RelatedContact rc = new RelatedContact(tipoSeleccionado, c);
+
+                    if (checkBox.isSelected()) {
+
+                        int index = relatedContactsCheck.indexOf(rc, cmp);
+                        if (index != -1 && index != -2) {
+                            relatedContactsCheck.remove(rc, cmp);
+
+                        }
+                        relatedContactsCheck.add(rc);
+                        System.out.println(rc);
+                    }
+
+                }
+            });
+
+            contactoIndi.getChildren().addAll(checkBox, nombre, tipoRelacion);
             contactoIndi.getStyleClass().add("blackbackgorund");
             list_contact.getChildren().add(contactoIndi);
 
         }
+
+        tipoSeleccionado = null;
     }
 
     @FXML
     private void saveContact(MouseEvent event) {
-        DoublyLinkedList<RelatedContact> nuevaList = new DoublyLinkedList<>();
-        for (int i = 0; i < list_contact.getChildren().size(); i++) {
-            HBox contactIndi = (HBox) list_contact.getChildren().get(i);
-            CheckBox checkBox = (CheckBox) contactIndi.getChildren().get(2);
-            if (checkBox.isSelected()) {
-                // Obtener el tipo de relación seleccionado en el ComboBox
-                String tipoSeleccionado = ((ComboBox<String>) contactIndi.getChildren().get(1)).getValue();
-                RelatedContact related = new RelatedContact(tipoSeleccionado != null ? tipoSeleccionado : TipoRelacion.ninguno.toString(), contactos.get(i));
-                nuevaList.add(related);
+
+        System.out.println(relatedContactsCheck.size());
+        if (!relatedContactsCheck.isEmpty()) {
+            for (RelatedContact n : relatedContactsCheck) {
+                System.out.println(n);
             }
         }
-        System.out.println(nuevaList.size());
-        for (RelatedContact n : nuevaList) {
-            System.out.println(n);
-        }
+
         System.out.println(id_registro_E);
-        Util.<RelatedContact>saveListToFile(name_archivo, nuevaList);
+        Util.<RelatedContact>saveListToFile(name_archivo, relatedContactsCheck);
         Stage stage = (Stage) save.getScene().getWindow();
         if (stage != null) {
             stage.close();
