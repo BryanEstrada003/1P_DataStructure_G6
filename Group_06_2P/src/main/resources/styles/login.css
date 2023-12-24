@@ -140,3 +140,8 @@
 .circle{
     -fx-border-radius: 50%;
 }
+.back_info {
+    -fx-background-color: #bce4ea;
+    -fx-border-radius: 50; 
+    -fx-background-radius: 50; 
+}

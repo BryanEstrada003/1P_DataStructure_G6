@@ -65,6 +65,12 @@ public class HomeController implements Initializable {
     private Button btn_difficult;
     private User user1;
     private String  path = "src/main/resources/Users/Profile_Images/";
+    @FXML
+    private AnchorPane back_info_home;
+    @FXML
+    private AnchorPane back_info_home1;
+    @FXML
+    private GridPane grid_pane_info1;
     /**
      * Initializes the controller class.
      */
@@ -74,6 +80,10 @@ public class HomeController implements Initializable {
         home.getStyleClass().add("blackbackgorund");
         btn_difficult.getStyleClass().add("button");
         btn_easy.getStyleClass().add("button");
+        back_info_home.getStyleClass().add("blackbackgorund");
+        back_info_home1.getStyleClass().add("blackbackgorund");
+        grid_pane_info.getStyleClass().add("back_info");
+        grid_pane_info1.getStyleClass().add("back_info");
         try {
             Thread.sleep(500);
         } catch (InterruptedException ex) {
