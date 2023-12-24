@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -63,15 +64,21 @@ public class HomeController implements Initializable {
     @FXML
     private Button btn_difficult;
     private User user1;
+    private String  path = "src/main/resources/Users/Profile_Images/";
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {        
+    public void initialize(URL url, ResourceBundle rb) {  
+        user1 = getPassUser();
         home.getStyleClass().add("blackbackgorund");
         btn_difficult.getStyleClass().add("button");
         btn_easy.getStyleClass().add("button");
-        image_user.setImage(new Image("Users/Profile_Images/0.png"));
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
         completInfo();
     }    
 
@@ -89,7 +96,6 @@ public class HomeController implements Initializable {
     }
     
     public void completInfo(){
-        user1 = getPassUser();
         if(user1 != null ){
             if(user1.getNickname() != null) {
                 user_name.setText(user1.getNickname().toUpperCase());
@@ -97,13 +103,23 @@ public class HomeController implements Initializable {
             else if(user1.getUser() != null){
                 user_name.setText(user1.getUser().toUpperCase());
             }
-            Path targetPath = Paths.get("src/main/resources/Users/Profile_Images/"+user1.getId_user()+".png");
-            if (Files.exists(targetPath.getParent())) {
-                Image image = new Image("src/main/resources/Users/Profile_Images/"+user1.getId_user()+".png");
-                image_user.setImage(image);
-
-                Circle clipCircle = new Circle(image_user.getFitWidth() / 2, image_user.getFitHeight() / 2, 50); // Ajusta el radio según sea necesario
-                image_user.setClip(clipCircle);
+               
+            File file2 = new File( path + user1.getId_user() + ".png");
+            if (file2.exists()) {
+                try {
+                    String imagePath = file2.toURI().toURL().toExternalForm();
+                    Image image = new Image(imagePath);
+                    Platform.runLater(() -> {
+                        image_user.setImage(image);
+                        Circle clipCircle = new Circle(image_user.getFitWidth() / 2, image_user.getFitHeight() / 2, 50); // Ajusta el radio según sea necesario
+                        image_user.setClip(clipCircle);
+                    });
+                } catch (MalformedURLException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                System.out.println("la imagen no existe");
+                image_user.setImage(new Image("Iconos/relacion.png"));
             }
             File archivo = new File("User_provisional.ser");
             if (archivo.exists()) {
@@ -144,16 +160,7 @@ public class HomeController implements Initializable {
                 if (Files.notExists(targetPath.getParent())) {
                     Files.createDirectories(targetPath.getParent());
                 }
-                Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                String s = "Users/Profile_Images/"+user1.getId_user()+".png";
-                Image image2 = new Image(s);
-                // Configura la imagen en el ImageView
-                Platform.runLater(()->{
-                    image_user.setImage(image2);
-                });             
-//
-//                Circle clipCircle2 = new Circle(image_user.getFitWidth() / 2, image_user.getFitHeight() / 2, 50); // Ajusta el radio según sea necesario
-//                image_user.setClip(clipCircle2);
+                Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);           
                 
             } catch (IOException e) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION,"ISSUES TO MOVE FOLDER");
