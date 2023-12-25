@@ -145,3 +145,6 @@
     -fx-border-radius: 50; 
     -fx-background-radius: 50; 
 }
+.cuadro_gris{
+    color: #36454F;
+}

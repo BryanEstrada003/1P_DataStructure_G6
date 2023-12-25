@@ -19,6 +19,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -90,6 +92,28 @@ public class HomeController implements Initializable {
             ex.printStackTrace();
         }
         completInfo();
+        btn_difficult.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                
+            }
+            
+        });
+        btn_easy.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("game.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) home.getScene().getWindow(); 
+                    stage.setScene(scene);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
+        });
+        
     }    
 
     public User getPassUser(){
