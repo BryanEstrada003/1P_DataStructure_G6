@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="principal_page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.TableroController">
+   <children>
+      <ScrollPane fx:id="message" layoutX="438.0" prefHeight="391.0" prefWidth="162.0" />
+      <HBox fx:id="infoPlayer1" layoutX="84.0" layoutY="10.0" prefHeight="30.0" prefWidth="351.0" spacing="10.0" />
+      <HBox fx:id="infoPlayer2" layoutX="84.0" layoutY="48.0" prefHeight="30.0" prefWidth="351.0" spacing="10.0" />
+      <ImageView fitHeight="38.0" fitWidth="35.0" layoutX="14.0" layoutY="10.0" onMouseClicked="#returnHome">
+         <image>
+            <Image url="@../../../images/flecha.png" />
+         </image>
+      </ImageView>
+      <FlowPane layoutX="14.0" layoutY="98.0" prefHeight="348.0" prefWidth="417.0">
+         <children>
+            <Button fx:id="button1" mnemonicParsing="false" prefHeight="116.0" prefWidth="139.0" text="1">
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+            </Button>
+            <Button fx:id="button2" mnemonicParsing="false" prefHeight="116.0" prefWidth="139.0" text="2" />
+            <Button fx:id="button3" mnemonicParsing="false" prefHeight="116.0" prefWidth="139.0" text="3" />
+            <Button fx:id="button4" mnemonicParsing="false" prefHeight="116.0" prefWidth="139.0" text="4" />
+            <Button fx:id="button5" mnemonicParsing="false" prefHeight="116.0" prefWidth="139.0" text="5" />
+            <Button fx:id="button6" mnemonicParsing="false" prefHeight="116.0" prefWidth="139.0" text="6" />
+            <Button fx:id="button7" mnemonicParsing="false" prefHeight="116.0" prefWidth="139.0" text="7" />
+            <Button fx:id="button8" mnemonicParsing="false" prefHeight="116.0" prefWidth="139.0" text="8" />
+            <Button fx:id="button9" mnemonicParsing="false" prefHeight="116.0" prefWidth="139.0" text="9" />
+         </children>
+      </FlowPane>
+      <Button layoutX="482.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#restart" text="Reiniciar">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
