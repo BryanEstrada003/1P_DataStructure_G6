@@ -4,7 +4,6 @@
  */
 package ec.edu.espol.Clases;
 
-import ec.edu.espol.TDAs.ArrayList;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  *
@@ -88,15 +88,6 @@ public class User implements Serializable {
     public void setResults_players_2(Result results_players_2) {
         this.results_players_2 = results_players_2;
     }
-
-    public Result getResults_computer() {
-        return results_computer;
-    }
-
-    public void setResults_computer(Result results_computer) {
-        this.results_computer = results_computer;
-    }
-
     public int  getVictories_players_2(){
         return this.results_players_2.getVictories();
     }
@@ -116,7 +107,39 @@ public class User implements Serializable {
     public void  setDefeats_players_2(int newvalue){
         this.results_players_2.setDefeat(newvalue);
     }
+    
+    public Result getResults_computer() {
+        return results_computer;
+    }
 
+    public void setResults_computer(Result results_computer) {
+        this.results_computer = results_computer;
+    }
+    
+    public int getVictories_computer(){
+        return this.results_computer.getVictories();
+    }
+    
+    public int getDraws_computer(){
+        return this.results_computer.getDraw();
+    }
+    
+    public int getDefeats_computer(){
+        return this.results_computer.getDefeat();
+    }
+    
+    public void setVictories_computer(int newvalue){
+        this.results_computer.setVictories(newvalue);
+    }
+    
+    public void setDraws_computer(int newvalue){
+        this.results_computer.setDraw(newvalue);
+    }
+    
+    public void setDefeats_computer(int newvalue){
+        this.results_computer.setDefeat(newvalue);
+    }
+   
     public ArrayList<Games> getHistory() {
         return history;
     }

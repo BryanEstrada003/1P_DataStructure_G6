@@ -8,7 +8,7 @@ import ec.edu.espol.Clases.Cuadro;
 import ec.edu.espol.Clases.Games;
 import ec.edu.espol.Clases.Result;
 import ec.edu.espol.Clases.User;
-import ec.edu.espol.TDAs.ArrayList;
+import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -75,7 +75,13 @@ public class HistoryController implements Initializable {
     private User us1;
     private int id_game_actual ; 
     private ArrayList<Games> history;
+    private ArrayList<Games> history_2players = new ArrayList<Games>();
+    private ArrayList<Games> history_computer = new ArrayList<Games>();
     private String  path = "src/main/resources/Users/Profile_Images/";
+    // saber si esta viendo el historial de partidas jugadas entre dos jugadores o con la computadora
+    // true -- > 2 players
+    // false --> computer
+    private char state = 'P';
    
     /**
      * Initializes the controller class.
@@ -84,16 +90,28 @@ public class HistoryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         us1 = User.getPassUser();
         history = us1.getHistory();
-        id_game_actual = history.size()-1;
+        updateHistoryArrayLists();
+        id_game_actual = history_2players.size()-1;
         setNameUser();
         updateInfoResults();
         updateImageProfile();
         if(id_game_actual >= 0){
-           updateLastGame(id_game_actual);
+           updateLastGame(id_game_actual,history_2players);
         }
 
         
     }  
+    public void updateHistoryArrayLists(){
+        for(Games g : history){
+            if(g.getName_player().compareTo("COMPUTER")== 0){
+                history_computer.add(g);
+            }
+            else{
+                history_2players.add(g);
+            }
+        }
+    }
+   
     public void updateImageProfile(){
         File file2 = new File( path + us1.getId_user() + ".png");
             if (file2.exists()) {
@@ -118,11 +136,17 @@ public class HistoryController implements Initializable {
            if(id_game_actual >= 0){
                 name_user1.setText(us1.getNickname());
            }
+           else{
+               name_user1.setText("");
+           }
        }
        else{
            name_user.setText(us1.getUser());
            if(id_game_actual >= 0){
                 name_user1.setText(us1.getUser());
+           }
+           else{
+               name_user1.setText("");
            }
        }
     }
@@ -134,23 +158,32 @@ public class HistoryController implements Initializable {
         num_draws.setText(results_players_2.getDraw()+"");
         num_def.setText(results_players_2.getDefeat()+"");  
     }
-    public void updateLastGame(int id_game){
-        Games game_last = history.get(id_game);
-        name_user2.setText(game_last.getName_player());
-        int ganador = game_last.getWinner();
-        if(ganador == 1 ){
-            result1.setText("WINNER");
-            result2.setText("LOSER");  
+    public void updateLastGame(int id_game,ArrayList<Games> history){
+        if(id_game>= 0){
+            Games game_last = history.get(id_game);
+            name_user2.setText(game_last.getName_player());
+            int ganador = game_last.getWinner();
+            if(ganador == 1 ){
+                result1.setText("WINNER");
+                result2.setText("LOSER");  
+            }
+            else if(ganador == 2 ){
+                result2.setText("WINNER");
+                result1.setText("LOSER");  
+            }
+            else if(ganador == 0) {
+                result2.setText("DRAW");
+                result1.setText("DRAW");              
+            }
+            updateGame(game_last.getMatriz_game());
         }
-        else if(ganador == 2 ){
-            result2.setText("WINNER");
-            result1.setText("LOSER");  
+        else{
+            result2.setText("");
+            result1.setText("");
+            name_user2.setText("");
+            setNameUser();
         }
-        else if(ganador == 0) {
-            result2.setText("DRAW");
-            result1.setText("DRAW");              
-        }
-        updateGame(game_last.getMatriz_game());
+
         
     }
     
@@ -191,19 +224,23 @@ public class HistoryController implements Initializable {
 
     @FXML
     private void updateInfo_P(MouseEvent event) {
+        state = 'P';
+        id_game_actual = history_2players.size()-1;
         Platform.runLater(()->{
             btn_2players.setStyle("-fx-border-color: green; -fx-border-width: 10px;");
             btn_computer.setStyle("-fx-border-width: 0;");
             Result results_players_2 = us1.getResults_players_2();
             num_vic.setText(results_players_2.getVictories()+"");
             num_draws.setText(results_players_2.getDraw()+"");
-            num_def.setText(results_players_2.getDefeat()+"");            
+            num_def.setText(results_players_2.getDefeat()+"");
+            updateLastGame(id_game_actual,history_2players);
         });
     }
 
     @FXML
     private void updateInfo_Com(MouseEvent event) {
-        
+        state = 'C';
+        id_game_actual = history_computer.size()-1;
         Platform.runLater(()->{
             btn_computer.setStyle("-fx-border-color: green; -fx-border-width: 10px;");
             btn_2players.setStyle("-fx-border-width: 0;");
@@ -211,6 +248,7 @@ public class HistoryController implements Initializable {
             num_vic.setText(results_computer.getVictories()+"");
             num_draws.setText(results_computer.getDraw()+"");
             num_def.setText(results_computer.getDefeat()+"");   
+            updateLastGame(id_game_actual,history_computer);
         });
              
     }
@@ -218,34 +256,68 @@ public class HistoryController implements Initializable {
     // Recordar que primero se muestran las ultimas partidas
     @FXML
     private void regresar_game(MouseEvent event) {
-        if(id_game_actual >= 0){
-            if(id_game_actual == history.size()-1){
-                id_game_actual = 0;
+        if( state == 'C'){
+            if(id_game_actual >= 0){
+                if(id_game_actual == history_computer.size()-1){
+                    id_game_actual = 0;
+                }
+                else{
+                    if(id_game_actual+1 <= history_computer.size()-1)
+                    id_game_actual ++;
+                }
+                Platform.runLater(()->{
+                    updateLastGame(id_game_actual,history_computer);
+                });   
             }
-            else{
-                if(id_game_actual+1 <= history.size()-1)
-                id_game_actual ++;
-            }
-            Platform.runLater(()->{
-                updateLastGame(id_game_actual);
-            });   
         }
+        else{
+            if(id_game_actual >= 0){
+                if(id_game_actual == history_2players.size()-1){
+                    id_game_actual = 0;
+                }
+                else{
+                    if(id_game_actual+1 <= history_2players.size()-1)
+                    id_game_actual ++;
+                }
+                Platform.runLater(()->{
+                    updateLastGame(id_game_actual,history_2players);
+                });   
+            }
+        }
+
     }
 
     @FXML
     private void siguiente_game(MouseEvent event) {
-        if(id_game_actual >= 0){
-            if(id_game_actual == history.size()-1){
-                id_game_actual = 0;
-            }
-            else{
-                if(id_game_actual-1 >= 0){
-                    id_game_actual --;
+        if( state == 'C'){
+            if(id_game_actual >= 0){
+                if(id_game_actual == history_computer.size()-1){
+                    id_game_actual = 0;
                 }
+                else{
+                    if(id_game_actual-1 >= 0){
+                        id_game_actual --;
+                    }
+                }
+                Platform.runLater(()->{
+                    updateLastGame(id_game_actual,history_computer);
+                });  
             }
-            Platform.runLater(()->{
-                updateLastGame(id_game_actual);
-            });  
+        }
+        else{
+            if(id_game_actual >= 0){
+                if(id_game_actual == history_2players.size()-1){
+                    id_game_actual = 0;
+                }
+                else{
+                    if(id_game_actual-1 >= 0){
+                        id_game_actual --;
+                    }
+                }
+                Platform.runLater(()->{
+                    updateLastGame(id_game_actual,history_2players);
+                });  
+            }            
         }
     }
     

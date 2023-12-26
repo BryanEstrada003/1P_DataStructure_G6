@@ -5,11 +5,8 @@
 package ec.edu.espol.group_06_2p;
 
 import ec.edu.espol.Clases.User;
-import ec.edu.espol.TDAs.ArrayList;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -65,10 +62,6 @@ public class HomeController implements Initializable {
     private SplitMenuButton menu_options;
     @FXML
     private Label user_name;
-    @FXML
-    private Button btn_easy;
-    @FXML
-    private Button btn_difficult;
     private User user1;
     private String  path = "src/main/resources/Users/Profile_Images/";
     @FXML
@@ -77,6 +70,10 @@ public class HomeController implements Initializable {
     private AnchorPane back_info_home1;
     @FXML
     private GridPane grid_pane_info1;
+    @FXML
+    private Button btn_2players;
+    @FXML
+    private Button btn_computer;
     /**
      * Initializes the controller class.
      */
@@ -84,8 +81,8 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {  
         user1 = User.getPassUser();
         home.getStyleClass().add("blackbackgorund");
-        btn_difficult.getStyleClass().add("button");
-        btn_easy.getStyleClass().add("button");
+        btn_computer.getStyleClass().add("button");
+        btn_2players.getStyleClass().add("button");
         back_info_home.getStyleClass().add("blackbackgorund");
         back_info_home1.getStyleClass().add("blackbackgorund");
         grid_pane_info.getStyleClass().add("back_info");
@@ -96,28 +93,22 @@ public class HomeController implements Initializable {
             ex.printStackTrace();
         }
         completInfo();
-        btn_difficult.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+        btn_computer.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
             @Override
             public void handle(Event event) {
-                
+                try {
+                    User.passUser(user1);
+                    Parent root = FXMLLoader.load(getClass().getResource("gameComputer.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) home.getScene().getWindow(); 
+                    stage.setScene(scene);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
             
         });
-//        btn_easy.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
-//            @Override
-//            public void handle(Event event) {
-//                try {
-//                    Parent root = FXMLLoader.load(getClass().getResource("game.fxml"));
-//                    Scene scene = new Scene(root);
-//                    Stage stage = (Stage) home.getScene().getWindow(); 
-//                    stage.setScene(scene);
-//                } catch (IOException ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//            
-//        });
-        btn_easy.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+        btn_2players.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 

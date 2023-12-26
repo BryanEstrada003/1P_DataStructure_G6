@@ -7,7 +7,7 @@ package ec.edu.espol.group_06_2p;
 import ec.edu.espol.Clases.User;
 import static ec.edu.espol.Clases.User.getUser;
 import static ec.edu.espol.Clases.User.readListFromFileSer;
-import ec.edu.espol.TDAs.ArrayList;
+import java.util.ArrayList;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -72,9 +72,11 @@ public class LoginController implements Initializable {
         password.getStyleClass().add("text-field");
         firsttime.getStyleClass().add("sign-up");
         sign_up.getStyleClass().add("sign-up");
-        
+       
         ArrayList<User> users = readListFromFileSer("User.ser");
+        System.out.println(users.size());
             for(User u1 :users){
+                System.out.println("User");
                 System.out.println(u1); 
             }
         

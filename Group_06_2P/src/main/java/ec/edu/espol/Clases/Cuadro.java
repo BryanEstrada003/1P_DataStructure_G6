@@ -51,9 +51,6 @@ public class Cuadro extends StackPane{
         this.ocupado = ocupado;
     }
 
-    public void addEventHandler(EventType<MouseEvent> MOUSE_CLICKED) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     
     
