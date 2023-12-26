@@ -13,13 +13,19 @@ import java.io.Serializable;
 public class Result implements Serializable{
     private Type_game tipo;
     private int victories;
-    private int tie;
+    private int draw;
     private int defeat ; 
 
-    public Result(Type_game tipo, int victories, int tie, int defeat) {
+    public Result(Type_game tipo, int victories, int draw, int defeat) {
         this.tipo = tipo;
         this.victories = victories;
-        this.tie = tie;
+        this.draw = draw;
+        this.defeat = defeat;
+    }
+    public Result(Type_game tipo) {
+        this.tipo = tipo;
+        this.victories = victories;
+        this.draw = draw;
         this.defeat = defeat;
     }
 
@@ -39,12 +45,12 @@ public class Result implements Serializable{
         this.victories = victories;
     }
 
-    public int getTie() {
-        return tie;
+    public int getDraw() {
+        return draw;
     }
 
-    public void setTie(int tie) {
-        this.tie = tie;
+    public void setDraw(int draw) {
+        this.draw = draw;
     }
 
     public int getDefeat() {
@@ -54,6 +60,12 @@ public class Result implements Serializable{
     public void setDefeat(int defeat) {
         this.defeat = defeat;
     }
+
+    @Override
+    public String toString() {
+        return "Result{" + "tipo=" + tipo + ", victories=" + victories + ", draw=" + draw + ", defeat=" + defeat + '}';
+    }
+    
     
     
 }

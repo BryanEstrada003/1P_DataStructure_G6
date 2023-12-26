@@ -38,7 +38,7 @@
                   <SplitMenuButton fx:id="menu_options" layoutX="615.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="104.0" text="OPTIONS">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#edit_profile" text="EDIT PROFILE" />
-                        <MenuItem mnemonicParsing="false" text="HISTORY" />
+                        <MenuItem mnemonicParsing="false" onAction="#show_history" text="HISTORY" />
                      </items>
                   </SplitMenuButton>
                </children>
@@ -99,14 +99,14 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="btn_easy" mnemonicParsing="false" prefHeight="40.0" prefWidth="244.0" text="EASY" GridPane.rowIndex="1">
+                        <Button fx:id="btn_easy" mnemonicParsing="false" prefHeight="40.0" prefWidth="244.0" text="2 PLAYERS" GridPane.rowIndex="1">
                            <font>
-                              <Font size="40.0" />
+                              <Font size="30.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btn_difficult" mnemonicParsing="false" prefHeight="40.0" prefWidth="253.0" text="DIFFICULT" GridPane.rowIndex="2">
+                        <Button fx:id="btn_difficult" mnemonicParsing="false" prefHeight="40.0" prefWidth="253.0" text="COMPUTER" GridPane.rowIndex="2">
                            <font>
-                              <Font size="39.0" />
+                              <Font size="30.0" />
                            </font>
                         </Button>
                         <Label text="GAME" textFill="#545252">

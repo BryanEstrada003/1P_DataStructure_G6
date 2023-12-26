@@ -75,9 +75,7 @@ public class LoginController implements Initializable {
         
         ArrayList<User> users = readListFromFileSer("User.ser");
             for(User u1 :users){
-                System.out.println("U1.getNickname"+ u1.getNickname());
-                System.out.println("U1.getUser"+u1.getUser());
-                System.out.println("....");
+                System.out.println(u1); 
             }
         
     }    

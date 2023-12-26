@@ -16,20 +16,26 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -76,7 +82,7 @@ public class HomeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
-        user1 = getPassUser();
+        user1 = User.getPassUser();
         home.getStyleClass().add("blackbackgorund");
         btn_difficult.getStyleClass().add("button");
         btn_easy.getStyleClass().add("button");
@@ -90,20 +96,99 @@ public class HomeController implements Initializable {
             ex.printStackTrace();
         }
         completInfo();
+        btn_difficult.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                
+            }
+            
+        });
+//        btn_easy.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+//            @Override
+//            public void handle(Event event) {
+//                try {
+//                    Parent root = FXMLLoader.load(getClass().getResource("game.fxml"));
+//                    Scene scene = new Scene(root);
+//                    Stage stage = (Stage) home.getScene().getWindow(); 
+//                    stage.setScene(scene);
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+//            
+//        });
+        btn_easy.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                Dialog<String> dialog = new Dialog<>();
+                dialog.setTitle("PLAYERS");
+                dialog.getDialogPane().getStylesheets().add(getClass().getResource("/styles/login.css").toExternalForm());
+
+                ButtonType btn_continue = new ButtonType("CONTINUE", ButtonBar.ButtonData.OK_DONE);
+                ButtonType btn_cancel = new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE);
+                dialog.getDialogPane().getButtonTypes().addAll(btn_continue, btn_cancel);
+
+                Node btn_continue_ = dialog.getDialogPane().lookupButton(btn_continue);
+                Node btn_cancel_ = dialog.getDialogPane().lookupButton(btn_cancel);
+                
+                btn_continue_.getStyleClass().add("button");
+                btn_cancel_.getStyleClass().add("button");
+                
+                
+                GridPane grid = new GridPane();
+                dialog.getDialogPane().getStyleClass().add("blackbackgorund");
+                
+                grid.setHgap(10);
+                grid.setVgap(10);
+                TextField username = new TextField();
+                username.setPromptText("NAME");
+                Label label = new Label("PLAYER 2:");
+                label.getStyleClass().add("label_di");
+                grid.add(label, 0, 0);
+                grid.add(username, 1, 0);
+                
+
+                Node continueButton = dialog.getDialogPane().lookupButton(btn_continue);
+                continueButton.setDisable(true);
+                
+                username.textProperty().addListener((observable, oldValue, newValue) -> {
+                    continueButton.setDisable(newValue.trim().isEmpty());
+                });
+                
+                dialog.getDialogPane().setContent(grid);
+                
+                Platform.runLater(() -> username.requestFocus());
+                
+                dialog.setResultConverter(dialogButton -> {
+                    if (dialogButton == btn_continue) {
+                        return username.getText();
+                    }
+                    return null;
+                });
+                
+                Optional<String> result = dialog.showAndWait();
+                
+                result.ifPresent(name -> {
+                    try {
+                        User.passUser(user1);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
+                        Parent root = loader.load();
+                        GameController gameController = loader.getController();
+                        gameController.setName_computer(name);
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) home.getScene().getWindow(); 
+                        stage.setScene(scene);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+            }
+        });
+
     }    
 
-    public User getPassUser(){
-        User u1 = new User();
-        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("User_provisional.ser")))
-        {
-            u1 = (User)in.readObject();
-        }
-        catch(IOException ioe){  
-        }
-        catch(ClassNotFoundException c ){        
-        }
-        return u1;
-    }
+
     
     public void completInfo(){
         if(user1 != null ){
@@ -130,10 +215,6 @@ public class HomeController implements Initializable {
             } else {
                 System.out.println("la imagen no existe");
                 image_user.setImage(new Image("Iconos/relacion.png"));
-            }
-            File archivo = new File("User_provisional.ser");
-            if (archivo.exists()) {
-                archivo.delete();
             }
         }
         else{
@@ -182,6 +263,15 @@ public class HomeController implements Initializable {
             }
         }
         
+    }
+
+    @FXML
+    private void show_history(ActionEvent event) throws IOException {
+        User.passUser(user1);
+        Parent root = FXMLLoader.load(getClass().getResource("history.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) home.getScene().getWindow();
+        stage.setScene(scene); 
     }
     
 }
