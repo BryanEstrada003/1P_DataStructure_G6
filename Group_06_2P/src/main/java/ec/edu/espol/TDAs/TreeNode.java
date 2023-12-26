@@ -7,7 +7,7 @@ package ec.edu.espol.TDAs;
 import java.util.LinkedList;
 import java.util.List;
 
-class TreeNode<E> {
+public class TreeNode<E> {
     private E  matriz[][];
     private List<Tree<E>> children;
 
@@ -47,5 +47,9 @@ class TreeNode<E> {
             }
         }
         return sb.toString();
+    }
+
+    public Tree<E> getTreeChildern(int i) {
+        return children.get(i);
     }
 }

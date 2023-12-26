@@ -20,7 +20,7 @@ public class Tree<E> {
         return root.getContent();
     }
 
-    private TreeNode getRootNode() {
+    public TreeNode getRootNode() {
         return this.root;
     }
 
