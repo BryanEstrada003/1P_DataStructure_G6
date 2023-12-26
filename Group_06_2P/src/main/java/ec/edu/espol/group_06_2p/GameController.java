@@ -5,19 +5,22 @@
 package ec.edu.espol.group_06_2p;
 
 import ec.edu.espol.Clases.Cuadro;
+import ec.edu.espol.Clases.Games;
+import ec.edu.espol.Clases.User;
 import ec.edu.espol.TDAs.ArrayList;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.Event;
-import javafx.event.EventType;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,6 +29,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -77,17 +81,33 @@ public class GameController implements Initializable {
     private boolean draw = false;
     private int[][] games;
     private ArrayList<Cuadro> cuadros = new ArrayList<>();
+    private User us1 ;
+    @FXML
+    private VBox Vbox_btn;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        us1 = User.getPassUser();
         games = new int[3][3];
+        setNameUser();
         paint_table();
-        
     }    
 
+    public void setName_computer(String name_computer) {
+        this.name_computer.setText(name_computer);
+    }
+    
+   public void setNameUser(){
+       if(us1.getNickname() != null){
+           name_user.setText(us1.getNickname());
+       }
+       else{
+           name_user.setText(us1.getUser());
+       }
+   }
     
     public void paint_table(){
         for(int x = 0; x < 3 ;x++){
@@ -106,6 +126,8 @@ public class GameController implements Initializable {
                                 imv1.setPreserveRatio(true);
                                 c1.getChildren().add(imv1);
                                 c1.setOcupado(true);
+                                computer_play.setText("YOUR TURN");
+                                user_play.setText("");
                             });
                             games[c1.getXpos()][c1.getYpos()] = 1;
 
@@ -120,24 +142,50 @@ public class GameController implements Initializable {
                                 imv1.setPreserveRatio(true);
                                 c1.getChildren().add(imv1);
                                 c1.setOcupado(true);
+                                user_play.setText("YOUR TURN");
+                                computer_play.setText("");
                                 
                             });
                             games[c1.getXpos()][c1.getYpos()] = 2;
                         }
                         validarGanador(games);
                         Platform.runLater(()->{
-                            if(winner_n>0){
-                                allOcupated();
-                            }
                             if(winner_n == 1){
                                 user_play.setText("WINNER");
+                                computer_play.setText("LOSER");
+                                victories_p1.setText( (Integer.parseInt(victories_p1.getText())+1) +"");
+                                defeats_p2.setText( (Integer.parseInt(defeats_p2.getText())+1) +"");
+                                int new_victories = us1.getResults_players_2().getVictories()+1;
+                                us1.setVictories_players_2(new_victories);
+                                
                             }
                             else if(winner_n == 2){
+                                user_play.setText("LOSSER");
                                 computer_play.setText("WINNER");
+                                victories_p2.setText( (Integer.parseInt(victories_p2.getText())+1) +"");
+                                defeats_p1.setText( (Integer.parseInt(defeats_p1.getText())+1) +"");
+                                int new_defeats = us1.getResults_players_2().getDefeat()+1;
+                                us1.setDefeats_players_2(new_defeats);
                             }
                             if(draw){
                                 user_play.setText("DRAW");
                                 computer_play.setText("DRAW");
+                                draws_p1.setText( (Integer.parseInt(draws_p1.getText())+1) +"");
+                                draws_p2.setText( (Integer.parseInt(draws_p2.getText())+1) +"");
+                                int new_draws = us1.getResults_players_2().getDraw()+1;
+                                us1.setDraws_players_2(new_draws);
+                            }
+                            if(winner_n>0 || draw){
+                                allOcupated();
+                                ArrayList<Games> history = us1.getHistory();
+                                Games g1 = new Games(us1,name_computer.getText(),games,winner_n);
+                                Games.add_game_file(g1, "HistoryGames.ser");
+                                history.add(g1);
+                                us1.setHistory(history);
+                                User.updateUser(us1);
+                                Platform.runLater(()->{
+                                    createBtnNewGame();
+                                });
                             }
                         });
                     if(turno_user == true)
@@ -154,9 +202,28 @@ public class GameController implements Initializable {
             }
         }
     }
- public void validarGanador(int[][] games) {
+    public void createBtnNewGame(){
+        Button btn_newgame = new Button("NEW GAME");
+        Vbox_btn.getChildren().add(btn_newgame);
+        btn_newgame.setPrefWidth(190);
+        btn_newgame.setPrefHeight(190);
+        btn_newgame.setStyle("-fx-font-size: 20px;");
+        btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                games = new int[3][3];
+                for(Cuadro c: cuadros){
+                    c.setOcupado(false);
+                    c.getChildren().clear(); 
+                }
+                Vbox_btn.getChildren().clear(); 
+                winner_n = 0;
+                draw = false;
+            }
+        });
+    }
+    public void validarGanador(int[][] games) {
         for (int i = 0; i < 3; i++) {
-            // Verifica las filas
             if (games[i][0] == games[i][1] && games[i][0] == games[i][2] && games[i][0] != 0) {
                 winner_n = games[i][0];
                 return;
@@ -198,6 +265,7 @@ public class GameController implements Initializable {
     }
     @FXML
     private void regresar(MouseEvent event) throws IOException {
+        User.passUser(us1);
         Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) game.getScene().getWindow();

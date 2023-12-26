@@ -35,9 +35,9 @@
                               <Font name="Modak" size="19.0" />
                            </font>
                         </Label>
-                        <Label fx:id="victories_p1" textFill="#545252">
+                        <Label fx:id="victories_p1" text="0" textFill="#545252">
                            <font>
-                              <Font name="Modak" size="19.0" />
+                              <Font name="Modak" size="25.0" />
                            </font>
                         </Label>
                      </children>
@@ -49,9 +49,9 @@
                               <Font name="Modak" size="19.0" />
                            </font>
                         </Label>
-                        <Label fx:id="draws_p1">
+                        <Label fx:id="draws_p1" text="0" textFill="#545252">
                            <font>
-                              <Font name="Modak" size="19.0" />
+                              <Font name="Modak" size="25.0" />
                            </font>
                         </Label>
                      </children>
@@ -63,9 +63,9 @@
                               <Font name="Modak" size="19.0" />
                            </font>
                         </Label>
-                        <Label fx:id="defeats_p1" textFill="#545252">
+                        <Label fx:id="defeats_p1" text="0" textFill="#545252">
                            <font>
-                              <Font name="Modak" size="19.0" />
+                              <Font name="Modak" size="25.0" />
                            </font>
                         </Label>
                      </children>
@@ -130,9 +130,9 @@
                               <Font name="Modak" size="19.0" />
                            </font>
                         </Label>
-                        <Label fx:id="victories_p2" textFill="#545252">
+                        <Label fx:id="victories_p2" text="0" textFill="#545252">
                            <font>
-                              <Font name="Modak" size="19.0" />
+                              <Font name="Modak" size="25.0" />
                            </font>
                         </Label>
                      </children>
@@ -144,9 +144,9 @@
                               <Font name="Modak" size="19.0" />
                            </font>
                         </Label>
-                        <Label fx:id="draws_p2">
+                        <Label fx:id="draws_p2" text="0" textFill="#545252">
                            <font>
-                              <Font name="Modak" size="19.0" />
+                              <Font name="Modak" size="25.0" />
                            </font>
                         </Label>
                      </children>
@@ -158,9 +158,9 @@
                               <Font name="Modak" size="19.0" />
                            </font>
                         </Label>
-                        <Label fx:id="defeats_p2" textFill="#545252">
+                        <Label fx:id="defeats_p2" text="0" textFill="#545252">
                            <font>
-                              <Font name="Modak" size="19.0" />
+                              <Font name="Modak" size="25.0" />
                            </font>
                         </Label>
                      </children>
@@ -187,9 +187,19 @@
          </children></Pane>
    </center>
    <left>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Images/App_logo.jpg" />
+               </image>
+            </ImageView>
+         </children></Pane>
    </left>
    <right>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="Vbox_btn" alignment="CENTER" layoutX="4.0" layoutY="100.0" prefHeight="200.0" prefWidth="195.0" />
+         </children></Pane>
    </right>
 </BorderPane>

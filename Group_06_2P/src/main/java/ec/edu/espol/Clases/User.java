@@ -22,8 +22,9 @@ public class User implements Serializable {
     private String Nickname;
     private String password;
     private String user;
-    private Result results_easy;
-    private Result results_difi;
+    private Result results_players_2;
+    private Result results_computer;
+    private ArrayList<Games> history;
     private static final long serialVersionUID = 274965647874716638L;
     
     public User(){
@@ -34,16 +35,18 @@ public class User implements Serializable {
         this.Nickname = Nickname;
         this.password = password;
         this.user = user;
-        this.results_difi = new Result(Type_game.DIFFICULT,0,0,0);
-        this.results_easy = new Result(Type_game.EASY,0,0,0);
+        this.results_computer = new Result(Type_game.COMPUTER,0,0,0);
+        this.results_players_2 = new Result(Type_game.PLAYERS_2,0,0,0);
+        this.history = new ArrayList<Games>();
     }
     
     public User(int id_user, String user, String password) {
         this.id_user = id_user;
         this.password = password;
         this.user = user;
-        this.results_difi = new Result(Type_game.DIFFICULT,0,0,0);
-        this.results_easy = new Result(Type_game.EASY,0,0,0);
+        this.results_computer = new Result(Type_game.COMPUTER,0,0,0);
+        this.results_players_2 = new Result(Type_game.PLAYERS_2,0,0,0);
+        this.history = new ArrayList<Games>();
     }
 
     public String getNickname() {
@@ -78,21 +81,51 @@ public class User implements Serializable {
         this.id_user = id_user;
     }
 
-    public Result getResults_easy() {
-        return results_easy;
+    public Result getResults_players_2() {
+        return results_players_2;
     }
 
-    public void setResults_easy(Result results_easy) {
-        this.results_easy = results_easy;
+    public void setResults_players_2(Result results_players_2) {
+        this.results_players_2 = results_players_2;
     }
 
-    public Result getResults_difi() {
-        return results_difi;
+    public Result getResults_computer() {
+        return results_computer;
     }
 
-    public void setResults_difi(Result results_difi) {
-        this.results_difi = results_difi;
+    public void setResults_computer(Result results_computer) {
+        this.results_computer = results_computer;
     }
+
+    public int  getVictories_players_2(){
+        return this.results_players_2.getVictories();
+    }
+    public int  getDraws_players_2(){
+        return this.results_players_2.getDraw();
+    }
+    public int  getDefeats_players_2(){
+        return this.results_players_2.getDefeat();
+    }
+    
+    public void  setVictories_players_2(int newvalue){
+        this.results_players_2.setVictories(newvalue);
+    }
+    public void  setDraws_players_2(int newvalue){
+        this.results_players_2.setDraw(newvalue);
+    }
+    public void  setDefeats_players_2(int newvalue){
+        this.results_players_2.setDefeat(newvalue);
+    }
+
+    public ArrayList<Games> getHistory() {
+        return history;
+    }
+
+    public void setHistory(ArrayList<Games> history) {
+        this.history = history;
+    }
+    
+    
             
     public static ArrayList<User> readListFromFileSer(String nombre) 
     {
@@ -183,6 +216,50 @@ public class User implements Serializable {
         return id_Actual++;
     }
     
+    
+    public static User getPassUser(){
+        User u1 = new User();
+        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("User_provisional.ser")))
+        {
+            u1 = (User)in.readObject();
+            File archivo = new File("User_provisional.ser");
+            if (archivo.exists()) {
+                archivo.delete();
+            }
+        }
+        catch(IOException ioe){  
+        }
+        catch(ClassNotFoundException c ){        
+        }
+        return u1;
+    }
+    
+    public static void passUser(User us1){
+         try(ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream("User_provisional.ser")))
+        {
+            out.writeObject(us1);
+        }
+        catch(IOException ioe){
+        }   
+    }
+
+    public static void updateUser(User u){
+        ArrayList<User> users = readListFromFileSer("User.ser");
+        ArrayList<User> new_users = new ArrayList<User>();
+            for(User u1 :users){
+                if(u.getId_user() == u1.getId_user()){
+                    new_users.add(u);
+                }
+                else{
+                   new_users.add(u1); 
+                }
+            }
+        User.saveListToFileSer ("User.ser",new_users);
+    }
+    @Override
+    public String toString() {
+        return "User{" + "id_user=" + id_user + ", Nickname=" + Nickname + ", password=" + password + ", user=" + user + ", results_players_2=" + results_players_2 + ", results_computer=" + results_computer + ", history=" + history + '}';
+    }
     
     
 }

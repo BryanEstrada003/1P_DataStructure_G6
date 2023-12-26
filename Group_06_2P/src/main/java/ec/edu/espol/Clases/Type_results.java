@@ -10,6 +10,6 @@ import java.io.Serializable;
  *
  * @author angelozurita
  */
-public enum Type_game implements Serializable{
-    PLAYERS_2,COMPUTER;
+public enum Type_results implements Serializable{
+    Win,Draws,Defeat;
 }

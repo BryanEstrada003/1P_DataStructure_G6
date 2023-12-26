@@ -148,3 +148,8 @@
 .cuadro_gris{
     color: #36454F;
 }
+.label_di{
+    -fx-text-fill: white;
+    -fx-font-family: "Modak"; 
+    -fx-font-size: 20px; 
+}
