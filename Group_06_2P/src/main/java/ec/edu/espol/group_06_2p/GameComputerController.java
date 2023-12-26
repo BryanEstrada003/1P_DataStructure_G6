@@ -7,9 +7,11 @@ package ec.edu.espol.group_06_2p;
 import ec.edu.espol.Clases.Cuadro;
 import ec.edu.espol.Clases.Games;
 import ec.edu.espol.Clases.User;
+import ec.edu.espol.TDAs.Tree;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -74,16 +76,16 @@ public class GameComputerController implements Initializable {
     private Pane pane_game;
     @FXML
     private GridPane tres_en_raya;
-    private boolean turno_user= true;
+    private boolean turno_user = true;
     private boolean turno_computer = false;
     private int winner_n = 0;
     private boolean draw = false;
     private int[][] games;
     private ArrayList<Cuadro> cuadros = new ArrayList<>();
-    private User us1 ;
+    private User us1;
     @FXML
     private VBox Vbox_btn;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -93,31 +95,32 @@ public class GameComputerController implements Initializable {
         games = new int[3][3];
         setNameUser();
         paint_table();
-    }    
+        // turnos validar porque solo tenemos si es turno_user o turno_computer
+        int[][] result = miniMax(games, 1);
+    }
 
     public void setName_computer(String name_computer) {
         this.name_computer.setText(name_computer);
     }
-    
-   public void setNameUser(){
-       if(us1.getNickname() != null){
-           name_user.setText(us1.getNickname());
-       }
-       else{
-           name_user.setText(us1.getUser());
-       }
-   }
-    
-    public void paint_table(){
-        for(int x = 0; x < 3 ;x++){
-            for(int y = 0; y <3 ; y++){
-                Cuadro c1 = new Cuadro(x, y,false);
+
+    public void setNameUser() {
+        if (us1.getNickname() != null) {
+            name_user.setText(us1.getNickname());
+        } else {
+            name_user.setText(us1.getUser());
+        }
+    }
+
+    public void paint_table() {
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                Cuadro c1 = new Cuadro(x, y, false);
                 cuadros.add(c1);
                 tres_en_raya.add(c1, y, x);
-                c1.addEventHandler(MouseEvent.MOUSE_CLICKED,(Event t)->{
-                    if(! c1.isOcupado()){
-                        if(turno_user){
-                            Platform.runLater(()->{
+                c1.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
+                    if (!c1.isOcupado()) {
+                        if (turno_user) {
+                            Platform.runLater(() -> {
                                 Image icon_x = new Image("Iconos_game/X_sinfondo.png");
                                 ImageView imv1 = new ImageView(icon_x);
                                 imv1.setFitWidth(100);
@@ -128,12 +131,11 @@ public class GameComputerController implements Initializable {
                                 computer_play.setText("YOUR TURN");
                                 user_play.setText("");
                             });
-                            games[c1.getXpos()][c1.getYpos()] = 1; 
-                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2,1));
-                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2,2));
-                        }
-                        else if(turno_computer){
-                            Platform.runLater(()->{
+                            games[c1.getXpos()][c1.getYpos()] = 1;
+                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2, 1));
+                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2, 2));
+                        } else if (turno_computer) {
+                            Platform.runLater(() -> {
                                 Image icon_x = new Image("Iconos_game/O_sinfondo.png");
                                 ImageView imv1 = new ImageView(icon_x);
                                 imv1.setFitWidth(100);
@@ -143,88 +145,88 @@ public class GameComputerController implements Initializable {
                                 c1.setOcupado(true);
                                 user_play.setText("YOUR TURN");
                                 computer_play.setText("");
-                                
+
                             });
                             games[c1.getXpos()][c1.getYpos()] = 2;
-                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2,1));
-                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2,2));
+                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2, 1));
+                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2, 2));
                         }
                         validarGanador(games);
-                        Platform.runLater(()->{
-                            if(winner_n == 1){
+                        Platform.runLater(() -> {
+                            if (winner_n == 1) {
                                 user_play.setText("WINNER");
                                 computer_play.setText("LOSER");
-                                victories_p1.setText( (Integer.parseInt(victories_p1.getText())+1) +"");
-                                defeats_p2.setText( (Integer.parseInt(defeats_p2.getText())+1) +"");
-                                int new_victories = us1.getVictories_computer()+1;
+                                victories_p1.setText((Integer.parseInt(victories_p1.getText()) + 1) + "");
+                                defeats_p2.setText((Integer.parseInt(defeats_p2.getText()) + 1) + "");
+                                int new_victories = us1.getVictories_computer() + 1;
                                 us1.setVictories_computer(new_victories);
-                                
-                            }
-                            else if(winner_n == 2){
+
+                            } else if (winner_n == 2) {
                                 user_play.setText("LOSSER");
                                 computer_play.setText("WINNER");
-                                victories_p2.setText( (Integer.parseInt(victories_p2.getText())+1) +"");
-                                defeats_p1.setText( (Integer.parseInt(defeats_p1.getText())+1) +"");
-                                int new_defeats = us1.getDefeats_computer()+1;
+                                victories_p2.setText((Integer.parseInt(victories_p2.getText()) + 1) + "");
+                                defeats_p1.setText((Integer.parseInt(defeats_p1.getText()) + 1) + "");
+                                int new_defeats = us1.getDefeats_computer() + 1;
                                 us1.setDefeats_computer(new_defeats);
                             }
-                            if(draw){
+                            if (draw) {
                                 user_play.setText("DRAW");
                                 computer_play.setText("DRAW");
-                                draws_p1.setText( (Integer.parseInt(draws_p1.getText())+1) +"");
-                                draws_p2.setText( (Integer.parseInt(draws_p2.getText())+1) +"");
-                                int new_draws = us1.getDraws_computer()+1;
+                                draws_p1.setText((Integer.parseInt(draws_p1.getText()) + 1) + "");
+                                draws_p2.setText((Integer.parseInt(draws_p2.getText()) + 1) + "");
+                                int new_draws = us1.getDraws_computer() + 1;
                                 us1.setDraws_computer(new_draws);
                             }
-                            if(winner_n>0 || draw){
+                            if (winner_n > 0 || draw) {
                                 allOcupated();
                                 ArrayList<Games> history = us1.getHistory();
-                                Games g1 = new Games(us1,name_computer.getText(),games,winner_n);
+                                Games g1 = new Games(us1, name_computer.getText(), games, winner_n);
                                 Games.add_game_file(g1, "HistoryComputerGames.ser");
                                 history.add(g1);
                                 us1.setHistory(history);
                                 User.updateUser(us1);
-                                Platform.runLater(()->{
+                                Platform.runLater(() -> {
                                     createBtnNewGame();
                                 });
                             }
                         });
-                    if(turno_user == true)
-                        turno_user = false;
-                    else if(turno_user == false)
-                        turno_user = true;
-                    if(turno_computer == true)
-                        turno_computer = false;
-                    else if(turno_computer == false)
-                        turno_computer = true;
+                        if (turno_user == true)
+                            turno_user = false;
+                        else if (turno_user == false)
+                            turno_user = true;
+                        if (turno_computer == true)
+                            turno_computer = false;
+                        else if (turno_computer == false)
+                            turno_computer = true;
                     }
                     // Probando utilidad de un tablero
 
-                    
                 });
             }
         }
     }
-    public void createBtnNewGame(){
+
+    public void createBtnNewGame() {
         Button btn_newgame = new Button("NEW GAME");
         Vbox_btn.getChildren().add(btn_newgame);
         btn_newgame.setPrefWidth(190);
         btn_newgame.setPrefHeight(190);
         btn_newgame.setStyle("-fx-font-size: 20px;");
-        btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+        btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
             @Override
             public void handle(Event event) {
                 games = new int[3][3];
-                for(Cuadro c: cuadros){
+                for (Cuadro c : cuadros) {
                     c.setOcupado(false);
-                    c.getChildren().clear(); 
+                    c.getChildren().clear();
                 }
-                Vbox_btn.getChildren().clear(); 
+                Vbox_btn.getChildren().clear();
                 winner_n = 0;
                 draw = false;
             }
         });
     }
+
     public void validarGanador(int[][] games) {
         for (int i = 0; i < 3; i++) {
             if (games[i][0] == games[i][1] && games[i][0] == games[i][2] && games[i][0] != 0) {
@@ -261,115 +263,118 @@ public class GameComputerController implements Initializable {
         }
         return true;
     }
-    public void allOcupated(){
-        for (Cuadro c2 : cuadros){
+
+    public void allOcupated() {
+        for (Cuadro c2 : cuadros) {
             c2.setOcupado(true);
         }
     }
+
     @FXML
     private void regresar(MouseEvent event) throws IOException {
         User.passUser(us1);
         Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) game.getScene().getWindow();
-        stage.setScene(scene);  
+        stage.setScene(scene);
     }
-    
+
     // Proyecto
-    public int pj(int player){
+    public int pj(int player) {
         int total = 0;
         for (int i = 0; i < 3; i++) {
-            if (validar_neighbourRow(i,player)) {
-                total ++;
+            if (validar_neighbourRow(i, player)) {
+                total++;
             }
-            if (validar_neighbourCol(i,player)) {
-                total ++;
+            if (validar_neighbourCol(i, player)) {
+                total++;
             }
         }
         if (validar_diagonal1(player)) {
-            total ++;
+            total++;
         }
         if (validar_diagonal2(player)) {
-            total ++;
+            total++;
         }
-        int  zeros = fila_col_dia_zeros();
+        int zeros = fila_col_dia_zeros();
         return total + zeros;
     }
-    
-    public int utilidadTablero(int px, int po, int jugador){
+
+    public int utilidadTablero(int px, int po, int jugador) {
         System.out.println("pj(px) ->" + pj(px));
-        System.out.println("pj(po) ->"+  pj(po));
-        if(jugador == 1){
+        System.out.println("pj(po) ->" + pj(po));
+        if (jugador == 1) {
             return pj(px) - pj(po);
-        }
-        else if( jugador == 2){
+        } else if (jugador == 2) {
             return pj(po) - pj(px);
         }
-        return 0; 
+        return 0;
     }
-    public boolean validar_neighbourRow(int fila, int jugador){
-        for(int ic = 0 ; ic<3 ; ic++){
+
+    public boolean validar_neighbourRow(int fila, int jugador) {
+        for (int ic = 0; ic < 3; ic++) {
             boolean c0 = (games[fila][ic] == games[fila][0]) || (games[fila][0] == 0);
             boolean c1 = (games[fila][ic] == games[fila][1]) || (games[fila][1] == 0);
             boolean c2 = (games[fila][ic] == games[fila][2]) || (games[fila][2] == 0);
-            if( (games[fila][ic] == jugador) && c0 && c1 && c2 ){
+            if ((games[fila][ic] == jugador) && c0 && c1 && c2) {
                 return true;
             }
         }
         return false;
- 
+
     }
-    public boolean validar_neighbourCol(int col, int jugador){
-        for(int i_f = 0 ; i_f<3 ; i_f ++){
+
+    public boolean validar_neighbourCol(int col, int jugador) {
+        for (int i_f = 0; i_f < 3; i_f++) {
             boolean c0 = (games[i_f][col] == games[0][col]) || (games[0][col] == 0);
             boolean c1 = (games[i_f][col] == games[1][col]) || (games[1][col] == 0);
             boolean c2 = (games[i_f][col] == games[2][col]) || (games[2][col] == 0);
-            if( (games[i_f][col] == jugador) && c0 && c1 && c2 ){
+            if ((games[i_f][col] == jugador) && c0 && c1 && c2) {
                 return true;
             }
         }
-        return false; 
+        return false;
     }
-    
-    public boolean validar_diagonal1(int jugador){
-        for(int i = 0 ; i<3 ; i ++){
+
+    public boolean validar_diagonal1(int jugador) {
+        for (int i = 0; i < 3; i++) {
             boolean c0 = (games[i][i] == games[0][0]) || (games[0][0] == 0);
             boolean c1 = (games[i][i] == games[1][1]) || (games[1][1] == 0);
             boolean c2 = (games[i][i] == games[2][2]) || (games[2][2] == 0);
-            if( (games[i][i] == jugador) && c0 && c1 && c2 ){
+            if ((games[i][i] == jugador) && c0 && c1 && c2) {
                 return true;
             }
         }
-        return false; 
+        return false;
     }
-    
-    public boolean validar_diagonal2(int jugador){
-        for(int i = 0 ; i<3 ; i ++){
-            int j = 0 ;
-            switch(i){
+
+    public boolean validar_diagonal2(int jugador) {
+        for (int i = 0; i < 3; i++) {
+            int j = 0;
+            switch (i) {
                 case 0:
-                    j = 2 ;
-                    break ;
-                case 1 : 
-                    j = 1 ;
-                    break ; 
-                case 2 :
-                    j = 2 ;
-                    break ;  
+                    j = 2;
+                    break;
+                case 1:
+                    j = 1;
+                    break;
+                case 2:
+                    j = 2;
+                    break;
                 default:
                     break;
             }
             boolean c0 = (games[i][j] == games[0][2]) || (games[0][2] == 0);
             boolean c1 = (games[i][j] == games[1][1]) || (games[1][1] == 0);
             boolean c2 = (games[i][j] == games[2][0]) || (games[2][0] == 0);
-            if( (games[i][j] == jugador) && c0 && c1 && c2 ){
+            if ((games[i][j] == jugador) && c0 && c1 && c2) {
                 return true;
             }
         }
-        return false; 
+        return false;
     }
-    
-    public int fila_col_dia_zeros(){
+
+    public int fila_col_dia_zeros() {
         int total = 0;
         for (int i = 0; i < 3; i++) {
             if (games[i][0] == games[i][1] && games[i][0] == games[i][2] && games[i][0] == 0) {
@@ -380,13 +385,90 @@ public class GameComputerController implements Initializable {
             }
         }
         if (games[0][0] == games[1][1] && games[0][0] == games[2][2] && games[0][0] == 0) {
-            total ++;
+            total++;
         }
         if (games[0][2] == games[1][1] && games[0][2] == games[2][0] && games[0][2] == 0) {
-           total ++;
+            total++;
         }
         return total;
     }
-    
-    
+
+    // posible
+    public LinkedList<int[][]> posiblesEstados1(int jugador, int[][] games) {
+        LinkedList<int[][]> lista = new LinkedList<>();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; i < 3; j++) {
+                if ((games[i][j] == 0)) {
+                    int[][] matriz_ac = CopyMatrix(games);
+                    matriz_ac[i][j] = jugador;
+                    lista.add(matriz_ac);
+                }
+            }
+        }
+        return lista;
+    }
+
+    public LinkedList<int[][]> posiblesEstados2(int jugador, int[][] games) {
+        LinkedList<int[][]> lista = new LinkedList<>();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; i < 3; j++) {
+                if (!isEmpty(games) && (games[i][j] == 0)) {
+                    int[][] matriz_ac = CopyMatrix(games);
+                    matriz_ac[i][j] = changePlayer(jugador);
+                    lista.add(matriz_ac);
+                }
+            }
+        }
+        return lista;
+    }
+
+    public boolean isEmpty(int[][] games) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; i < 3; j++) {
+                if (games[i][j] != 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public int[][] CopyMatrix(int[][] original) {
+        if (original == null) {
+            return null;
+        }
+        int[][] result = new int[original.length][];
+        for (int i = 0; i < original.length; i++) {
+            result[i] = new int[original[i].length];
+            System.arraycopy(original[i], 0, result[i], 0, original[i].length);
+        }
+        return result;
+    }
+
+    public int changePlayer(int jugador) {
+        if (jugador == 1) {
+            return 2;
+        } else if (jugador == 2) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public int[][] miniMax(int[][] games, int jugador) {
+        Tree treeMatriz = new Tree();
+        treeMatriz.setRoot(games);
+        int[][] matriz = new int[3][3];
+        LinkedList<int[][]> matrices1 = posiblesEstados1(jugador, games);
+        for (int[][] m1 : matrices1) {
+            LinkedList<int[][]> matrices2 = posiblesEstados2(jugador, m1);
+            Tree children = new Tree(m1);
+            treeMatriz.addChildren(children);
+            for (int[][] m2 : matrices2) {
+                Tree children2 = new Tree(m2);
+                children.addChildren(children2);
+            }
+        }
+        System.out.println(treeMatriz.countNodes());
+        return matriz;
+    }
 }

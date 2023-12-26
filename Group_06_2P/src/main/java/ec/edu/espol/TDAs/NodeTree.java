@@ -13,4 +13,17 @@ import java.util.LinkedList;
 public class NodeTree<E> {
     private E content;
     private LinkedList<E> childrens;
+    private int utilidad_asociada;
+
+    public NodeTree(E content) {
+        this.content = content;
+        this.childrens = new LinkedList<>();
+        this.utilidad_asociada = 0;
+    }
+
+    // crear constructores;
+    public E getContent() {
+        return content;
+    }
+
 }

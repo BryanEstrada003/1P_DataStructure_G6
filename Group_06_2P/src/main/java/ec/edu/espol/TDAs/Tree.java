@@ -4,19 +4,28 @@
  */
 package ec.edu.espol.TDAs;
 
-public class Tree<E> {
+import java.util.ArrayDeque;
+import java.util.List;
+import java.util.Queue;
 
-    private TreeNode<E> root;
+public class Tree {
+
+    private TreeNode root;
 
     public Tree() {
         this.root = null;
+    }
+
+    public Tree(int[][] m1) {
+        TreeNode matriz = new TreeNode<>(m1);
+        this.root = matriz;
     }
 
     public boolean isEmpty() {
         return this.root == null;
     }
 
-    public E[][] getRoot() {
+    public int[][] getRoot() {
         return root.getContent();
     }
 
@@ -24,7 +33,7 @@ public class Tree<E> {
         return this.root;
     }
 
-    public void setRoot(E[][] matriz) {
+    public void setRoot(int[][] matriz) {
         if (this.root == null) {
             this.root = new TreeNode<>(matriz);
         } else {
@@ -41,9 +50,55 @@ public class Tree<E> {
 
         for (Integer[] initialBoard1 : initialBoard) {
             for (int j = 0; j < initialBoard1.length; j++) {
-                initialBoard1[j] = -1; 
+                initialBoard1[j] = -1;
             }
         }
-//        this.setRoot();
+        // this.setRoot();
+    }
+
+    public void addChildren(Tree children) {
+        if (this.root != null) {
+            this.root.addChildrenNode(children);
+        }
+    }
+
+    public int counthijos() {
+        if (this.root == null) {
+            return 0;
+        }
+
+        int count = 1;
+
+        if (this.isLeaf()) {
+            return 1;
+        }
+
+        for (Tree child : this.getChildrens()) {
+            count += child.counthijos();
+        }
+
+        return count;
+    }
+
+    public List<Tree> getChildrens() {
+        return this.root.getChildren();
+    }
+
+    public int countNodes() {
+        int nodes = 0;
+        Queue<Tree> q = new ArrayDeque<Tree>();
+        if (!this.isEmpty()) {
+            q.offer(this);
+            while (!q.isEmpty()) {
+                Tree tree = q.poll();
+                if (!tree.isLeaf()) {
+                    nodes++;
+                    for (Tree t : tree.getChildrens()) {
+                        q.offer(t);
+                    }
+                }
+            }
+        }
+        return nodes;
     }
 }

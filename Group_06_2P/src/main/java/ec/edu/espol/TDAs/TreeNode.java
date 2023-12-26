@@ -8,48 +8,36 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TreeNode<E> {
-    private E  matriz[][];
-    private List<Tree<E>> children;
+    private int[][] matriz;
+    private List<Tree> children;
 
-    public TreeNode(E[][] matriz) {
+    public TreeNode(int[][] matriz) {
         this.matriz = matriz;
         this.children = new LinkedList<>();
     }
 
-    public E[][]  getContent() {
+    public int[][] getContent() {
         return this.matriz;
     }
 
-    public void setContent(E[][] matriz) {
+    public void setContent(int[][] matriz) {
         this.matriz = matriz;
     }
 
-    public List<Tree<E>> getChildren() {
+    public List<Tree> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Tree<E>> children) {
+    public void setChildren(List<Tree> children) {
         this.children = children;
     }
-    
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
-                sb.append(matriz[i][j] != null ? matriz[i][j].toString() : " ");
-                if (j < matriz[i].length - 1) {
-                    sb.append(" | ");
-                }
-            }
-            if (i < matriz.length - 1) {
-                sb.append("\n---------\n");
-            }
-        }
-        return sb.toString();
-    }
 
-    public Tree<E> getTreeChildern(int i) {
+    public Tree getTreeChildern(int i) {
         return children.get(i);
     }
+
+    public void addChildrenNode(Tree children) {
+        this.children.add(children);
+    }
+
 }
