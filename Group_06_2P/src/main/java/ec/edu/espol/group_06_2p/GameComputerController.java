@@ -38,7 +38,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+
 /**
  * FXML Controller class
  *
@@ -104,8 +107,9 @@ public class GameComputerController implements Initializable {
         paint_table();
         // turnos validar porque solo tenemos si es turno_user o turno_computer
         int[][] result = miniMax(games, 1);
-       
+
     }
+
     public void setName_computer(String name_computer) {
         this.name_computer.setText(name_computer);
     }
@@ -136,19 +140,20 @@ public class GameComputerController implements Initializable {
                                 c1.getChildren().add(imv1);
                                 c1.setOcupado(true);
                                 computer_play.setText("YOUR TURN");
+                                computer_play.setStyle("-fx-text-fill: #cc5d08; -fx-font-weight: bold");
                                 user_play.setText("");
                             });
-                            games[c1.getXpos()][c1.getYpos()] = 1;                      
+                            games[c1.getXpos()][c1.getYpos()] = 1;
                             // aqui responde la computadora
-                            changeTurns();                        
+                            changeTurns();
                         }
                         validarGanador(games);
                         updateWinner_Loser();
-                        if(winner_n == 0){
+                        if (winner_n == 0) {
                             if (turno_computer) {
                                 PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
                                 pause.setOnFinished(event -> computer());
-                                pause.play(); 
+                                pause.play();
                             }
                         }
                     }
@@ -157,21 +162,25 @@ public class GameComputerController implements Initializable {
             }
         }
     }
-    public void changeTurns(){
-        if (turno_user == true)
+
+    public void changeTurns() {
+        if (turno_user == true) {
             turno_user = false;
-        else if (turno_user == false)
+        } else if (turno_user == false) {
             turno_user = true;
-        if (turno_computer == true)
+        }
+        if (turno_computer == true) {
             turno_computer = false;
-        else if (turno_computer == false)
+        } else if (turno_computer == false) {
             turno_computer = true;
+        }
     }
 
-    public void updateWinner_Loser(){
+    public void updateWinner_Loser() {
         Platform.runLater(() -> {
             if (winner_n == 1) {
                 user_play.setText("WINNER");
+                user_play.setStyle("-fx-text-fill: #08c20e; -fx-font-weight: bold");
                 computer_play.setText("LOSER");
                 victories_p1.setText((Integer.parseInt(victories_p1.getText()) + 1) + "");
                 defeats_p2.setText((Integer.parseInt(defeats_p2.getText()) + 1) + "");
@@ -179,7 +188,9 @@ public class GameComputerController implements Initializable {
                 us1.setVictories_computer(new_victories);
             } else if (winner_n == 2) {
                 user_play.setText("LOSSER");
+                user_play.setStyle("-fx-text-fill: #c20e08; -fx-font-weight: bold");
                 computer_play.setText("WINNER");
+                computer_play.setStyle("-fx-text-fill: #08c20e; -fx-font-weight: bold");
                 victories_p2.setText((Integer.parseInt(victories_p2.getText()) + 1) + "");
                 defeats_p1.setText((Integer.parseInt(defeats_p1.getText()) + 1) + "");
                 int new_defeats = us1.getDefeats_computer() + 1;
@@ -187,7 +198,9 @@ public class GameComputerController implements Initializable {
             }
             if (draw) {
                 user_play.setText("DRAW");
+                user_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
                 computer_play.setText("DRAW");
+                computer_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
                 draws_p1.setText((Integer.parseInt(draws_p1.getText()) + 1) + "");
                 draws_p2.setText((Integer.parseInt(draws_p2.getText()) + 1) + "");
                 int new_draws = us1.getDraws_computer() + 1;
@@ -208,8 +221,8 @@ public class GameComputerController implements Initializable {
             }
         });
     }
-    
-    public void computer(){
+
+    public void computer() {
         // la computadora siempre es jugador que se representa con el 2
         int[][] matriz_r = miniMax(games, 2);
         ArrayList<int[]> coord = getNextMovement(games, matriz_r);
@@ -217,7 +230,7 @@ public class GameComputerController implements Initializable {
 //        if(coord.isEmpty()){
 //            coord = getLastMove(games);
 //        }
-        if(!coord.isEmpty()) {
+        if (!coord.isEmpty()) {
             int[] nextMove = coord.get(0);
             Node node = getNodeFromGridPane(nextMove[0], nextMove[1], tres_en_raya);
             if (node instanceof Cuadro) {
@@ -231,6 +244,7 @@ public class GameComputerController implements Initializable {
                     c1.getChildren().add(imv1);
                     c1.setOcupado(true);
                     user_play.setText("YOUR TURN");
+                    user_play.setStyle("-fx-text-fill: #cc5d08; -fx-font-weight: bold");
                     computer_play.setText("");
                 });
                 // Actualizar el estado del juego
@@ -240,24 +254,26 @@ public class GameComputerController implements Initializable {
             validarGanador(games);
             updateWinner_Loser();
         }
-        
+
     }
-    public ArrayList<int[]> getLastMove(int[][]matrix){
+
+    public ArrayList<int[]> getLastMove(int[][] matrix) {
         ArrayList<int[]> coord = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    if (matrix[i][j] == 0) {
-                        coord.add(new int[]{i, j});
-                    }
+            for (int j = 0; j < 3; j++) {
+                if (matrix[i][j] == 0) {
+                    coord.add(new int[]{i, j});
                 }
-            }  
+            }
+        }
         return coord;
     }
+
     public Node getNodeFromGridPane(final int row, final int column, GridPane games) {
         Node result = null;
         ObservableList<Node> childrens = games.getChildren();
         for (Node node : childrens) {
-            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
                 result = node;
                 break;
             }
@@ -267,19 +283,19 @@ public class GameComputerController implements Initializable {
 
     public ArrayList<int[]> getNextMovement(int[][] matrix1, int[][] matrix2) {
         ArrayList<int[]> coord = new ArrayList<>();
-        
+
         if (matrix1.length == matrix2.length && matrix1[0].length == matrix2[0].length) {
-           for (int i = 0; i < matrix1.length; i++) {
+            for (int i = 0; i < matrix1.length; i++) {
                 for (int j = 0; j < matrix1[i].length; j++) {
                     if (matrix1[i][j] != matrix2[i][j]) {
                         coord.add(new int[]{i, j});
                     }
                 }
-            }  
+            }
         }
         return coord;
     }
-    
+
     public void createBtnNewGame() {
         Button btn_newgame = new Button("NEW GAME");
         Vbox_btn.getChildren().add(btn_newgame);
@@ -297,14 +313,15 @@ public class GameComputerController implements Initializable {
                 Vbox_btn.getChildren().clear();
                 winner_n = 0;
                 draw = false;
-                if(turno_user){
+                if (turno_user) {
                     computer_play.setText("");
                     user_play.setText("START");
-                }
-                else if(turno_computer){
+                    user_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
+                } else if (turno_computer) {
                     user_play.setText("");
                     computer_play.setText("START");
-                    if(new_game){
+                    computer_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
+                    if (new_game) {
                         PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
                         pause.setOnFinished(e -> computer());  // e es el parámetro del lambda
                         pause.play();
@@ -367,36 +384,36 @@ public class GameComputerController implements Initializable {
     }
 
     // Proyecto
-    public int pj(int player,int[][] games) {
+    public int pj(int player, int[][] games) {
         int total = 0;
         for (int i = 0; i < 3; i++) {
-            if (validar_neighbourRow(i, player,games)) {
+            if (validar_neighbourRow(i, player, games)) {
                 total++;
             }
-            if (validar_neighbourCol(i, player,games)) {
+            if (validar_neighbourCol(i, player, games)) {
                 total++;
             }
         }
-        if (validar_diagonal1(player,games)) {
+        if (validar_diagonal1(player, games)) {
             total++;
         }
-        if (validar_diagonal2(player,games)) {
+        if (validar_diagonal2(player, games)) {
             total++;
         }
         int zeros = fila_col_dia_zeros(games);
         return total + zeros;
     }
 
-    public int utilidadTablero(int px, int po, int jugador, int [][] games) {
+    public int utilidadTablero(int px, int po, int jugador, int[][] games) {
         if (jugador == 1) {
-            return pj(px,games) - pj(po,games);
+            return pj(px, games) - pj(po, games);
         } else if (jugador == 2) {
-            return pj(po,games) - pj(px,games);
+            return pj(po, games) - pj(px, games);
         }
         return 0;
     }
 
-    public boolean validar_neighbourRow(int fila, int jugador,int [][] games) {
+    public boolean validar_neighbourRow(int fila, int jugador, int[][] games) {
         for (int ic = 0; ic < 3; ic++) {
             boolean c0 = (games[fila][ic] == games[fila][0]) || (games[fila][0] == 0);
             boolean c1 = (games[fila][ic] == games[fila][1]) || (games[fila][1] == 0);
@@ -409,7 +426,7 @@ public class GameComputerController implements Initializable {
 
     }
 
-    public boolean validar_neighbourCol(int col, int jugador,int [][] games) {
+    public boolean validar_neighbourCol(int col, int jugador, int[][] games) {
         for (int i_f = 0; i_f < 3; i_f++) {
             boolean c0 = (games[i_f][col] == games[0][col]) || (games[0][col] == 0);
             boolean c1 = (games[i_f][col] == games[1][col]) || (games[1][col] == 0);
@@ -421,7 +438,7 @@ public class GameComputerController implements Initializable {
         return false;
     }
 
-    public boolean validar_diagonal1(int jugador,int [][] games) {
+    public boolean validar_diagonal1(int jugador, int[][] games) {
         for (int i = 0; i < 3; i++) {
             boolean c0 = (games[i][i] == games[0][0]) || (games[0][0] == 0);
             boolean c1 = (games[i][i] == games[1][1]) || (games[1][1] == 0);
@@ -433,7 +450,7 @@ public class GameComputerController implements Initializable {
         return false;
     }
 
-    public boolean validar_diagonal2(int jugador,int [][] games) {
+    public boolean validar_diagonal2(int jugador, int[][] games) {
         for (int i = 0; i < 3; i++) {
             int j = 0;
             switch (i) {
@@ -459,7 +476,7 @@ public class GameComputerController implements Initializable {
         return false;
     }
 
-    public int fila_col_dia_zeros(int [][]games) {
+    public int fila_col_dia_zeros(int[][] games) {
         int total = 0;
         for (int i = 0; i < 3; i++) {
             if (games[i][0] == games[i][1] && games[i][0] == games[i][2] && games[i][0] == 0) {
@@ -548,21 +565,20 @@ public class GameComputerController implements Initializable {
         for (int[][] m1 : matrices1) {
 //            System.out.println("MATRICES 1");
 //            imprimirMatriz(m1);
-            
+
             LinkedList<int[][]> matrices2 = posiblesEstados2(jugador, m1);
             LinkedList utilidades2 = new LinkedList<>();
             Tree children = new Tree(m1);
             treeMatriz.addChildren(children);
             for (int[][] m2 : matrices2) {
                 Tree children2 = new Tree(m2);
-                int utilidad = utilidadTablero(1,2, jugador,m2) ; 
+                int utilidad = utilidadTablero(1, 2, jugador, m2);
                 utilidades2.add(utilidad);
                 children.addChildren(children2);
-                
+
 //                System.out.println("MATRICES 2 PARA MATRICES 1");
 //                imprimirMatriz(m2);
 //                System.out.println(utilidad);    
-                
             }
 //            System.out.println("Lista de utilidades ");
 //            printLinkedList(utilidades2);
@@ -574,15 +590,14 @@ public class GameComputerController implements Initializable {
         int max_util = (int) Collections.max(utilidades1);
         int index = utilidades1.indexOf(max_util);
         matriz = matrices1.get(index);
-        
+
 //        System.out.println("Lista de Minimos ");
 //        printLinkedList(utilidades1); 
 //        System.out.println("Maximo de los minimos --> " + max_util+ "");
 //        imprimirMatriz(matriz);
-        
         return matriz;
     }
-    
+
 //    public static void imprimirMatriz(int[][] matriz) {
 //        for (int i = 0; i < matriz.length; i++) {
 //            for (int j = 0; j < matriz[i].length; j++) {
@@ -609,6 +624,4 @@ public class GameComputerController implements Initializable {
 //        
 //        System.out.println("]");
 //    }
-
-
 }

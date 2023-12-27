@@ -94,10 +94,12 @@ public class GameController implements Initializable {
         games = new int[3][3];
         if(turno_user){
             user_play.setText("START");
+            user_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
             computer_play.setText("");
         }
         else if(turno_computer){
             computer_play.setText("START");
+            computer_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
             user_play.setText("");                    
         }
         setNameUser();
@@ -135,6 +137,7 @@ public class GameController implements Initializable {
                                 c1.getChildren().add(imv1);
                                 c1.setOcupado(true);
                                 computer_play.setText("YOUR TURN");
+                                computer_play.setStyle("-fx-text-fill: #cc5d08; -fx-font-weight: bold");
                                 user_play.setText("");
                             });
                             games[c1.getXpos()][c1.getYpos()] = 1;
@@ -151,6 +154,7 @@ public class GameController implements Initializable {
                                 c1.getChildren().add(imv1);
                                 c1.setOcupado(true);
                                 user_play.setText("YOUR TURN");
+                                user_play.setStyle("-fx-text-fill: #cc5d08; -fx-font-weight: bold");
                                 computer_play.setText("");
                                 
                             });
@@ -160,7 +164,9 @@ public class GameController implements Initializable {
                         Platform.runLater(()->{
                             if(winner_n == 1){
                                 user_play.setText("WINNER");
+                                user_play.setStyle("-fx-text-fill: #08c20e; -fx-font-weight: bold");
                                 computer_play.setText("LOSER");
+                                computer_play.setStyle("-fx-text-fill: #c20e08; -fx-font-weight: bold");
                                 victories_p1.setText( (Integer.parseInt(victories_p1.getText())+1) +"");
                                 defeats_p2.setText( (Integer.parseInt(defeats_p2.getText())+1) +"");
                                 int new_victories = us1.getVictories_players_2()+1;
@@ -169,7 +175,9 @@ public class GameController implements Initializable {
                             }
                             else if(winner_n == 2){
                                 user_play.setText("LOSSER");
+                                user_play.setStyle("-fx-text-fill: #c20e08; -fx-font-weight: bold");
                                 computer_play.setText("WINNER");
+                                computer_play.setStyle("-fx-text-fill: #08c20e; -fx-font-weight: bold");
                                 victories_p2.setText( (Integer.parseInt(victories_p2.getText())+1) +"");
                                 defeats_p1.setText( (Integer.parseInt(defeats_p1.getText())+1) +"");
                                 int new_defeats = us1.getDefeats_players_2()+1;
@@ -177,7 +185,9 @@ public class GameController implements Initializable {
                             }
                             if(draw){
                                 user_play.setText("DRAW");
+                                user_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
                                 computer_play.setText("DRAW");
+                                computer_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
                                 draws_p1.setText( (Integer.parseInt(draws_p1.getText())+1) +"");
                                 draws_p2.setText( (Integer.parseInt(draws_p2.getText())+1) +"");
                                 int new_draws = us1.getDraws_players_2()+1;
@@ -229,10 +239,12 @@ public class GameController implements Initializable {
                 draw = false;
                 if(turno_user){
                     user_play.setText("START");
+                    user_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
                     computer_play.setText("");
                 }
                 else if(turno_computer){
                     computer_play.setText("START");
+                    computer_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
                     user_play.setText("");                    
                 }
             }
