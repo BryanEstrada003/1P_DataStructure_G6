@@ -145,7 +145,7 @@ public class GameComputerController implements Initializable {
                         validarGanador(games);
                         updateWinner_Loser();
                         if(winner_n == 0){
-                            if (turno_computer) {
+                            if (turno_computer && !draw) {
                                 PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
                                 pause.setOnFinished(event -> computer());
                                 pause.play(); 
@@ -545,12 +545,13 @@ public class GameComputerController implements Initializable {
         int[][] matriz = new int[3][3];
         LinkedList<int[][]> matrices1 = posiblesEstados1(jugador, games);
         LinkedList<Integer> utilidades1 = new LinkedList<>();
-        for (int[][] m1 : matrices1) {
+        if (matrices1.size() > 1){
+            for (int[][] m1 : matrices1) {
 //            System.out.println("MATRICES 1");
 //            imprimirMatriz(m1);
             
             LinkedList<int[][]> matrices2 = posiblesEstados2(jugador, m1);
-            LinkedList utilidades2 = new LinkedList<>();
+            LinkedList<Integer> utilidades2 = new LinkedList<>();
             Tree children = new Tree(m1);
             treeMatriz.addChildren(children);
             for (int[][] m2 : matrices2) {
@@ -566,20 +567,29 @@ public class GameComputerController implements Initializable {
             }
 //            System.out.println("Lista de utilidades ");
 //            printLinkedList(utilidades2);
-            int min_util = (int) Collections.min(utilidades2);
+            
+            int min_util = 0;
+            if(matrices2.size()>1){
+                min_util = (int) Collections.min(utilidades2);
+            }
+            else if(matrices2.size()==1){
+                min_util = utilidades2.get(0);
+            }      
 //            System.out.println("Minimo-> "+ min_util);
             utilidades1.add(min_util);
-        }
+            }
 
-        int max_util = (int) Collections.max(utilidades1);
-        int index = utilidades1.indexOf(max_util);
-        matriz = matrices1.get(index);
-        
+            int max_util = (int) Collections.max(utilidades1);
+            int index = utilidades1.indexOf(max_util);
+            matriz = matrices1.get(index);
+        }
+        else if (matrices1.size() == 1){
+            matriz = matrices1.get(0);
+        }        
 //        System.out.println("Lista de Minimos ");
 //        printLinkedList(utilidades1); 
 //        System.out.println("Maximo de los minimos --> " + max_util+ "");
-//        imprimirMatriz(matriz);
-        
+//        imprimirMatriz(matriz);   
         return matriz;
     }
     
