@@ -10,17 +10,22 @@ import ec.edu.espol.Clases.User;
 import ec.edu.espol.TDAs.Tree;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,7 +39,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 /**
  * FXML Controller class
  *
@@ -87,6 +91,7 @@ public class GameComputerController implements Initializable {
     private User us1;
     @FXML
     private VBox Vbox_btn;
+    private boolean new_game = false;
 
     /**
      * Initializes the controller class.
@@ -120,7 +125,7 @@ public class GameComputerController implements Initializable {
                 cuadros.add(c1);
                 tres_en_raya.add(c1, y, x);
                 c1.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
-                    if (!c1.isOcupado()) {
+                    if (!c1.isOcupado() && turno_user) {
                         if (turno_user) {
                             Platform.runLater(() -> {
                                 Image icon_x = new Image("Iconos_game/X_sinfondo.png");
@@ -133,90 +138,157 @@ public class GameComputerController implements Initializable {
                                 computer_play.setText("YOUR TURN");
                                 user_play.setText("");
                             });
-                            games[c1.getXpos()][c1.getYpos()] = 1;
-//                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2, 1));
-//                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2, 2));
-                        } else if (turno_computer) {
-                            Platform.runLater(() -> {
-                                Image icon_x = new Image("Iconos_game/O_sinfondo.png");
-                                ImageView imv1 = new ImageView(icon_x);
-                                imv1.setFitWidth(100);
-                                imv1.setFitHeight(100);
-                                imv1.setPreserveRatio(true);
-                                c1.getChildren().add(imv1);
-                                c1.setOcupado(true);
-                                user_play.setText("YOUR TURN");
-                                computer_play.setText("");
-
-                            });
-                            games[c1.getXpos()][c1.getYpos()] = 2;
-//                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2, 1));
-//                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2, 2));
+                            games[c1.getXpos()][c1.getYpos()] = 1;                      
+                            // aqui responde la computadora
+                            changeTurns();                        
                         }
                         validarGanador(games);
-                        Platform.runLater(() -> {
-                            if (winner_n == 1) {
-                                user_play.setText("WINNER");
-                                computer_play.setText("LOSER");
-                                victories_p1.setText((Integer.parseInt(victories_p1.getText()) + 1) + "");
-                                defeats_p2.setText((Integer.parseInt(defeats_p2.getText()) + 1) + "");
-                                int new_victories = us1.getVictories_computer() + 1;
-                                us1.setVictories_computer(new_victories);
-
-                            } else if (winner_n == 2) {
-                                user_play.setText("LOSSER");
-                                computer_play.setText("WINNER");
-                                victories_p2.setText((Integer.parseInt(victories_p2.getText()) + 1) + "");
-                                defeats_p1.setText((Integer.parseInt(defeats_p1.getText()) + 1) + "");
-                                int new_defeats = us1.getDefeats_computer() + 1;
-                                us1.setDefeats_computer(new_defeats);
+                        updateWinner_Loser();
+                        if(winner_n == 0){
+                            if (turno_computer) {
+                                PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
+                                pause.setOnFinished(event -> computer());
+                                pause.play(); 
                             }
-                            if (draw) {
-                                user_play.setText("DRAW");
-                                computer_play.setText("DRAW");
-                                draws_p1.setText((Integer.parseInt(draws_p1.getText()) + 1) + "");
-                                draws_p2.setText((Integer.parseInt(draws_p2.getText()) + 1) + "");
-                                int new_draws = us1.getDraws_computer() + 1;
-                                us1.setDraws_computer(new_draws);
-                            }
-                            if (winner_n > 0 || draw) {
-                                allOcupated();
-                                ArrayList<Games> history = us1.getHistory();
-                                Games g1 = new Games(us1, name_computer.getText(), games, winner_n);
-                                Games.add_game_file(g1, "HistoryComputerGames.ser");
-                                history.add(g1);
-                                us1.setHistory(history);
-                                User.updateUser(us1);
-                                Platform.runLater(() -> {
-                                    createBtnNewGame();
-                                });
-                            }
-                        });
-                        if (turno_user == true)
-                            turno_user = false;
-                        else if (turno_user == false)
-                            turno_user = true;
-                        if (turno_computer == true)
-                            turno_computer = false;
-                        else if (turno_computer == false)
-                            turno_computer = true;
+                        }
                     }
-                    // Probando utilidad de un tablero
 
                 });
             }
         }
     }
+    public void changeTurns(){
+        if (turno_user == true)
+            turno_user = false;
+        else if (turno_user == false)
+            turno_user = true;
+        if (turno_computer == true)
+            turno_computer = false;
+        else if (turno_computer == false)
+            turno_computer = true;
+    }
 
+    public void updateWinner_Loser(){
+        Platform.runLater(() -> {
+            if (winner_n == 1) {
+                user_play.setText("WINNER");
+                computer_play.setText("LOSER");
+                victories_p1.setText((Integer.parseInt(victories_p1.getText()) + 1) + "");
+                defeats_p2.setText((Integer.parseInt(defeats_p2.getText()) + 1) + "");
+                int new_victories = us1.getVictories_computer() + 1;
+                us1.setVictories_computer(new_victories);
+            } else if (winner_n == 2) {
+                user_play.setText("LOSSER");
+                computer_play.setText("WINNER");
+                victories_p2.setText((Integer.parseInt(victories_p2.getText()) + 1) + "");
+                defeats_p1.setText((Integer.parseInt(defeats_p1.getText()) + 1) + "");
+                int new_defeats = us1.getDefeats_computer() + 1;
+                us1.setDefeats_computer(new_defeats);
+            }
+            if (draw) {
+                user_play.setText("DRAW");
+                computer_play.setText("DRAW");
+                draws_p1.setText((Integer.parseInt(draws_p1.getText()) + 1) + "");
+                draws_p2.setText((Integer.parseInt(draws_p2.getText()) + 1) + "");
+                int new_draws = us1.getDraws_computer() + 1;
+                us1.setDraws_computer(new_draws);
+            }
+            if (winner_n > 0 || draw) {
+                new_game = true;
+                allOcupated();
+                ArrayList<Games> history = us1.getHistory();
+                Games g1 = new Games(us1, name_computer.getText(), games, winner_n);
+                Games.add_game_file(g1, "HistoryComputerGames.ser");
+                history.add(g1);
+                us1.setHistory(history);
+                User.updateUser(us1);
+                Platform.runLater(() -> {
+                    createBtnNewGame();
+                });
+            }
+        });
+    }
+    
+    public void computer(){
+        // la computadora siempre es jugador que se representa con el 2
+        int[][] matriz_r = miniMax(games, 2);
+        ArrayList<int[]> coord = getNextMovement(games, matriz_r);
+        // Solución rapida
+//        if(coord.isEmpty()){
+//            coord = getLastMove(games);
+//        }
+        if(!coord.isEmpty()) {
+            int[] nextMove = coord.get(0);
+            Node node = getNodeFromGridPane(nextMove[0], nextMove[1], tres_en_raya);
+            if (node instanceof Cuadro) {
+                Cuadro c1 = (Cuadro) node;
+                Platform.runLater(() -> {
+                    Image icon_x = new Image("Iconos_game/O_sinfondo.png");
+                    ImageView imv1 = new ImageView(icon_x);
+                    imv1.setFitWidth(100);
+                    imv1.setFitHeight(100);
+                    imv1.setPreserveRatio(true);
+                    c1.getChildren().add(imv1);
+                    c1.setOcupado(true);
+                    user_play.setText("YOUR TURN");
+                    computer_play.setText("");
+                });
+                // Actualizar el estado del juego
+                games[c1.getXpos()][c1.getYpos()] = 2;
+            }
+            changeTurns();
+            validarGanador(games);
+            updateWinner_Loser();
+        }
+        
+    }
+    public ArrayList<int[]> getLastMove(int[][]matrix){
+        ArrayList<int[]> coord = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (matrix[i][j] == 0) {
+                        coord.add(new int[]{i, j});
+                    }
+                }
+            }  
+        return coord;
+    }
+    public Node getNodeFromGridPane(final int row, final int column, GridPane games) {
+        Node result = null;
+        ObservableList<Node> childrens = games.getChildren();
+        for (Node node : childrens) {
+            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                result = node;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<int[]> getNextMovement(int[][] matrix1, int[][] matrix2) {
+        ArrayList<int[]> coord = new ArrayList<>();
+        
+        if (matrix1.length == matrix2.length && matrix1[0].length == matrix2[0].length) {
+           for (int i = 0; i < matrix1.length; i++) {
+                for (int j = 0; j < matrix1[i].length; j++) {
+                    if (matrix1[i][j] != matrix2[i][j]) {
+                        coord.add(new int[]{i, j});
+                    }
+                }
+            }  
+        }
+        return coord;
+    }
+    
     public void createBtnNewGame() {
         Button btn_newgame = new Button("NEW GAME");
         Vbox_btn.getChildren().add(btn_newgame);
         btn_newgame.setPrefWidth(190);
         btn_newgame.setPrefHeight(190);
         btn_newgame.setStyle("-fx-font-size: 20px;");
-        btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
+        btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
-            public void handle(Event event) {
+            public void handle(MouseEvent mouseEvent) {  // Cambiado a MouseEvent
                 games = new int[3][3];
                 for (Cuadro c : cuadros) {
                     c.setOcupado(false);
@@ -225,6 +297,19 @@ public class GameComputerController implements Initializable {
                 Vbox_btn.getChildren().clear();
                 winner_n = 0;
                 draw = false;
+                if(turno_user){
+                    computer_play.setText("");
+                    user_play.setText("START");
+                }
+                else if(turno_computer){
+                    user_play.setText("");
+                    computer_play.setText("START");
+                    if(new_game){
+                        PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
+                        pause.setOnFinished(e -> computer());  // e es el parámetro del lambda
+                        pause.play();
+                    }
+                }
             }
         });
     }
