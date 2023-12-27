@@ -25,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,12 +35,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -107,6 +108,7 @@ public class GameComputerController implements Initializable {
         paint_table();
         // turnos validar porque solo tenemos si es turno_user o turno_computer
         int[][] result = miniMax(games, 1);
+        getHelp();
 
     }
 
@@ -130,6 +132,7 @@ public class GameComputerController implements Initializable {
                 tres_en_raya.add(c1, y, x);
                 c1.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
                     if (!c1.isOcupado() && turno_user) {
+                        cleanVboxHelp();
                         if (turno_user) {
                             Platform.runLater(() -> {
                                 Image icon_x = new Image("Iconos_game/X_sinfondo.png");
@@ -149,7 +152,7 @@ public class GameComputerController implements Initializable {
                         }
                         validarGanador(games);
                         updateWinner_Loser();
-                        if(winner_n == 0){
+                        if (winner_n == 0) {
                             if (turno_computer && !draw) {
                                 PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
                                 pause.setOnFinished(event -> computer());
@@ -159,6 +162,71 @@ public class GameComputerController implements Initializable {
                     }
 
                 });
+            }
+        }
+    }
+
+    public void cleanVboxHelp() {
+        Vbox_btn.getChildren().clear();
+    }
+
+    public void getHelp() {
+        Platform.runLater(() -> {
+            VBox vbox_help = new VBox();
+            vbox_help.setPrefWidth(193);
+            vbox_help.setAlignment(Pos.CENTER);
+            Button btn_help = new Button("HELP");
+
+            Vbox_btn.getChildren().addAll(btn_help, vbox_help);
+            btn_help.setPrefWidth(100);
+            btn_help.setPrefHeight(40);
+            btn_help.setStyle("-fx-font-size: 15px;");
+            btn_help.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
+                @Override
+                public void handle(Event event) {
+                    // Aqui darle formato para que quede más bonito.
+                    Label info = new Label("WE RECOMMEND YOU MAKE THE FOLLOWING MOVE");
+                    info.setWrapText(true);
+                    info.setMaxWidth(170);
+                    info.setAlignment(Pos.CENTER);
+
+                    GridPane juego = new GridPane();
+                    juego.setAlignment(Pos.CENTER);
+                    for (int i = 0; i < 3; i++) {
+                        juego.getColumnConstraints().add(new ColumnConstraints(45));
+                        juego.getRowConstraints().add(new RowConstraints(45));
+                    }
+                    juego.setPrefWidth(135);
+                    juego.setPrefHeight(135);
+                    int[][] matriz_r = miniMax(games, 1);
+                    updateGame(matriz_r, juego);
+                    vbox_help.getChildren().addAll(info, juego);
+                }
+            });
+        });
+    }
+
+    public void updateGame(int[][] matrizgame, GridPane game) {
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                int num_matriz = matrizgame[x][y];
+                Cuadro c1 = new Cuadro(x, y, false);
+                if (num_matriz == 1) {
+                    Image icon_x = new Image("Iconos_game/X_sinfondo.png");
+                    ImageView imv1 = new ImageView(icon_x);
+                    imv1.setFitWidth(40);
+                    imv1.setFitHeight(40);
+                    imv1.setPreserveRatio(true);
+                    c1.getChildren().add(imv1);
+                } else if (num_matriz == 2) {
+                    Image icon_x = new Image("Iconos_game/O_sinfondo.png");
+                    ImageView imv1 = new ImageView(icon_x);
+                    imv1.setFitWidth(40);
+                    imv1.setFitHeight(40);
+                    imv1.setPreserveRatio(true);
+                    c1.getChildren().add(imv1);
+                }
+                game.add(c1, y, x);
             }
         }
     }
@@ -182,6 +250,7 @@ public class GameComputerController implements Initializable {
                 user_play.setText("WINNER");
                 user_play.setStyle("-fx-text-fill: #08c20e; -fx-font-weight: bold");
                 computer_play.setText("LOSER");
+                computer_play.setStyle("-fx-text-fill: #c20e08; -fx-font-weight: bold");
                 victories_p1.setText((Integer.parseInt(victories_p1.getText()) + 1) + "");
                 defeats_p2.setText((Integer.parseInt(defeats_p2.getText()) + 1) + "");
                 int new_victories = us1.getVictories_computer() + 1;
@@ -254,6 +323,11 @@ public class GameComputerController implements Initializable {
             validarGanador(games);
             updateWinner_Loser();
         }
+        if (winner_n == 0 && !draw) {
+            Platform.runLater(() -> {
+                getHelp();
+            });
+        }
 
     }
 
@@ -317,6 +391,7 @@ public class GameComputerController implements Initializable {
                     computer_play.setText("");
                     user_play.setText("START");
                     user_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
+                    getHelp();
                 } else if (turno_computer) {
                     user_play.setText("");
                     computer_play.setText("START");
@@ -562,46 +637,44 @@ public class GameComputerController implements Initializable {
         int[][] matriz = new int[3][3];
         LinkedList<int[][]> matrices1 = posiblesEstados1(jugador, games);
         LinkedList<Integer> utilidades1 = new LinkedList<>();
-        if (matrices1.size() > 1){
+        if (matrices1.size() > 1) {
             for (int[][] m1 : matrices1) {
 //            System.out.println("MATRICES 1");
 //            imprimirMatriz(m1);
 
-            LinkedList<int[][]> matrices2 = posiblesEstados2(jugador, m1);
-            LinkedList<Integer> utilidades2 = new LinkedList<>();
-            Tree children = new Tree(m1);
-            treeMatriz.addChildren(children);
-            for (int[][] m2 : matrices2) {
-                Tree children2 = new Tree(m2);
-                int utilidad = utilidadTablero(1, 2, jugador, m2);
-                utilidades2.add(utilidad);
-                children.addChildren(children2);
+                LinkedList<int[][]> matrices2 = posiblesEstados2(jugador, m1);
+                LinkedList<Integer> utilidades2 = new LinkedList<>();
+                Tree children = new Tree(m1);
+                treeMatriz.addChildren(children);
+                for (int[][] m2 : matrices2) {
+                    Tree children2 = new Tree(m2);
+                    int utilidad = utilidadTablero(1, 2, jugador, m2);
+                    utilidades2.add(utilidad);
+                    children.addChildren(children2);
 
 //                System.out.println("MATRICES 2 PARA MATRICES 1");
 //                imprimirMatriz(m2);
 //                System.out.println(utilidad);    
-            }
+                }
 //            System.out.println("Lista de utilidades ");
 //            printLinkedList(utilidades2);
-            
-            int min_util = 0;
-            if(matrices2.size()>1){
-                min_util = (int) Collections.min(utilidades2);
-            }
-            else if(matrices2.size()==1){
-                min_util = utilidades2.get(0);
-            }      
+
+                int min_util = 0;
+                if (matrices2.size() > 1) {
+                    min_util = (int) Collections.min(utilidades2);
+                } else if (matrices2.size() == 1) {
+                    min_util = utilidades2.get(0);
+                }
 //            System.out.println("Minimo-> "+ min_util);
-            utilidades1.add(min_util);
+                utilidades1.add(min_util);
             }
 
             int max_util = (int) Collections.max(utilidades1);
             int index = utilidades1.indexOf(max_util);
             matriz = matrices1.get(index);
-        }
-        else if (matrices1.size() == 1){
+        } else if (matrices1.size() == 1) {
             matriz = matrices1.get(0);
-        }        
+        }
 //        System.out.println("Lista de Minimos ");
 //        printLinkedList(utilidades1); 
 //        System.out.println("Maximo de los minimos --> " + max_util+ "");
