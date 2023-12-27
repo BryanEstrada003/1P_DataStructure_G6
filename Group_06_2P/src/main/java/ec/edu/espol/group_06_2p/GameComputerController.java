@@ -25,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,9 +35,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 /**
@@ -104,6 +107,7 @@ public class GameComputerController implements Initializable {
         paint_table();
         // turnos validar porque solo tenemos si es turno_user o turno_computer
         int[][] result = miniMax(games, 1);
+        getHelp();
        
     }
     public void setName_computer(String name_computer) {
@@ -126,6 +130,7 @@ public class GameComputerController implements Initializable {
                 tres_en_raya.add(c1, y, x);
                 c1.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event t) -> {
                     if (!c1.isOcupado() && turno_user) {
+                            cleanVboxHelp();               
                         if (turno_user) {
                             Platform.runLater(() -> {
                                 Image icon_x = new Image("Iconos_game/X_sinfondo.png");
@@ -154,6 +159,69 @@ public class GameComputerController implements Initializable {
                     }
 
                 });
+            }
+        }
+    }
+    public void cleanVboxHelp(){
+        Vbox_btn.getChildren().clear();
+    }
+    public void getHelp(){
+        Platform.runLater(()->{
+            VBox vbox_help = new VBox();
+            vbox_help.setPrefWidth(193);
+            vbox_help.setAlignment(Pos.CENTER); 
+            Button btn_help = new Button("HELP");
+            
+            Vbox_btn.getChildren().addAll(btn_help,vbox_help);
+            btn_help.setPrefWidth(100);
+            btn_help.setPrefHeight(40);
+            btn_help.setStyle("-fx-font-size: 15px;");
+            btn_help.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+                @Override
+                public void handle(Event event) {
+                    // Aqui darle formato para que quede más bonito.
+                    Label info = new Label("WE RECOMMEND YOU MAKE THE FOLLOWING MOVE");
+                    info.setWrapText(true);
+                    info.setMaxWidth(170);
+                    info.setAlignment(Pos.CENTER);
+                    
+                    GridPane juego = new GridPane();
+                    juego.setAlignment(Pos.CENTER);
+                    for (int i = 0; i < 3; i++) {
+                        juego.getColumnConstraints().add(new ColumnConstraints(45)); 
+                        juego.getRowConstraints().add(new RowConstraints(45));       
+                    }   
+                    juego.setPrefWidth(135);
+                    juego.setPrefHeight(135);
+                    int[][] matriz_r = miniMax(games, 1);
+                    updateGame(matriz_r,juego);
+                    vbox_help.getChildren().addAll(info,juego);    
+                } 
+            });
+        });        
+    }
+    public void updateGame(int [][] matrizgame, GridPane game){
+        for(int x = 0; x < 3 ;x++){
+            for(int y = 0; y <3 ; y++){
+                int num_matriz = matrizgame[x][y];
+                Cuadro c1 = new Cuadro(x, y,false);
+                if(num_matriz == 1){
+                    Image icon_x = new Image("Iconos_game/X_sinfondo.png");
+                    ImageView imv1 = new ImageView(icon_x);
+                    imv1.setFitWidth(40);
+                    imv1.setFitHeight(40);
+                    imv1.setPreserveRatio(true);
+                    c1.getChildren().add(imv1);                    
+                }
+                else if(num_matriz == 2){
+                    Image icon_x = new Image("Iconos_game/O_sinfondo.png");
+                    ImageView imv1 = new ImageView(icon_x);
+                    imv1.setFitWidth(40);
+                    imv1.setFitHeight(40);
+                    imv1.setPreserveRatio(true);
+                    c1.getChildren().add(imv1);
+                }
+                game.add(c1, y, x);
             }
         }
     }
@@ -240,6 +308,12 @@ public class GameComputerController implements Initializable {
             validarGanador(games);
             updateWinner_Loser();
         }
+        if(winner_n == 0 && ! draw){
+            Platform.runLater(()->{
+                getHelp();
+            });
+        }
+
         
     }
     public ArrayList<int[]> getLastMove(int[][]matrix){
@@ -300,6 +374,7 @@ public class GameComputerController implements Initializable {
                 if(turno_user){
                     computer_play.setText("");
                     user_play.setText("START");
+                    getHelp();
                 }
                 else if(turno_computer){
                     user_play.setText("");
