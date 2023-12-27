@@ -11,6 +11,8 @@ import ec.edu.espol.TDAs.Tree;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -97,8 +99,8 @@ public class GameComputerController implements Initializable {
         paint_table();
         // turnos validar porque solo tenemos si es turno_user o turno_computer
         int[][] result = miniMax(games, 1);
+       
     }
-
     public void setName_computer(String name_computer) {
         this.name_computer.setText(name_computer);
     }
@@ -132,8 +134,8 @@ public class GameComputerController implements Initializable {
                                 user_play.setText("");
                             });
                             games[c1.getXpos()][c1.getYpos()] = 1;
-                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2, 1));
-                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2, 2));
+//                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2, 1));
+//                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2, 2));
                         } else if (turno_computer) {
                             Platform.runLater(() -> {
                                 Image icon_x = new Image("Iconos_game/O_sinfondo.png");
@@ -148,8 +150,8 @@ public class GameComputerController implements Initializable {
 
                             });
                             games[c1.getXpos()][c1.getYpos()] = 2;
-                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2, 1));
-                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2, 2));
+//                            System.out.println("Utilidad del tablero para x --> " + utilidadTablero(1, 2, 1));
+//                            System.out.println("Utilidad del tablero para o --> " + utilidadTablero(1, 2, 2));
                         }
                         validarGanador(games);
                         Platform.runLater(() -> {
@@ -280,38 +282,36 @@ public class GameComputerController implements Initializable {
     }
 
     // Proyecto
-    public int pj(int player) {
+    public int pj(int player,int[][] games) {
         int total = 0;
         for (int i = 0; i < 3; i++) {
-            if (validar_neighbourRow(i, player)) {
+            if (validar_neighbourRow(i, player,games)) {
                 total++;
             }
-            if (validar_neighbourCol(i, player)) {
+            if (validar_neighbourCol(i, player,games)) {
                 total++;
             }
         }
-        if (validar_diagonal1(player)) {
+        if (validar_diagonal1(player,games)) {
             total++;
         }
-        if (validar_diagonal2(player)) {
+        if (validar_diagonal2(player,games)) {
             total++;
         }
-        int zeros = fila_col_dia_zeros();
+        int zeros = fila_col_dia_zeros(games);
         return total + zeros;
     }
 
-    public int utilidadTablero(int px, int po, int jugador) {
-        System.out.println("pj(px) ->" + pj(px));
-        System.out.println("pj(po) ->" + pj(po));
+    public int utilidadTablero(int px, int po, int jugador, int [][] games) {
         if (jugador == 1) {
-            return pj(px) - pj(po);
+            return pj(px,games) - pj(po,games);
         } else if (jugador == 2) {
-            return pj(po) - pj(px);
+            return pj(po,games) - pj(px,games);
         }
         return 0;
     }
 
-    public boolean validar_neighbourRow(int fila, int jugador) {
+    public boolean validar_neighbourRow(int fila, int jugador,int [][] games) {
         for (int ic = 0; ic < 3; ic++) {
             boolean c0 = (games[fila][ic] == games[fila][0]) || (games[fila][0] == 0);
             boolean c1 = (games[fila][ic] == games[fila][1]) || (games[fila][1] == 0);
@@ -324,7 +324,7 @@ public class GameComputerController implements Initializable {
 
     }
 
-    public boolean validar_neighbourCol(int col, int jugador) {
+    public boolean validar_neighbourCol(int col, int jugador,int [][] games) {
         for (int i_f = 0; i_f < 3; i_f++) {
             boolean c0 = (games[i_f][col] == games[0][col]) || (games[0][col] == 0);
             boolean c1 = (games[i_f][col] == games[1][col]) || (games[1][col] == 0);
@@ -336,7 +336,7 @@ public class GameComputerController implements Initializable {
         return false;
     }
 
-    public boolean validar_diagonal1(int jugador) {
+    public boolean validar_diagonal1(int jugador,int [][] games) {
         for (int i = 0; i < 3; i++) {
             boolean c0 = (games[i][i] == games[0][0]) || (games[0][0] == 0);
             boolean c1 = (games[i][i] == games[1][1]) || (games[1][1] == 0);
@@ -348,7 +348,7 @@ public class GameComputerController implements Initializable {
         return false;
     }
 
-    public boolean validar_diagonal2(int jugador) {
+    public boolean validar_diagonal2(int jugador,int [][] games) {
         for (int i = 0; i < 3; i++) {
             int j = 0;
             switch (i) {
@@ -359,7 +359,7 @@ public class GameComputerController implements Initializable {
                     j = 1;
                     break;
                 case 2:
-                    j = 2;
+                    j = 0;
                     break;
                 default:
                     break;
@@ -374,7 +374,7 @@ public class GameComputerController implements Initializable {
         return false;
     }
 
-    public int fila_col_dia_zeros() {
+    public int fila_col_dia_zeros(int [][]games) {
         int total = 0;
         for (int i = 0; i < 3; i++) {
             if (games[i][0] == games[i][1] && games[i][0] == games[i][2] && games[i][0] == 0) {
@@ -397,7 +397,7 @@ public class GameComputerController implements Initializable {
     public LinkedList<int[][]> posiblesEstados1(int jugador, int[][] games) {
         LinkedList<int[][]> lista = new LinkedList<>();
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; i < 3; j++) {
+            for (int j = 0; j < 3; j++) {
                 if ((games[i][j] == 0)) {
                     int[][] matriz_ac = CopyMatrix(games);
                     matriz_ac[i][j] = jugador;
@@ -411,7 +411,7 @@ public class GameComputerController implements Initializable {
     public LinkedList<int[][]> posiblesEstados2(int jugador, int[][] games) {
         LinkedList<int[][]> lista = new LinkedList<>();
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; i < 3; j++) {
+            for (int j = 0; j < 3; j++) {
                 if (!isEmpty(games) && (games[i][j] == 0)) {
                     int[][] matriz_ac = CopyMatrix(games);
                     matriz_ac[i][j] = changePlayer(jugador);
@@ -424,7 +424,7 @@ public class GameComputerController implements Initializable {
 
     public boolean isEmpty(int[][] games) {
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; i < 3; j++) {
+            for (int j = 0; j < 3; j++) {
                 if (games[i][j] != 0) {
                     return false;
                 }
@@ -459,16 +459,71 @@ public class GameComputerController implements Initializable {
         treeMatriz.setRoot(games);
         int[][] matriz = new int[3][3];
         LinkedList<int[][]> matrices1 = posiblesEstados1(jugador, games);
+        LinkedList<Integer> utilidades1 = new LinkedList<>();
         for (int[][] m1 : matrices1) {
+//            System.out.println("MATRICES 1");
+//            imprimirMatriz(m1);
+            
             LinkedList<int[][]> matrices2 = posiblesEstados2(jugador, m1);
+            LinkedList utilidades2 = new LinkedList<>();
             Tree children = new Tree(m1);
             treeMatriz.addChildren(children);
             for (int[][] m2 : matrices2) {
                 Tree children2 = new Tree(m2);
+                int utilidad = utilidadTablero(1,2, jugador,m2) ; 
+                utilidades2.add(utilidad);
                 children.addChildren(children2);
+                
+//                System.out.println("MATRICES 2 PARA MATRICES 1");
+//                imprimirMatriz(m2);
+//                System.out.println(utilidad);    
+                
             }
+//            System.out.println("Lista de utilidades ");
+//            printLinkedList(utilidades2);
+            int min_util = (int) Collections.min(utilidades2);
+//            System.out.println("Minimo-> "+ min_util);
+            utilidades1.add(min_util);
         }
-        System.out.println(treeMatriz.countNodes());
+
+        int max_util = (int) Collections.max(utilidades1);
+        int index = utilidades1.indexOf(max_util);
+        matriz = matrices1.get(index);
+        
+//        System.out.println("Lista de Minimos ");
+//        printLinkedList(utilidades1); 
+//        System.out.println("Maximo de los minimos --> " + max_util+ "");
+//        imprimirMatriz(matriz);
+        
         return matriz;
     }
+    
+//    public static void imprimirMatriz(int[][] matriz) {
+//        for (int i = 0; i < matriz.length; i++) {
+//            for (int j = 0; j < matriz[i].length; j++) {
+//                System.out.print(matriz[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
+//    }
+//    public void printLinkedList(LinkedList<Integer> list) {
+//        if (list == null || list.isEmpty()) {
+//            System.out.println("[]");
+//            return;
+//        }
+//        
+//        System.out.print("[");
+//        
+//        Iterator<Integer> iterator = list.iterator();
+//        while (iterator.hasNext()) {
+//            System.out.print(iterator.next());
+//            if (iterator.hasNext()) {
+//                System.out.print(", ");
+//            }
+//        }
+//        
+//        System.out.println("]");
+//    }
+
+
 }

@@ -62,7 +62,7 @@ public class Tree {
         }
     }
 
-    public int counthijos() {
+    public int countNodes() {
         if (this.root == null) {
             return 0;
         }
@@ -74,7 +74,7 @@ public class Tree {
         }
 
         for (Tree child : this.getChildrens()) {
-            count += child.counthijos();
+            count += child.countNodes();
         }
 
         return count;
@@ -82,23 +82,5 @@ public class Tree {
 
     public List<Tree> getChildrens() {
         return this.root.getChildren();
-    }
-
-    public int countNodes() {
-        int nodes = 0;
-        Queue<Tree> q = new ArrayDeque<Tree>();
-        if (!this.isEmpty()) {
-            q.offer(this);
-            while (!q.isEmpty()) {
-                Tree tree = q.poll();
-                if (!tree.isLeaf()) {
-                    nodes++;
-                    for (Tree t : tree.getChildrens()) {
-                        q.offer(t);
-                    }
-                }
-            }
-        }
-        return nodes;
     }
 }
