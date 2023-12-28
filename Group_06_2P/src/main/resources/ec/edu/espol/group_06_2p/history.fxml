@@ -125,12 +125,12 @@
    <bottom>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="25.0" layoutY="14.0" text="HISTORY GAME" textFill="WHITE">
+            <Label layoutX="24.0" layoutY="4.0" text="HISTORY GAME" textFill="WHITE">
                <font>
                   <Font name="Modak" size="28.0" />
                </font>
             </Label>
-            <GridPane alignment="CENTER" layoutX="67.0" layoutY="55.0" prefHeight="131.0" prefWidth="259.0">
+            <GridPane alignment="CENTER" layoutX="75.0" layoutY="43.0" prefHeight="90.0" prefWidth="259.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="157.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="102.0" />
@@ -142,37 +142,37 @@
                <children>
                   <Label fx:id="name_user1" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Modak" size="25.0" />
+                        <Font name="Modak" size="20.0" />
                      </font>
                   </Label>
                   <Label fx:id="name_user2" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Modak" size="25.0" />
+                        <Font name="Modak" size="20.0" />
                      </font>
                   </Label>
                   <Label fx:id="result1" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Modak" size="25.0" />
+                        <Font name="Modak" size="20.0" />
                      </font>
                   </Label>
                   <Label fx:id="result2" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Modak" size="25.0" />
+                        <Font name="Modak" size="20.0" />
                      </font>
                   </Label>
                </children>
             </GridPane>
-            <ImageView fx:id="anterior" fitHeight="51.0" fitWidth="52.0" layoutX="14.0" layoutY="81.0" onMouseClicked="#regresar_game" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="anterior" fitHeight="51.0" fitWidth="52.0" layoutX="14.0" layoutY="62.0" onMouseClicked="#regresar_game" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../Iconos/anterior.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="proximo" fitHeight="51.0" fitWidth="52.0" layoutX="668.0" layoutY="81.0" onMouseClicked="#siguiente_game" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="proximo" fitHeight="51.0" fitWidth="52.0" layoutX="668.0" layoutY="52.0" onMouseClicked="#siguiente_game" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../Iconos/proximo.png" />
                </image>
             </ImageView>
-            <GridPane fx:id="game" layoutX="335.0" layoutY="4.0" prefHeight="193.0" prefWidth="315.0">
+            <GridPane fx:id="game" layoutX="344.0" layoutY="7.0" prefHeight="193.0" prefWidth="315.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -184,6 +184,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
+            <HBox fx:id="hbox_btns" alignment="CENTER" layoutX="21.0" layoutY="138.0" prefHeight="57.0" prefWidth="313.0" spacing="20.0" />
          </children>
       </Pane>
    </bottom>

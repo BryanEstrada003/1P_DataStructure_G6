@@ -84,6 +84,7 @@ public class GameController implements Initializable {
     private User us1 ;
     @FXML
     private VBox Vbox_btn;
+    private ArrayList<int[][]> jugadas = new ArrayList<>();
     
     /**
      * Initializes the controller class.
@@ -141,8 +142,9 @@ public class GameController implements Initializable {
                                 user_play.setText("");
                             });
                             games[c1.getXpos()][c1.getYpos()] = 1;
+                            int[][] matrixc = CopyMatrix(games);
+                            jugadas.add(matrixc);
 
-                            
                         }
                         else if(turno_computer){
                             Platform.runLater(()->{
@@ -159,6 +161,8 @@ public class GameController implements Initializable {
                                 
                             });
                             games[c1.getXpos()][c1.getYpos()] = 2;
+                            int[][] matrixc = CopyMatrix(games);
+                            jugadas.add(matrixc);
                         }
                         validarGanador(games);
                         Platform.runLater(()->{
@@ -196,7 +200,9 @@ public class GameController implements Initializable {
                             if(winner_n>0 || draw){
                                 allOcupated();
                                 ArrayList<Games> history = us1.getHistory();
-                                Games g1 = new Games(us1,name_computer.getText(),games,winner_n);
+                                int[][] ultima = CopyMatrix(games);
+                                jugadas.add(games);
+                                Games g1 = new Games(us1,name_computer.getText(),games,winner_n,jugadas);
                                 Games.add_game_file(g1, "HistoryGames.ser");
                                 history.add(g1);
                                 us1.setHistory(history);
@@ -229,6 +235,7 @@ public class GameController implements Initializable {
         btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
             @Override
             public void handle(Event event) {
+                jugadas.clear();
                 games = new int[3][3];
                 for(Cuadro c: cuadros){
                     c.setOcupado(false);
@@ -299,5 +306,15 @@ public class GameController implements Initializable {
         Stage stage = (Stage) game.getScene().getWindow();
         stage.setScene(scene);  
     }
-    
+    public int[][] CopyMatrix(int[][] original) {
+        if (original == null) {
+            return null;
+        }
+        int[][] result = new int[original.length][];
+        for (int i = 0; i < original.length; i++) {
+            result[i] = new int[original[i].length];
+            System.arraycopy(original[i], 0, result[i], 0, original[i].length);
+        }
+        return result;
+    }
 }

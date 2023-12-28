@@ -21,14 +21,22 @@ public class Games implements Serializable{
     private String name_player;
     private int winner;
     private int[][] matriz_game;
+    private ArrayList<int[][]> tableros;
 
     public Games(User us1, String name_player, int[][] matriz_game, int winner) {
         this.us1 = us1;
         this.name_player = name_player;
         this.matriz_game = matriz_game;
         this.winner = winner;
+        this.tableros = new ArrayList<int[][]>();
     }
-
+    public Games(User us1, String name_player, int[][] matriz_game, int winner, ArrayList<int[][]> tableros) {
+        this.us1 = us1;
+        this.name_player = name_player;
+        this.matriz_game = matriz_game;
+        this.winner = winner;
+        this.tableros = tableros;
+    }
     public User getUs1() {
         return us1;
     }
@@ -60,6 +68,15 @@ public class Games implements Serializable{
     public void setWinner(int winner) {
         this.winner = winner;
     }
+
+    public ArrayList<int[][]> getTableros() {
+        return tableros;
+    }
+
+    public void setTableros(ArrayList<int[][]> tableros) {
+        this.tableros = tableros;
+    }
+    
     
         public static ArrayList<Games> readListFromFileSer(String nombre) 
     {

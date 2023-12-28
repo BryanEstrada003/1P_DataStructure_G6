@@ -6,6 +6,7 @@ package ec.edu.espol.group_06_2p;
 
 import ec.edu.espol.Clases.Cuadro;
 import ec.edu.espol.Clases.Games;
+import ec.edu.espol.Clases.HistoryToReview;
 import ec.edu.espol.Clases.Result;
 import ec.edu.espol.Clases.User;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -82,6 +85,8 @@ public class HistoryController implements Initializable {
     // true -- > 2 players
     // false --> computer
     private char state = 'P';
+    @FXML
+    private HBox hbox_btns;
    
     /**
      * Initializes the controller class.
@@ -92,15 +97,46 @@ public class HistoryController implements Initializable {
         history = us1.getHistory();
         updateHistoryArrayLists();
         id_game_actual = history_2players.size()-1;
+        
+        
+        HistoryToReview h1 = HistoryToReview.getPassHistoryToReview();
+        if (h1.getState() != 'N'){
+            id_game_actual = h1.getId_actual();
+            state = h1.getState();
+        }
+
         setNameUser();
         updateInfoResults();
         updateImageProfile();
-        if(id_game_actual >= 0){
+        
+        if(id_game_actual >= 0 && state == 'P'){
            updateLastGame(id_game_actual,history_2players);
+           updateHboxBtns();
+        }
+        else if(id_game_actual >= 0 && state == 'C'){
+            updateLastGame(id_game_actual,history_computer);
+            updateHboxBtns();
         }
 
         
     }  
+
+    public int getId_game_actual() {
+        return id_game_actual;
+    }
+
+    public void setId_game_actual(int id_game_actual) {
+        this.id_game_actual = id_game_actual;
+    }
+
+    public char getState() {
+        return state;
+    }
+
+    public void setState(char state) {
+        this.state = state;
+    }
+    
     public void updateHistoryArrayLists(){
         for(Games g : history){
             if(g.getName_player().compareTo("COMPUTER")== 0){
@@ -111,7 +147,64 @@ public class HistoryController implements Initializable {
             }
         }
     }
-   
+    
+    public void updateHboxBtns(){
+        if(isOkupdateHboxBtns()){
+            hbox_btns.getChildren().clear();
+            Button btn_tree = new Button("GENERAL TREE");
+            Button btn_game = new Button("REVIEW GAME") ;
+            btn_tree.setPrefWidth(150); // Ancho preferido
+            btn_tree.setPrefHeight(50); // Altura preferida
+            btn_game.setPrefWidth(150); // Ancho preferido
+            btn_game.setPrefHeight(50); // Altura preferida
+            hbox_btns.getChildren().addAll(btn_tree,btn_game);
+            btn_tree.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+                @Override
+                public void handle(Event event) {
+                }
+            });
+            btn_game.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+                @Override
+                public void handle(Event event) {
+                    try {
+                        User.passUser(us1);
+                        HistoryToReview h1 = new HistoryToReview(id_game_actual,state);
+                        HistoryToReview.passHistoryToReview(h1);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("review_game.fxml"));
+                        Parent root = loader.load();
+                        ReviewGameController reviewController = loader.getController();
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) game.getScene().getWindow();        
+                        stage.setScene(scene);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                
+            });
+        }
+
+    }
+    public boolean isOkupdateHboxBtns(){
+        if(state == 'P'){
+            if(history_2players.size() > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else if(state=='C'){
+            if(history_computer.size() > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        return false;
+    }
+    
     public void updateImageProfile(){
         File file2 = new File( path + us1.getId_user() + ".png");
             if (file2.exists()) {
@@ -151,16 +244,31 @@ public class HistoryController implements Initializable {
        }
     }
     public void updateInfoResults(){
-        btn_2players.setStyle("-fx-border-color: green; -fx-border-width: 10px;");
-        btn_computer.setStyle("-fx-border-width: 0;");
-        Result results_players_2 = us1.getResults_players_2();
-        num_vic.setText(results_players_2.getVictories()+"");
-        num_draws.setText(results_players_2.getDraw()+"");
-        num_def.setText(results_players_2.getDefeat()+"");  
+        if(state == 'P'){
+            btn_2players.setStyle("-fx-border-color: green; -fx-border-width: 10px;");
+            btn_computer.setStyle("-fx-border-width: 0;");
+            Result results_players_2 = us1.getResults_players_2();
+            num_vic.setText(results_players_2.getVictories()+"");
+            num_draws.setText(results_players_2.getDraw()+"");
+            num_def.setText(results_players_2.getDefeat()+"");  
+        }
+        else if(state == 'C'){
+            btn_computer.setStyle("-fx-border-color: green; -fx-border-width: 10px;");
+            btn_2players.setStyle("-fx-border-width: 0;");
+            Result results_computer = us1.getResults_computer();
+            num_vic.setText(results_computer.getVictories()+"");
+            num_draws.setText(results_computer.getDraw()+"");
+            num_def.setText(results_computer.getDefeat()+"");   
+            updateLastGame(id_game_actual,history_computer);
+        }
+
     }
     public void updateLastGame(int id_game,ArrayList<Games> history){
+        hbox_btns.getChildren().clear();
         if(id_game>= 0){
+            updateHboxBtns();
             Games game_last = history.get(id_game);
+            setNameUser();
             name_user2.setText(game_last.getName_player());
             int ganador = game_last.getWinner();
             if(ganador == 1 ){
@@ -182,9 +290,7 @@ public class HistoryController implements Initializable {
             result1.setText("");
             name_user2.setText("");
             setNameUser();
-        }
-
-        
+        } 
     }
     
     public void updateGame(int [][] matrizgame){
@@ -289,6 +395,7 @@ public class HistoryController implements Initializable {
 
     @FXML
     private void siguiente_game(MouseEvent event) {
+        
         if( state == 'C'){
             if(id_game_actual >= 0){
                 if(id_game_actual == history_computer.size()-1){

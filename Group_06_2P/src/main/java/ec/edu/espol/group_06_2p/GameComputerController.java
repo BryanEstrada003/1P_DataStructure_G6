@@ -96,6 +96,7 @@ public class GameComputerController implements Initializable {
     @FXML
     private VBox Vbox_btn;
     private boolean new_game = false;
+    private ArrayList<int[][]> jugadas = new ArrayList<>();
 
     /**
      * Initializes the controller class.
@@ -106,8 +107,6 @@ public class GameComputerController implements Initializable {
         games = new int[3][3];
         setNameUser();
         paint_table();
-        // turnos validar porque solo tenemos si es turno_user o turno_computer
-        int[][] result = miniMax(games, 1);
         getHelp();
 
     }
@@ -147,6 +146,8 @@ public class GameComputerController implements Initializable {
                                 user_play.setText("");
                             });
                             games[c1.getXpos()][c1.getYpos()] = 1;
+                            int[][] matrixc = CopyMatrix(games);
+                            jugadas.add(matrixc);
                             // aqui responde la computadora
                             changeTurns();
                         }
@@ -279,7 +280,9 @@ public class GameComputerController implements Initializable {
                 new_game = true;
                 allOcupated();
                 ArrayList<Games> history = us1.getHistory();
-                Games g1 = new Games(us1, name_computer.getText(), games, winner_n);
+                int[][] ultima = CopyMatrix(games);
+                jugadas.add(games);
+                Games g1 = new Games(us1, name_computer.getText(), games, winner_n,jugadas);
                 Games.add_game_file(g1, "HistoryComputerGames.ser");
                 history.add(g1);
                 us1.setHistory(history);
@@ -318,6 +321,10 @@ public class GameComputerController implements Initializable {
                 });
                 // Actualizar el estado del juego
                 games[c1.getXpos()][c1.getYpos()] = 2;
+                if (winner_n == 0 && !draw) {
+                    int[][] matrixc = CopyMatrix(games);
+                    jugadas.add(matrixc);
+                }
             }
             changeTurns();
             validarGanador(games);
@@ -379,6 +386,7 @@ public class GameComputerController implements Initializable {
         btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {  // Cambiado a MouseEvent
+                jugadas.clear();
                 games = new int[3][3];
                 for (Cuadro c : cuadros) {
                     c.setOcupado(false);
@@ -458,7 +466,6 @@ public class GameComputerController implements Initializable {
         stage.setScene(scene);
     }
 
-    // Proyecto
     public int pj(int player, int[][] games) {
         int total = 0;
         for (int i = 0; i < 3; i++) {
