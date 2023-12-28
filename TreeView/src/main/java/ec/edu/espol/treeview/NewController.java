@@ -28,7 +28,7 @@ public class NewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TreeItem<String> rootNode = new TreeItem<>("Root Node");
+        TreeItem<int[][]> rootNode = new TreeItem<>();
 
         TreeItem<String> childNode1 = new TreeItem<>("Child Node 1");
         TreeItem<String> childNode2 = new TreeItem<>("Child Node 2");

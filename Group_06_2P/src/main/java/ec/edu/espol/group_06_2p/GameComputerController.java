@@ -577,7 +577,7 @@ public class GameComputerController implements Initializable {
         return total;
     }
 
-    // posible
+
     public LinkedList<int[][]> posiblesEstados1(int jugador, int[][] games) {
         LinkedList<int[][]> lista = new LinkedList<>();
         for (int i = 0; i < 3; i++) {

@@ -161,6 +161,19 @@ public class HistoryController implements Initializable {
             btn_tree.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
                 @Override
                 public void handle(Event event) {
+                    try {
+                        User.passUser(us1);
+                        HistoryToReview h1 = new HistoryToReview(id_game_actual,state);
+                        HistoryToReview.passHistoryToReview(h1);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("generalTree.fxml"));
+                        Parent root = loader.load();
+                        GeneralTreeController generalTreeController = loader.getController();
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) game.getScene().getWindow();        
+                        stage.setScene(scene);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }                    
                 }
             });
             btn_game.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){

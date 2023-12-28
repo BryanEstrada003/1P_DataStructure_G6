@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="ec.edu.espol.group_06_2p.GeneralTreeController">
+   <children>
+      <VBox prefHeight="154.0" prefWidth="900.0">
+         <children>
+            <Pane prefHeight="61.0" prefWidth="870.0">
+               <children>
+                  <ImageView fx:id="flecha_regresar" fitHeight="56.0" fitWidth="61.0" layoutX="14.0" layoutY="4.0" onMouseClicked="#regresar" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Iconos/prebtn.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="72.0" fitWidth="79.0" layoutX="414.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Images/App_logo.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <HBox alignment="CENTER" prefHeight="94.0" prefWidth="821.0" spacing="100.0">
+               <children>
+                  <Label text="GENERAL TREE" textAlignment="CENTER">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="vbox_tree" alignment="CENTER" layoutX="18.0" layoutY="152.0" prefHeight="434.0" prefWidth="865.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" />
+   </children>
+</AnchorPane>
