@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="game" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.ReviewGameController">
+<AnchorPane id="AnchorPane" fx:id="game" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.ReviewGameController">
    <children>
       <VBox prefHeight="168.0" prefWidth="734.0">
          <children>
@@ -33,9 +33,9 @@
             </Pane>
             <HBox alignment="CENTER" prefHeight="106.0" prefWidth="734.0" spacing="100.0">
                <children>
-                  <Label text="GAME" textAlignment="CENTER">
+                  <Label text="GAME" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font size="35.0" />
+                        <Font name="System Bold Italic" size="35.0" />
                      </font>
                      <HBox.margin>
                         <Insets />

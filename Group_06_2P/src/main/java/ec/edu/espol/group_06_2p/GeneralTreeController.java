@@ -85,6 +85,7 @@ public class GeneralTreeController implements Initializable {
         generalTree.setExpanded(true);
         TreeView<GridPane> treeView = new TreeView<>(generalTree);
         treeView.setShowRoot(true);
+        treeView.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
         treeView.setCellFactory(tv -> new TreeCell<GridPane>() {
             @Override
             protected void updateItem(GridPane item, boolean empty) {
@@ -113,6 +114,7 @@ public class GeneralTreeController implements Initializable {
                         
                         if (coloredItem.isBestoption()) {
                             Label bestOptionLabel = new Label("Best Option");
+                            bestOptionLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: green;");
                             hbox.getChildren().add(bestOptionLabel); 
                         }                     
                     }

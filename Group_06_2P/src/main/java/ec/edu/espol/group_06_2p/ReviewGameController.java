@@ -84,27 +84,37 @@ public class ReviewGameController implements Initializable {
     private ArrayList<Games> history_computer = new ArrayList<Games>();
     private Games gameActual;
     // cosas del anterior controlador
-    private User us1 ;
+    private User us1;
     private int id_actual;
     private char state = 'P';
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         hboxs.addAll(Arrays.asList(n1, n2, n3, n4, n5, n6, n7, n8, n9));
-        gridpanes.addAll(Arrays.asList(game1,game2,game3,game4,game5,game6,game7,game8,game9));
+        gridpanes.addAll(Arrays.asList(game1, game2, game3, game4, game5, game6, game7, game8, game9));
         us1 = User.getPassUser();
-        
+
         HistoryToReview h1 = HistoryToReview.getPassHistoryToReview();
         id_actual = h1.getId_actual();
-        state = h1.getState();       
+        state = h1.getState();
         history = us1.getHistory();
         updateHistoryArrayLists();
         setgameActual_info();
         updateInfo(gameActual);
-    }  
+        // Apply styles dynamically
+        for (HBox hbox : hboxs) {
+            hbox.getChildren().forEach(node -> {
+                if (node instanceof Label) {
+                    Label label = (Label) node;
+                    label.setStyle("-fx-font-size: 14px; -fx-text-fill: #336699; -fx-font-weight: bold;");
+                }
+            });
+        }
+    }
+
     public static void imprimirMatriz(int[][] matriz) {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
@@ -113,6 +123,7 @@ public class ReviewGameController implements Initializable {
             System.out.println();
         }
     }
+
     public int getId_actual() {
         return id_actual;
     }
@@ -128,38 +139,38 @@ public class ReviewGameController implements Initializable {
     public void setState(char state) {
         this.state = state;
     }
-    
-    public void setgameActual_info(){
-        if( state == 'P'){
+
+    public void setgameActual_info() {
+        if (state == 'P') {
             gameActual = history_2players.get(id_actual);
-        }
-        else if (state == 'C'){
+        } else if (state == 'C') {
             gameActual = history_computer.get(id_actual);
         }
     }
-    public void updateHistoryArrayLists(){
-        for(Games g : history){
-            if(g.getName_player().compareTo("COMPUTER")== 0){
+
+    public void updateHistoryArrayLists() {
+        for (Games g : history) {
+            if (g.getName_player().compareTo("COMPUTER") == 0) {
                 history_computer.add(g);
-            }
-            else{
+            } else {
                 history_2players.add(g);
             }
         }
     }
 
-    public void updateInfo(Games gameActual){
-        ArrayList<int [][]> tableros = gameActual.getTableros();
-        System.out.println(tableros.size()-1);
-        int  j = 0 ; 
-        for(int i = 0 ; i < tableros.size()-1; i++){
-            Label l = new Label((i+1)+"");
+    public void updateInfo(Games gameActual) {
+        ArrayList<int[][]> tableros = gameActual.getTableros();
+        System.out.println(tableros.size() - 1);
+        int j = 0;
+        for (int i = 0; i < tableros.size() - 1; i++) {
+            Label l = new Label((i + 1) + "");
             l.getStyleClass().add("mi-label");
             hboxs.get(i).getChildren().add(l);
-            updateGame(tableros.get(i),gridpanes.get(i));
+            updateGame(tableros.get(i), gridpanes.get(i));
         }
-        
+
     }
+
     public void updateGame(int[][] matrizgame, GridPane game) {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
@@ -184,18 +195,19 @@ public class ReviewGameController implements Initializable {
             }
         }
     }
+
     @FXML
-    private void regresar(MouseEvent event) throws IOException { 
+    private void regresar(MouseEvent event) throws IOException {
         /// mandar todo lo necesario 
-       User.passUser(us1);
-       HistoryToReview h1 = new HistoryToReview(id_actual,state);
-       HistoryToReview.passHistoryToReview(h1);
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
-       Parent root = loader.load();
-       HistoryController historyController = loader.getController();
-       Scene scene = new Scene(root);
-       Stage stage = (Stage) game.getScene().getWindow(); 
-       stage.setScene(scene);
+        User.passUser(us1);
+        HistoryToReview h1 = new HistoryToReview(id_actual, state);
+        HistoryToReview.passHistoryToReview(h1);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
+        Parent root = loader.load();
+        HistoryController historyController = loader.getController();
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) game.getScene().getWindow();
+        stage.setScene(scene);
     }
-    
+
 }
