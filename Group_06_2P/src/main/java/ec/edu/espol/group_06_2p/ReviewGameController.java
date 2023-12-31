@@ -179,15 +179,15 @@ public class ReviewGameController implements Initializable {
                 if (num_matriz == 1) {
                     Image icon_x = new Image("Iconos_game/X_sinfondo.png");
                     ImageView imv1 = new ImageView(icon_x);
-                    imv1.setFitWidth(30);
-                    imv1.setFitHeight(30);
+                    imv1.setFitWidth(28);
+                    imv1.setFitHeight(28);
                     imv1.setPreserveRatio(true);
                     c1.getChildren().add(imv1);
                 } else if (num_matriz == 2) {
                     Image icon_x = new Image("Iconos_game/O_sinfondo.png");
                     ImageView imv1 = new ImageView(icon_x);
-                    imv1.setFitWidth(30);
-                    imv1.setFitHeight(30);
+                    imv1.setFitWidth(28);
+                    imv1.setFitHeight(28);
                     imv1.setPreserveRatio(true);
                     c1.getChildren().add(imv1);
                 }

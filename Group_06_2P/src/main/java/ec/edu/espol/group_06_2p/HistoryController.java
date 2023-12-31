@@ -314,16 +314,16 @@ public class HistoryController implements Initializable {
                 if(num_matriz == 1){
                     Image icon_x = new Image("Iconos_game/X_sinfondo.png");
                     ImageView imv1 = new ImageView(icon_x);
-                    imv1.setFitWidth(100);
-                    imv1.setFitHeight(64);
+                    imv1.setFitWidth(90);
+                    imv1.setFitHeight(55);
                     imv1.setPreserveRatio(true);
                     c1.getChildren().add(imv1);                    
                 }
                 else if(num_matriz == 2){
                     Image icon_x = new Image("Iconos_game/O_sinfondo.png");
                     ImageView imv1 = new ImageView(icon_x);
-                    imv1.setFitWidth(100);
-                    imv1.setFitHeight(64);
+                    imv1.setFitWidth(90);
+                    imv1.setFitHeight(55);
                     imv1.setPreserveRatio(true);
                     c1.getChildren().add(imv1);
                 }

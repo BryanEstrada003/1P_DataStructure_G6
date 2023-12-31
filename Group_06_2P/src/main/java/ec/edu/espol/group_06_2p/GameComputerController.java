@@ -7,12 +7,14 @@ package ec.edu.espol.group_06_2p;
 import ec.edu.espol.Clases.Cuadro;
 import ec.edu.espol.Clases.Games;
 import ec.edu.espol.Clases.User;
+import ec.edu.espol.TDAs.Heap;
 import ec.edu.espol.TDAs.Tree;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -646,8 +648,6 @@ public class GameComputerController implements Initializable {
         LinkedList<Integer> utilidades1 = new LinkedList<>();
         if (matrices1.size() > 1) {
             for (int[][] m1 : matrices1) {
-//            System.out.println("MATRICES 1");
-//            imprimirMatriz(m1);
 
                 LinkedList<int[][]> matrices2 = posiblesEstados2(jugador, m1);
                 LinkedList<Integer> utilidades2 = new LinkedList<>();
@@ -658,61 +658,37 @@ public class GameComputerController implements Initializable {
                     int utilidad = utilidadTablero(1, 2, jugador, m2);
                     utilidades2.add(utilidad);
                     children.addChildren(children2);
-
-//                System.out.println("MATRICES 2 PARA MATRICES 1");
-//                imprimirMatriz(m2);
-//                System.out.println(utilidad);    
+   
                 }
-//            System.out.println("Lista de utilidades ");
-//            printLinkedList(utilidades2);
+
 
                 int min_util = 0;
                 if (matrices2.size() > 1) {
-                    min_util = (int) Collections.min(utilidades2);
+                    Heap<Integer> h2 = new Heap(cmp_i_maxheap, utilidades2,false);
+                    min_util = h2.desencolar();
+//                    min_util = (int) Collections.min(utilidades2);
                 } else if (matrices2.size() == 1) {
                     min_util = utilidades2.get(0);
                 }
 //            System.out.println("Minimo-> "+ min_util);
                 utilidades1.add(min_util);
             }
-
-            int max_util = (int) Collections.max(utilidades1);
+            Heap<Integer> h1 = new Heap(cmp_i_maxheap, utilidades1,true);
+            int max_util = h1.desencolar();
+//            int max_util = (int) Collections.max(utilidades1);
             int index = utilidades1.indexOf(max_util);
             matriz = matrices1.get(index);
         } else if (matrices1.size() == 1) {
             matriz = matrices1.get(0);
         }
-//        System.out.println("Lista de Minimos ");
-//        printLinkedList(utilidades1); 
-//        System.out.println("Maximo de los minimos --> " + max_util+ "");
-//        imprimirMatriz(matriz);   
+  
         return matriz;
     }
+    Comparator<Integer> cmp_i_maxheap = new Comparator<Integer>(){
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }            
+    };
 
-//    public static void imprimirMatriz(int[][] matriz) {
-//        for (int i = 0; i < matriz.length; i++) {
-//            for (int j = 0; j < matriz[i].length; j++) {
-//                System.out.print(matriz[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//    }
-//    public void printLinkedList(LinkedList<Integer> list) {
-//        if (list == null || list.isEmpty()) {
-//            System.out.println("[]");
-//            return;
-//        }
-//        
-//        System.out.print("[");
-//        
-//        Iterator<Integer> iterator = list.iterator();
-//        while (iterator.hasNext()) {
-//            System.out.print(iterator.next());
-//            if (iterator.hasNext()) {
-//                System.out.print(", ");
-//            }
-//        }
-//        
-//        System.out.println("]");
-//    }
 }
