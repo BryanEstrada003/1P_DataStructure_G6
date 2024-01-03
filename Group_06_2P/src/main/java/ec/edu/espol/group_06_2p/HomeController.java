@@ -74,6 +74,8 @@ public class HomeController implements Initializable {
     private Button btn_2players;
     @FXML
     private Button btn_computer;
+    @FXML
+    private Button btn_compTocomp;
     /**
      * Initializes the controller class.
      */
@@ -82,6 +84,7 @@ public class HomeController implements Initializable {
         user1 = User.getPassUser();
         home.getStyleClass().add("blackbackgorund");
         btn_computer.getStyleClass().add("button");
+        btn_compTocomp.getStyleClass().add("button");
         btn_2players.getStyleClass().add("button");
         back_info_home.getStyleClass().add("blackbackgorund");
         back_info_home1.getStyleClass().add("blackbackgorund");
@@ -99,6 +102,21 @@ public class HomeController implements Initializable {
                 try {
                     User.passUser(user1);
                     Parent root = FXMLLoader.load(getClass().getResource("gameComputer.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) home.getScene().getWindow(); 
+                    stage.setScene(scene);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
+        });
+        btn_compTocomp.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                try {
+                    User.passUser(user1);
+                    Parent root = FXMLLoader.load(getClass().getResource("gameCompToComp.fxml"));
                     Scene scene = new Scene(root);
                     Stage stage = (Stage) home.getScene().getWindow(); 
                     stage.setScene(scene);
