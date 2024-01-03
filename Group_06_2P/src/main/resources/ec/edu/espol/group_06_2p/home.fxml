@@ -97,6 +97,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <Button fx:id="btn_2players" mnemonicParsing="false" prefHeight="40.0" prefWidth="244.0" text="2 PLAYERS" GridPane.rowIndex="1">
@@ -114,6 +115,11 @@
                               <Font name="Modak" size="65.0" />
                            </font>
                         </Label>
+                        <Button fx:id="btn_tournament" mnemonicParsing="false" onMouseClicked="#goTournament" prefHeight="40.0" prefWidth="253.0" text="TOURNAMENTS" GridPane.rowIndex="3">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </Button>
                      </children>
                   </GridPane>
                </children>

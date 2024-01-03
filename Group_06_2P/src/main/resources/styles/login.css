@@ -158,3 +158,14 @@
     -fx-font-weight: bold; 
     -fx-text-fill: black;
 }
+
+.circle{
+    -fx-border-radius: 50%;
+}
+
+.player{
+    -fx-border-radius: 50;
+    -fx-background-color: #5B92E5;
+    -fx-border-radius: 50; 
+    -fx-background-radius: 50;    
+}
