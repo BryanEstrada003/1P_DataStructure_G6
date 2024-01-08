@@ -70,8 +70,10 @@ public class FourTournamentController implements Initializable {
     @Override
     
     public void initialize(URL url, ResourceBundle rb) {
+        matches = new ArrayList<>();
         us = User.getPassUser();
         torneo = Tournament.getPassTournament();
+        System.out.println(torneo);
         players = torneo.getPlayers();
         getListLabel();        
         updateLabels();

@@ -132,6 +132,13 @@ public class Tournament implements Serializable {
         catch(IOException ioe){
         }   
     }
+
+    @Override
+    public String toString() {
+        return "Tournament{" + "players=" + players + ", winner=" + winner + ", tipo=" + tipo + ", state=" + state + ", matches=" + matches + ", us=" + us + '}';
+    }
+    
+    
     
     
     

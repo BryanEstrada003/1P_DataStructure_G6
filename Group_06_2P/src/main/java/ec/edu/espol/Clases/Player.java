@@ -115,6 +115,10 @@ public class Player implements Serializable {
     public void setDefeats(int newvalue){
         this.result_torneo.setDefeat(newvalue);
     }
-    
+
+    @Override
+    public String toString() {
+        return "Player{" + "name=" + name + ", fase=" + fase + ", l_matches=" + l_matches + ", us1=" + us1 + ", isUser=" + isUser + ", result_torneo=" + result_torneo + ", winner_matches=" + winner_matches + ", default_matches=" + default_matches + '}';
+    }
     
 }
