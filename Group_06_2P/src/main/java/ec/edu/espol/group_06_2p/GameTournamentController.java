@@ -88,13 +88,13 @@ public class GameTournamentController implements Initializable {
     @FXML
     private VBox Vbox_btn;
     private ArrayList<int[][]> jugadas = new ArrayList<>();
-    private Tournament torneo ;
-    private Match match_Actual ;
-    private User us1 ;
-    private Player p1;
-    private Player p2;
-    private Player winner;
-    private Player GlobalWinner;
+    private static Tournament torneo ;
+    private static Match match_Actual ;
+    private static User us1 ;
+    private static Player p1;
+    private static Player p2;
+    private static Player winner;
+    private static Player GlobalWinner;
     
     
     /**
@@ -104,7 +104,6 @@ public class GameTournamentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         torneo = Tournament.getPassTournament();
         match_Actual = Match.getPassMatch();
-        System.out.println(this.match_Actual);
         us1 = torneo.getUs();
         
         games = new int[3][3];

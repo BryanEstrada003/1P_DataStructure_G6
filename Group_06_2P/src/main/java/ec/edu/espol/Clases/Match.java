@@ -111,10 +111,8 @@ public class Match implements Serializable{
             }
         }
         catch(IOException ioe){  
-            System.out.println("no se pudo abrir");
         }
         catch(ClassNotFoundException c ){        
-            System.out.println("no se pudo abrir x2");
         }
         return u1;
     }
@@ -124,12 +122,13 @@ public class Match implements Serializable{
             out.writeObject(us1);
         }
         catch(IOException ioe){
+            System.out.println("no se pudo guardar");
         }   
     }
 
     @Override
     public String toString() {
-        return "Match{" + "p1=" + p1 + ", p2=" + p2 + ", winner=" + winner + ", us=" + us + ", jugadas=" + jugadas + ", round=" + round + '}';
+        return "Match{" + "p1=" + p1 + ", p2=" + p2 + ", winner=" + winner + ", us=" + us.getNickname() + ", round=" + round + '}';
     }
     
     

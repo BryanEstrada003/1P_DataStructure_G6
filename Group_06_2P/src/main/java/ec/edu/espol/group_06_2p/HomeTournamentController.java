@@ -148,7 +148,6 @@ public class HomeTournamentController implements Initializable {
         name.setPromptText(str_label);
         name.setPrefSize(220,30);
         vbox_player.getChildren().addAll(label,name);
-        System.out.println(vbox_player);
         return vbox_player;   
     }
 
@@ -158,9 +157,7 @@ public class HomeTournamentController implements Initializable {
         ArrayList<VBox> vboxes = new ArrayList<>();
         vboxes.add(vbox_player1);
         vboxes.add(vbox_player2);   
-        System.out.println(validateNames(vboxes) + "\n");
         if(validateNames(vboxes)){
-            System.out.println(vboxes.toString());
             ArrayList<Player> players = getPlayer(vboxes);
             if(state == '4'){
                 Tournament torneo = new Tournament(players,TypeTournament.knockout4,true, us);
@@ -225,14 +222,12 @@ public class HomeTournamentController implements Initializable {
         ArrayList<Player> players = new ArrayList<>();
         for (VBox vbox : vboxes) {
             for (Node node : vbox.getChildren()) {
-                System.out.println(node.toString());
 //                if (node instanceof TextField) {
                     VBox v = (VBox) node;
                     System.out.println("check");
                     TextField textField = (TextField) v.getChildren().get(1);
                     String name = textField.getText();
                     Player p = new Player(name,true,us);
-                    System.out.println(p);
                     players.add(p);
 //                }    
             }
