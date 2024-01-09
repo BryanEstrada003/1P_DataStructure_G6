@@ -29,6 +29,9 @@ public class Result implements Serializable{
         this.defeat = defeat;
     }
 
+    public Result(){
+    
+    }
     public Type_game getTipo() {
         return tipo;
     }

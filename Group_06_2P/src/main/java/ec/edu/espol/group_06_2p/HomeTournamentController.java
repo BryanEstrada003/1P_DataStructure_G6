@@ -69,6 +69,7 @@ public class HomeTournamentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         us = User.getPassUser();
         initializale4players();
+        System.out.println(us);
     }    
 
     @FXML

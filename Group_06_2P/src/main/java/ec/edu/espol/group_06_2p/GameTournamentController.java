@@ -104,6 +104,7 @@ public class GameTournamentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         torneo = Tournament.getPassTournament();
         match_Actual = Match.getPassMatch();
+        System.out.println(match_Actual);
         us1 = torneo.getUs();
         
         games = new int[3][3];
@@ -123,9 +124,11 @@ public class GameTournamentController implements Initializable {
 
    public void setPlayers(){
        p1 = match_Actual.getP1();
+       System.out.println("p1.getresults_computer(): "+p1.getresults_computer());
        p2 = match_Actual.getP2();
-       name_computer.setText(p1.getName());
-       computer_play.setText(p2.getName());  
+       System.out.println("p1.getresults_computer(): "+p2.getresults_computer());
+       name_user.setText(p1.getName());
+       name_computer.setText(p2.getName());  
    }
     
     public void paint_table(){

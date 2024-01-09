@@ -76,6 +76,8 @@ public class HomeController implements Initializable {
     private Button btn_computer;
     @FXML
     private Button btn_compTocomp;
+    @FXML
+    private Button btn_tournament;
     /**
      * Initializes the controller class.
      */
@@ -281,6 +283,10 @@ public class HomeController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = (Stage) home.getScene().getWindow();
         stage.setScene(scene); 
+    }
+
+    @FXML
+    private void goTournament(MouseEvent event) {
     }
     
 }
