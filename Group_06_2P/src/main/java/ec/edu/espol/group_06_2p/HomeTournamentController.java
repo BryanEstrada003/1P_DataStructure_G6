@@ -55,6 +55,8 @@ public class HomeTournamentController implements Initializable {
     private Button btn_start;
     @FXML
     private Button btn_continue;
+    @FXML
+    private Button btn_tournament;
     
     // cosas del anterior controlador
     private User us;
@@ -222,14 +224,22 @@ public class HomeTournamentController implements Initializable {
         ArrayList<Player> players = new ArrayList<>();
         for (VBox vbox : vboxes) {
             for (Node node : vbox.getChildren()) {
-                if (node instanceof TextField) {
-                    TextField textField = (TextField) node;
+                System.out.println(node.toString());
+//                if (node instanceof TextField) {
+                    VBox v = (VBox) node;
+                    System.out.println("check");
+                    TextField textField = (TextField) v.getChildren().get(1);
                     String name = textField.getText();
                     Player p = new Player(name,true,us);
+                    System.out.println(p);
                     players.add(p);
-                }    
+//                }    
             }
         }
         return players;
+    }
+
+    @FXML
+    private void goTournament(MouseEvent event) {
     }
 }

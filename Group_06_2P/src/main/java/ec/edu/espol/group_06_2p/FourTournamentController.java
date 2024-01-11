@@ -61,22 +61,22 @@ public class FourTournamentController implements Initializable {
     private User us;
     private ArrayList<Label> labels ;
     private ArrayList<Player> players ; 
-    private ArrayList<Match> matches ;
+    private static ArrayList<Match> matches ;
     private Player player1_match;
     private Player player2_match;
-    private Match match_Actual;
+    private static Match match_Actual;
     private Tournament  torneo ;
     
     @Override
     
     public void initialize(URL url, ResourceBundle rb) {
+        matches = new ArrayList<>();
         us = User.getPassUser();
         torneo = Tournament.getPassTournament();
+        System.out.println(torneo);
         players = torneo.getPlayers();
         getListLabel();        
         updateLabels();
-        createMatches();
-        updateMatch();
         
     }    
 
@@ -104,7 +104,7 @@ public class FourTournamentController implements Initializable {
     
     private void updateMatch(){
         for(Match m : matches){
-            if(!m.isPlayed()){
+            if(m.isPlayed() && m.getP1()!=null && m.getP2()!=null){
                 match_Actual = m;
                 player1_match = m.getP1();
                 player2_match = m.getP2();

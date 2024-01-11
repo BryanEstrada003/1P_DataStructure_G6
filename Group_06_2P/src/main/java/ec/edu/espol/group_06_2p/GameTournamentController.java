@@ -88,13 +88,13 @@ public class GameTournamentController implements Initializable {
     @FXML
     private VBox Vbox_btn;
     private ArrayList<int[][]> jugadas = new ArrayList<>();
-    private Tournament torneo ;
-    private Match match_Actual ;
-    private User us1 ;
-    private Player p1;
-    private Player p2;
-    private Player winner;
-    private Player GlobalWinner;
+    private static Tournament torneo ;
+    private static Match match_Actual ;
+    private static User us1 ;
+    private static Player p1;
+    private static Player p2;
+    private static Player winner;
+    private static Player GlobalWinner;
     
     
     /**
@@ -124,8 +124,8 @@ public class GameTournamentController implements Initializable {
    public void setPlayers(){
        p1 = match_Actual.getP1();
        p2 = match_Actual.getP2();
-       name_computer.setText(p1.getName());
-       computer_play.setText(p2.getName());  
+       name_user.setText(p1.getName());
+       name_computer.setText(p2.getName()); 
    }
     
     public void paint_table(){
