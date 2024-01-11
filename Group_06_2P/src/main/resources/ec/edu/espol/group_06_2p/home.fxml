@@ -115,15 +115,14 @@
                               <Font name="Modak" size="65.0" />
                            </font>
                         </Label>
-<<<<<<< HEAD
-                        <Button fx:id="btn_tournament" mnemonicParsing="false" onMouseClicked="#goTournament" prefHeight="40.0" prefWidth="253.0" text="TOURNAMENTS" GridPane.rowIndex="3">
-                           <font>
-                              <Font size="27.0" />
-=======
                         <Button fx:id="btn_compTocomp" mnemonicParsing="false" prefHeight="40.0" prefWidth="253.0" text="Computer to Computer" GridPane.rowIndex="3">
                            <font>
                               <Font size="20.0" />
->>>>>>> dd9f3b3381a8ebd4ca152c03a11f2b5ec97e6f05
+                           </font>
+                        </Button>
+                        <Button fx:id="btn_tournament" mnemonicParsing="false" onMouseClicked="#goTournament" prefHeight="40.0" prefWidth="253.0" text="TOURNAMENTS" GridPane.rowIndex="4">
+                           <font>
+                              <Font size="27.0" />
                            </font>
                         </Button>
                      </children>
