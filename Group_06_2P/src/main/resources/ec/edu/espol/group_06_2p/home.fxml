@@ -117,7 +117,7 @@
                                         <Font name="Modak" size="65.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="btn_tournament" mnemonicParsing="false" onMouseClicked="#goTournament" prefHeight="40.0" prefWidth="253.0" text="TOURNAMENTS" GridPane.rowIndex="3">
+                                <Button fx:id="btn_tournament" mnemonicParsing="false" prefHeight="40.0" prefWidth="253.0" text="TOURNAMENTS" GridPane.rowIndex="3">
                                     <font>
                                         <Font size="27.0" />
                                     </font>

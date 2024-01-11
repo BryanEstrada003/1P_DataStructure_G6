@@ -301,9 +301,5 @@ public class HomeController implements Initializable {
         Stage stage = (Stage) home.getScene().getWindow();
         stage.setScene(scene); 
     }
-
-    @FXML
-    private void goTournament(MouseEvent event) {    
-    }
     
 }
