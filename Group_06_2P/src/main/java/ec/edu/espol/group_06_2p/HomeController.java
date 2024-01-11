@@ -88,6 +88,7 @@ public class HomeController implements Initializable {
         btn_computer.getStyleClass().add("button");
         btn_compTocomp.getStyleClass().add("button");
         btn_2players.getStyleClass().add("button");
+        btn_tournament.getStyleClass().add("button");
         back_info_home.getStyleClass().add("blackbackgorund");
         back_info_home1.getStyleClass().add("blackbackgorund");
         grid_pane_info.getStyleClass().add("back_info");
@@ -196,6 +197,22 @@ public class HomeController implements Initializable {
                 });
             }
         });
+        
+        btn_tournament.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                try {
+                    User.passUser(user1);
+                    Parent root = FXMLLoader.load(getClass().getResource("HomeTournament.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) home.getScene().getWindow(); 
+                    stage.setScene(scene);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
+        });
 
     }    
 
@@ -286,7 +303,7 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void goTournament(MouseEvent event) {
+    private void goTournament(MouseEvent event) {    
     }
     
 }

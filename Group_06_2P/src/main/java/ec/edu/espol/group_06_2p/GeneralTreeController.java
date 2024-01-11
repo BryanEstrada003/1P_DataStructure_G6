@@ -180,7 +180,6 @@ public class GeneralTreeController implements Initializable {
             int[][] m1 = l_matrices.get(u);
             LinkedList<int[][]> posiblesEstados1 = posiblesEstados1(jugador , m1);
             int[][] miniMax = miniMax(m1,jugador);
-            String color = colores.get(u);
             for(int[][] m_posible : posiblesEstados1){
                 GridPane g2 = newGridPane(m_posible);
 //                TreeItem<GridPane> t_g2 = new TreeItem<>();
