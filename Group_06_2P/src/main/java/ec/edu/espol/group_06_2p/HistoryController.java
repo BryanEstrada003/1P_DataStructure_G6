@@ -332,6 +332,14 @@ public class HistoryController implements Initializable {
         }
     }
     
+    public void cleanGame(){
+        for(int x = 0; x < 3 ;x++){
+            for(int y = 0; y <3 ; y++){
+                game.getChildren().clear();     
+            }
+        }
+    }
+    
     @FXML
     private void regresar(MouseEvent event) throws IOException {
         User.passUser(us1);
@@ -343,6 +351,7 @@ public class HistoryController implements Initializable {
 
     @FXML
     private void updateInfo_P(MouseEvent event) {
+        cleanGame();
         state = 'P';
         id_game_actual = history_2players.size()-1;
         Platform.runLater(()->{
@@ -358,6 +367,7 @@ public class HistoryController implements Initializable {
 
     @FXML
     private void updateInfo_Com(MouseEvent event) {
+        cleanGame();
         state = 'C';
         id_game_actual = history_computer.size()-1;
         Platform.runLater(()->{

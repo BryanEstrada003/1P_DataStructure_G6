@@ -176,7 +176,7 @@ public class GeneralTreeController implements Initializable {
         // en el peor de los casos esta llena
         // en si vamos a recorrer l_matrices tantas veces como cantidad de tableros tengamos 
 //        for(int[][] m1 : l_matrices)
-        for(int u = 0 ; u<tableros.size() ; u++){
+        for(int u = 0 ; u<tableros.size()-1 ; u++){
             int[][] m1 = l_matrices.get(u);
             LinkedList<int[][]> posiblesEstados1 = posiblesEstados1(jugador , m1);
             int[][] miniMax = miniMax(m1,jugador);
