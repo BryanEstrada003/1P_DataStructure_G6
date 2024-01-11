@@ -28,6 +28,7 @@ public class Player implements Serializable {
         this.l_matches = l_matches;
         this.us1 = us1;
         this.isUser = isUser;
+        this.result_torneo= new Result();
     }
 
     public Player(String name, boolean fase, ArrayList<Match> l_matches, User us1) {
@@ -35,12 +36,14 @@ public class Player implements Serializable {
         this.fase = fase;
         this.l_matches = l_matches;
         this.us1 = us1;
+        this.result_torneo= new Result();
     }
 
     public Player(String name, boolean fase, User us1) {
         this.name = name;
         this.fase = fase;
         this.us1 = us1;
+        this.result_torneo= new Result();
     }
     
 

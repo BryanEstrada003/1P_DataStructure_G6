@@ -104,7 +104,7 @@ public class GameTournamentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         torneo = Tournament.getPassTournament();
         match_Actual = Match.getPassMatch();
-        System.out.println(match_Actual);
+        System.out.println(match_Actual.getP1().getresults_computer());
         us1 = torneo.getUs();
         
         games = new int[3][3];
@@ -184,7 +184,7 @@ public class GameTournamentController implements Initializable {
                                 computer_play.setStyle("-fx-text-fill: #c20e08; -fx-font-weight: bold");
                                 victories_p1.setText( (Integer.parseInt(victories_p1.getText())+1) +"");
                                 defeats_p2.setText( (Integer.parseInt(defeats_p2.getText())+1) +"");
-                                int new_victories = p1.getVictories()+1;
+                                int new_victories = p1.getVictories()+1; //AQUI ES EL PROBLEMA, RESULT ES NULL
                                 int new_defeats = p2.getDefeats()+1;
                                 p1.setVictories(new_victories);
                                 p2.setDefeats(new_defeats);
