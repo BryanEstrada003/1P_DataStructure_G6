@@ -96,13 +96,13 @@ public class ReviewGameController implements Initializable {
         hboxs.addAll(Arrays.asList(n1, n2, n3, n4, n5, n6, n7, n8, n9));
         gridpanes.addAll(Arrays.asList(game1, game2, game3, game4, game5, game6, game7, game8, game9));
         us1 = User.getPassUser();
-
         HistoryToReview h1 = HistoryToReview.getPassHistoryToReview();
         id_actual = h1.getId_actual();
         state = h1.getState();
         history = us1.getHistory();
-        updateHistoryArrayLists();
-        setgameActual_info();
+        gameActual= Games.getPassGame();
+//        updateHistoryArrayLists();
+//        setgameActual_info();
         updateInfo(gameActual);
         // Apply styles dynamically
         for (HBox hbox : hboxs) {

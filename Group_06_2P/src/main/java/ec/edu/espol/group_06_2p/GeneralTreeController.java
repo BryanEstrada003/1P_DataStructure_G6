@@ -77,6 +77,7 @@ public class GeneralTreeController implements Initializable {
         updateColores();
         us1 = User.getPassUser();
         HistoryToReview h1 = HistoryToReview.getPassHistoryToReview();
+        System.out.println("Id recibido");
         id_actual = h1.getId_actual();
         state = h1.getState();       
         history = us1.getHistory();

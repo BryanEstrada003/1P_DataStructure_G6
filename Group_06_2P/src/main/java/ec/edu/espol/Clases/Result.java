@@ -63,13 +63,5 @@ public class Result implements Serializable{
 
     public void setDefeat(int defeat) {
         this.defeat = defeat;
-    }
-
-    @Override
-    public String toString() {
-        return "Result{" + "tipo=" + tipo + ", victories=" + victories + ", draw=" + draw + ", defeat=" + defeat + '}';
-    }
-    
-    
-    
+    }      
 }

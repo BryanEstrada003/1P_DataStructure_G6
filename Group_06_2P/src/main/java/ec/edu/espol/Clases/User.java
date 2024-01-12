@@ -278,11 +278,5 @@ public class User implements Serializable {
                 }
             }
         User.saveListToFileSer ("User.ser",new_users);
-    }
-    @Override
-    public String toString() {
-        return "User{" + "id_user=" + id_user + ", Nickname=" + Nickname + ", password=" + password + ", user=" + user + ", results_players_2=" + results_players_2 + ", results_computer=" + results_computer + ", history=" + history + '}';
-    }
-    
-    
+    }    
 }

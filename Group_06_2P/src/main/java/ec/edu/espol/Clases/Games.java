@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.Clases;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,6 +37,9 @@ public class Games implements Serializable{
         this.matriz_game = matriz_game;
         this.winner = winner;
         this.tableros = tableros;
+    }
+
+    private Games() {
     }
     public User getUs1() {
         return us1;
@@ -115,6 +119,36 @@ public class Games implements Serializable{
             Games.saveListToFileSer (namefile,games);        
         }
 
+    }
+    public static void passGame (Games h1){
+         try(ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream("GameToReview.ser")))
+        {
+            out.writeObject(h1);
+        }
+        catch(IOException ioe){
+        }   
+    }
+    
+    public static Games getPassGame(){
+        Games u1 = new Games();
+        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("GameToReview.ser")))
+        {
+            u1 = (Games)in.readObject();
+            File archivo = new File("GameToReview.ser");
+            if (archivo.exists()) {
+                archivo.delete();
+            }
+        }
+        catch(IOException ioe){  
+        }
+        catch(ClassNotFoundException c ){        
+        }
+        return u1;
+    }
+
+    @Override
+    public String toString() {
+        return "Games{" + "us1=" + us1 + ", name_player=" + name_player + ", winner=" + winner + ", matriz_game=" + matriz_game + ", tableros=" + tableros + '}';
     }
     
     

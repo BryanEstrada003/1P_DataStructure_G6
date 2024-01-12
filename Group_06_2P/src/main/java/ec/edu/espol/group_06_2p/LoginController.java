@@ -96,7 +96,6 @@ public class LoginController implements Initializable {
         if(User.checkLogin(user.getText().trim(), password.getText().trim())){
             User user1 = getUser(user.getText().trim(), password.getText().trim());
             passUser(user1);
-            System.out.println(user1);
             Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
             Scene scene = new Scene(root);
             Stage stage = (Stage) user.getScene().getWindow();
