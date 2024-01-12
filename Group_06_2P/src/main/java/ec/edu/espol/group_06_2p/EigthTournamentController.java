@@ -93,7 +93,7 @@ public class EigthTournamentController implements Initializable {
         players = torneo.getPlayers();
         getListLabel();
         updateLabels();
-        createMatches();
+//        createMatches();
         updateMatch();
     }
 
@@ -114,15 +114,15 @@ public class EigthTournamentController implements Initializable {
             labels.get(i).setText(players.get(i).getName());
         }
     }
-
-    private void createMatches() {
-        Match m1 = new Match(players.get(0), players.get(1), us);
-        Match m2 = new Match(players.get(1), players.get(2), us);
-        Match final_ = new Match(us);
-        matches.add(m1);
-        matches.add(m2);
-        matches.add(final_);
-    }
+//
+//    private void createMatches() {
+//        Match m1 = new Match(players.get(0), players.get(1), us);
+//        Match m2 = new Match(players.get(2), players.get(), us);
+//        Match final_ = new Match(us);
+//        matches.add(m1);
+//        matches.add(m2);
+//        matches.add(final_);
+//    }
 
     private void updateMatch() {
         for (Match m : matches) {

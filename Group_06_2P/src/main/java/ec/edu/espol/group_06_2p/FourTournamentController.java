@@ -135,6 +135,7 @@ public class FourTournamentController implements Initializable {
                     fin.setText(s);
                     te.getChildren().add(fin);
                     labels_partidos.getChildren().add(te);
+                    container_play.getChildren().clear();
                 });
                 break;
             }
