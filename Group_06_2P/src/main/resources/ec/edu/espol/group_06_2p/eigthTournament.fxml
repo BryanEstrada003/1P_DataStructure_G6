@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.EigthTournamentController">
+<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.EigthTournamentController">
    <children>
       <Pane layoutX="6.0" layoutY="132.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="135.0" styleClass="back_info">
          <children>
@@ -34,26 +34,22 @@
       <Pane layoutX="219.0" layoutY="302.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="82.0" prefWidth="304.0" styleClass="back_info" />
       <Line endX="-5.5000152587890625" endY="82.20001220703125" layoutX="537.0" layoutY="311.0" startX="-5.5" startY="-72.0" strokeWidth="4.0" />
       <Line endX="-5.5000152587890625" endY="82.20001220703125" layoutX="211.0" layoutY="310.0" startX="-5.5" startY="-72.0" strokeWidth="4.0" />
-      <ImageView fx:id="FotoRregresar" fitHeight="56.0" fitWidth="61.0" onMouseClicked="#regrBtn" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="FotoRregresar" fitHeight="56.0" fitWidth="61.0" onMouseClicked="#regresar" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Iconos/prebtn.png" />
          </image>
       </ImageView>
-      <VBox prefHeight="146.0" prefWidth="733.0">
+      <VBox layoutX="149.0" prefHeight="146.0" prefWidth="432.0">
          <children>
-            <Pane prefHeight="61.0" prefWidth="870.0">
+            <HBox alignment="CENTER" prefHeight="133.0" prefWidth="561.0" spacing="100.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="146.0" prefWidth="733.0" spacing="100.0">
-                     <children>
-                        <ImageView fitHeight="133.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../Images/Logo_tournaments.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
+                  <ImageView fitHeight="133.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Images/Logo_tournaments.png" />
+                     </image>
+                  </ImageView>
                </children>
-            </Pane>
+            </HBox>
          </children>
       </VBox>
       <HBox alignment="CENTER" layoutX="145.0" layoutY="187.0" prefHeight="66.0" prefWidth="118.0" spacing="10.0" styleClass="back_info">

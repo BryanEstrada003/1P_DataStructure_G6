@@ -75,29 +75,29 @@ public class EigthTournamentController implements Initializable {
     private Label final2;
     @FXML
     private Label winner;
-    private ArrayList<Label> labels ;
-    private ArrayList<Player> players ; 
-    private static ArrayList<Match> matches ;
+    private ArrayList<Label> labels;
+    private ArrayList<Player> players;
+    private static ArrayList<Match> matches;
     private Player player1_match;
     private Player player2_match;
     private static Match match_Actual;
-    private Tournament  torneo ;
-    
+    private Tournament torneo;
+
     @Override
-    
+
     public void initialize(URL url, ResourceBundle rb) {
         matches = new ArrayList<>();
         us = User.getPassUser();
         torneo = Tournament.getPassTournament();
         System.out.println(torneo);
         players = torneo.getPlayers();
-        getListLabel();        
+        getListLabel();
         updateLabels();
         createMatches();
         updateMatch();
-    }    
+    }
 
-    private void getListLabel(){
+    private void getListLabel() {
         labels = new ArrayList<>();
         labels.add(player1);
         labels.add(player4);
@@ -108,24 +108,25 @@ public class EigthTournamentController implements Initializable {
         labels.add(player7);
         labels.add(player8);
     }
-    private void updateLabels(){
-        for(int i = 0 ; i<8; i++){
+
+    private void updateLabels() {
+        for (int i = 0; i < 8; i++) {
             labels.get(i).setText(players.get(i).getName());
         }
     }
-    
-    private void createMatches(){
-        Match m1 = new Match(players.get(0),players.get(1),us);
-        Match m2 = new Match(players.get(1),players.get(2),us);
+
+    private void createMatches() {
+        Match m1 = new Match(players.get(0), players.get(1), us);
+        Match m2 = new Match(players.get(1), players.get(2), us);
         Match final_ = new Match(us);
         matches.add(m1);
         matches.add(m2);
         matches.add(final_);
     }
-    
-    private void updateMatch(){
-        for(Match m : matches){
-            if(m.isPlayed() && m.getP1()!=null && m.getP2()!=null){
+
+    private void updateMatch() {
+        for (Match m : matches) {
+            if (m.isPlayed() && m.getP1() != null && m.getP2() != null) {
                 match_Actual = m;
                 player1_match = m.getP1();
                 player2_match = m.getP2();
@@ -134,9 +135,14 @@ public class EigthTournamentController implements Initializable {
             }
         }
     }
-                
+
+    @FXML
     private void regresar(MouseEvent event) throws IOException {
-        
+        User.passUser(us);
+        Parent root = FXMLLoader.load(getClass().getResource("HomeTournament.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) page.getScene().getWindow();
+        stage.setScene(scene);
     }
 
     @FXML
@@ -147,17 +153,7 @@ public class EigthTournamentController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("GameTournament.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) page.getScene().getWindow();
-        stage.setScene(scene);  
+        stage.setScene(scene);
     }
 
-    @FXML
-    private void regrBtn(MouseEvent event) throws IOException {
-         User.passUser(us);
-        Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) page.getScene().getWindow();
-        stage.setScene(scene); 
-    }
-    
-    
 }
