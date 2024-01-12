@@ -196,6 +196,22 @@ public class HomeController implements Initializable {
                 });
             }
         });
+        
+        btn_tournament.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                try {
+                    User.passUser(user1);
+                    Parent root = FXMLLoader.load(getClass().getResource("HomeTournament.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) home.getScene().getWindow(); 
+                    stage.setScene(scene);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            
+        });
 
     }    
 

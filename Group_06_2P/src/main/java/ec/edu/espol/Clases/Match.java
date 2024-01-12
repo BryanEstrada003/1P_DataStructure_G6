@@ -38,10 +38,12 @@ public class Match implements Serializable{
         this.p1 = p1;
         this.p2 = p2;
         this.us = us;
+        this.jugadas = new ArrayList<>();
     }
 
     public Match(User us) {
         this.us = us;
+        this.jugadas = new ArrayList<>();
     }
 
     public Match() {

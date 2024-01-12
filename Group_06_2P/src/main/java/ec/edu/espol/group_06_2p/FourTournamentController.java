@@ -77,7 +77,8 @@ public class FourTournamentController implements Initializable {
         players = torneo.getPlayers();
         getListLabel();        
         updateLabels();
-        
+        createMatches();
+        updateMatch();
     }    
 
     private void getListLabel(){
