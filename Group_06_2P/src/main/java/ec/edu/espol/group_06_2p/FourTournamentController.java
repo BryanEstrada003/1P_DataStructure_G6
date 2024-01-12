@@ -177,7 +177,7 @@ public class FourTournamentController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) throws IOException {
         User.passUser(us);
-        Parent root = FXMLLoader.load(getClass().getResource("home.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("HomeTournament.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) page.getScene().getWindow();
         stage.setScene(scene);  
