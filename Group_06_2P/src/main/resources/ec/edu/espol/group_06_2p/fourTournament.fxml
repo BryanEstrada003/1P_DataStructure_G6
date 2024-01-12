@@ -73,12 +73,12 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="140.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="final1" text="Label" textFill="WHITE" />
+                  <Label fx:id="final1" textFill="WHITE" />
                </children>
             </HBox>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="130.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="final2" text="Label" textFill="WHITE" />
+                  <Label fx:id="final2" textFill="WHITE" />
                </children>
             </HBox>
          </children>
@@ -87,7 +87,7 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="140.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="winner" text="Label" textFill="WHITE" />
+                  <Label fx:id="winner" textFill="WHITE" />
                </children>
             </HBox>
          </children>
@@ -97,7 +97,7 @@
             <Font name="Modak" size="43.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="168.0" layoutY="505.0" prefHeight="81.0" prefWidth="356.0" spacing="10.0" styleClass="back_info">
+      <HBox fx:id="labels_partidos" alignment="CENTER" layoutX="168.0" layoutY="505.0" prefHeight="81.0" prefWidth="394.0" spacing="10.0" styleClass="back_info">
          <children>
             <Label fx:id="player_jugar1" text="Label">
                <font>
@@ -125,10 +125,14 @@
             </Text>
          </children>
       </TextFlow>
-      <Button fx:id="btn_play" layoutX="576.0" layoutY="510.0" mnemonicParsing="false" onMouseClicked="#play_match" prefHeight="60.0" prefWidth="130.0" text="PLAY">
-         <font>
-            <Font name="Modak" size="30.0" />
-         </font>
-      </Button>
+      <VBox fx:id="container_play" layoutX="576.0" layoutY="510.0">
+         <children>
+            <Button fx:id="btn_play" mnemonicParsing="false" onMouseClicked="#play_match" prefHeight="60.0" prefWidth="130.0" text="PLAY">
+               <font>
+                  <Font name="Modak" size="30.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

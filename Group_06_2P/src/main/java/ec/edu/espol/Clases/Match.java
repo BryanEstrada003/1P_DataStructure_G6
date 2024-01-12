@@ -34,14 +34,16 @@ public class Match implements Serializable{
         this.round = round;
     }
 
-    public Match(Player p1, Player p2, User us) {
+    public Match(Player p1, Player p2,Round round, User u) {
         this.p1 = p1;
         this.p2 = p2;
+        this.round = round;
         this.us = us;
         this.jugadas = new ArrayList<>();
     }
 
-    public Match(User us) {
+    public Match(Round round,User us) {
+        this.round = round;
         this.us = us;
         this.jugadas = new ArrayList<>();
     }
@@ -90,7 +92,7 @@ public class Match implements Serializable{
     }
     
     public boolean isPlayed(){
-        return winner == null;
+        return winner != null;
     }
 
     public Round getRound() {
@@ -126,4 +128,10 @@ public class Match implements Serializable{
         catch(IOException ioe){
         }   
     }
+
+    @Override
+    public String toString() {
+        return "Match{" + "p1=" + p1 + ", p2=" + p2 + ", winner=" + winner + ", us=" + us + ", jugadas=" + jugadas + ", round=" + round + '}';
+    }
+    
 }

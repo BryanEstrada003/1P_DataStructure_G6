@@ -87,7 +87,7 @@ public class HomeTournamentController implements Initializable {
         btn_4players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
         btn_8players.setStyle("-fx-border-width: 0;");
         for (int i = 0; i < 8; i++) {
-            String str_label = "NAME " + i;
+            String str_label = "NAME " + (i+1);
             if (i < 2) {
                 Platform.runLater(() -> {
                     vbox_player1.getChildren().add(createVboxPlayer(str_label));
@@ -112,7 +112,7 @@ public class HomeTournamentController implements Initializable {
         for (int i = 0; i < 4; i++) {
             btn_4players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
             btn_8players.setStyle("-fx-border-width: 0;");
-            String str_label = "NAME " + i;
+            String str_label = "NAME " + (i+1);
             if (i < 2) {
                 vbox_player1.getChildren().add(createVboxPlayer(str_label));
             } else if (i < 4) {
@@ -127,7 +127,7 @@ public class HomeTournamentController implements Initializable {
         btn_8players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
         btn_4players.setStyle("-fx-border-width: 0;");
         for (int i = 0; i < 8; i++) {
-            String str_label = "NAME " + i;
+            String str_label = "NAME " + (i+1);
             if (i < 4) {
                 Platform.runLater(() -> {
                     vbox_player1.getChildren().add(createVboxPlayer(str_label));

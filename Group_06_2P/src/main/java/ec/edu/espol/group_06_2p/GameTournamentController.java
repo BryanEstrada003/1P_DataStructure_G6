@@ -102,8 +102,9 @@ public class GameTournamentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        us1= User.getPassUser();
         torneo = Tournament.getPassTournament();
-        match_Actual = Match.getPassMatch();
+        updateMatch();
         us1 = torneo.getUs();
         
         games = new int[3][3];
@@ -128,6 +129,14 @@ public class GameTournamentController implements Initializable {
        name_computer.setText(p2.getName()); 
    }
     
+   public void updateMatch(){
+       for(Match m : torneo.getMatches()){
+           if(!m.isPlayed()){
+               match_Actual = m;
+               break;
+           }
+       }
+   }
     public void paint_table(){
         for(int x = 0; x < 3 ;x++){
             for(int y = 0; y <3 ; y++){
@@ -193,6 +202,8 @@ public class GameTournamentController implements Initializable {
                                 user_play.setStyle("-fx-text-fill: #c20e08; -fx-font-weight: bold");
                                 computer_play.setText("WINNER");
                                 computer_play.setStyle("-fx-text-fill: #08c20e; -fx-font-weight: bold");
+                                victories_p2.setText( (Integer.parseInt(victories_p2.getText())+1) +"");
+                                defeats_p1.setText( (Integer.parseInt(defeats_p1.getText())+1) +"");
                                 int new_victories = p2.getVictories()+1;
                                 int new_defeats = p1.getDefeats()+1;
                                 p2.setVictories(new_victories);
@@ -257,8 +268,32 @@ public class GameTournamentController implements Initializable {
         Label finalLabel = new Label(s);
         v.getChildren().addAll(label_Winner,finalLabel);
         Vbox_btn.getChildren().add(v);
+        createBtnNextRoundGame();
     }
     
+    public void createBtnNextRoundGame(){
+        Button btn_newgame = new Button("NEW ROUND");
+        btn_newgame.setPrefWidth(190);
+        btn_newgame.setPrefHeight(190);
+        btn_newgame.setStyle("-fx-font-size: 20px;");
+        btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                try {
+                    User.passUser(us1);
+                    Tournament.passTournament(torneo);
+                    Match.passMatch(match_Actual);
+                    Parent root = FXMLLoader.load(getClass().getResource("fourTournament.fxml"));
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) game.getScene().getWindow();
+                    stage.setScene(scene);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        Vbox_btn.getChildren().add(btn_newgame);
+    }
     public void createBtnNewGame(){
         Button btn_newgame = new Button("NEW GAME");
         Vbox_btn.getChildren().add(btn_newgame);
@@ -367,10 +402,12 @@ public class GameTournamentController implements Initializable {
         // luego validar más a profundo
         if(cmp_string.compare(victories_p1.getText(), "3") == 0){
             GlobalWinner = p1;
+            match_Actual.setWinner(GlobalWinner);
             return true;
         }
         else if(cmp_string.compare(victories_p2.getText(), "3") == 0){
             GlobalWinner = p2;
+            match_Actual.setWinner(GlobalWinner);
             return true;
         }
         else if(cmp_string.compare(draws_p1.getText(), draws_p2.getText()) == 0 && cmp_string.compare(draws_p1.getText(), "7") == 0){
@@ -378,7 +415,8 @@ public class GameTournamentController implements Initializable {
             if(p2.getVictories() > mayor.getVictories()){
                 mayor = p2;
             }
-            GlobalWinner = p1;
+            GlobalWinner = mayor;
+            match_Actual.setWinner(GlobalWinner);
             return true;
         }
         return false;
