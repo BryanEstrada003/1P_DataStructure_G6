@@ -57,12 +57,11 @@ public class HomeTournamentController implements Initializable {
     private Button btn_continue;
     @FXML
     private Button btn_tournament;
-    
+
     // cosas del anterior controlador
     private User us;
     @FXML
     private AnchorPane page;
-    
 
     /**
      * Initializes the controller class.
@@ -71,7 +70,7 @@ public class HomeTournamentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         us = User.getPassUser();
         initializale4players();
-    }    
+    }
 
     @FXML
     private void regresar(MouseEvent event) throws IOException {
@@ -87,70 +86,70 @@ public class HomeTournamentController implements Initializable {
         cleanVbox_players();
         btn_4players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
         btn_8players.setStyle("-fx-border-width: 0;");
-        for(int i = 0; i<8 ; i++){
-            String str_label = "NAME " + i ;
-            if(i<2){
-                Platform.runLater(()->{
+        for (int i = 0; i < 8; i++) {
+            String str_label = "NAME " + i;
+            if (i < 2) {
+                Platform.runLater(() -> {
                     vbox_player1.getChildren().add(createVboxPlayer(str_label));
                 });
-            }
-            else if(i<4){
-                Platform.runLater(()->{
+            } else if (i < 4) {
+                Platform.runLater(() -> {
                     vbox_player2.getChildren().add(createVboxPlayer(str_label));
                 });
-            }  
+            }
         }
-        
+
     }
-    private void cleanVbox_players(){
-        Platform.runLater(()->{
+
+    private void cleanVbox_players() {
+        Platform.runLater(() -> {
             vbox_player1.getChildren().clear();
-            vbox_player2.getChildren().clear();            
+            vbox_player2.getChildren().clear();
         });
     }
-    private void initializale4players(){
-        for(int i = 0; i<4 ; i++){
+
+    private void initializale4players() {
+        for (int i = 0; i < 4; i++) {
             btn_4players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
             btn_8players.setStyle("-fx-border-width: 0;");
-            String str_label = "NAME " + i ; 
-             if(i<2){
-                 vbox_player1.getChildren().add(createVboxPlayer(str_label));
-             }
-             else if(i<4){
-                 vbox_player2.getChildren().add(createVboxPlayer(str_label));
-             }
+            String str_label = "NAME " + i;
+            if (i < 2) {
+                vbox_player1.getChildren().add(createVboxPlayer(str_label));
+            } else if (i < 4) {
+                vbox_player2.getChildren().add(createVboxPlayer(str_label));
+            }
         }
     }
+
     @FXML
     private void complete8players(MouseEvent event) {
         cleanVbox_players();
         btn_8players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
         btn_4players.setStyle("-fx-border-width: 0;");
-        for(int i = 0; i<8 ; i++){
-            String str_label = "NAME " + i ;
-            if(i<4){
-                Platform.runLater(()->{
+        for (int i = 0; i < 8; i++) {
+            String str_label = "NAME " + i;
+            if (i < 4) {
+                Platform.runLater(() -> {
                     vbox_player1.getChildren().add(createVboxPlayer(str_label));
                 });
-            }
-            else if(i<8){
-                Platform.runLater(()->{
+            } else if (i < 8) {
+                Platform.runLater(() -> {
                     vbox_player2.getChildren().add(createVboxPlayer(str_label));
                 });
-            }  
-        }        
+            }
+        }
     }
-    
-    private VBox createVboxPlayer(String str_label){
+
+    private VBox createVboxPlayer(String str_label) {
         VBox vbox_player = new VBox();
         vbox_player.setPrefSize(240, 58);
-        Label label  = new Label(str_label);
-        label.setPrefSize(220,22);
-        TextField name = new  TextField();
+        Label label = new Label(str_label);
+        label.setPrefSize(220, 22);
+        TextField name = new TextField();
         name.setPromptText(str_label);
-        name.setPrefSize(220,30);
-        vbox_player.getChildren().addAll(label,name);
-        return vbox_player;   
+        name.setPrefSize(220, 30);
+        vbox_player.getChildren().addAll(label, name);
+        return vbox_player;
     }
 
     @FXML
@@ -158,81 +157,81 @@ public class HomeTournamentController implements Initializable {
         User.passUser(us);
         ArrayList<VBox> vboxes = new ArrayList<>();
         vboxes.add(vbox_player1);
-        vboxes.add(vbox_player2);         
-        if(validateNames(vboxes)){
+        vboxes.add(vbox_player2);
+        if (validateNames(vboxes)) {
             ArrayList<Player> players = getPlayer(vboxes);
-            if(state == '4'){
-                Tournament torneo = new Tournament(players,TypeTournament.knockout4,true, us);
+            if (state == '4') {
+                Tournament torneo = new Tournament(players, TypeTournament.knockout4, true, us);
                 Tournament.passTournament(torneo);
                 Parent root = FXMLLoader.load(getClass().getResource("fourTournament.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) page.getScene().getWindow();
-                stage.setScene(scene); 
-            }
-            else if(state == '8'){
-                Tournament torneo = new Tournament(players,TypeTournament.knockout8,true, us );
+                stage.setScene(scene);
+            } else if (state == '8') {
+                Tournament torneo = new Tournament(players, TypeTournament.knockout8, true, us);
                 Tournament.passTournament(torneo);
                 Parent root = FXMLLoader.load(getClass().getResource("eigthTournament.fxml"));
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) page.getScene().getWindow();
-                stage.setScene(scene);         
+                stage.setScene(scene);
             }
         }
     }
 
     @FXML
     private void continueTournament(MouseEvent event) {
-        
+
     }
-    
-    private boolean validateNames( ArrayList<VBox> vboxes) {
+
+    private boolean validateNames(ArrayList<VBox> vboxes) {
         Set<String> nameSet = new HashSet<>();
-        
+
         for (VBox vbox : vboxes) {
             for (Node node : vbox.getChildren()) {
-                if (node instanceof TextField) {
-                    TextField textField = (TextField) node;
-                    String name = textField.getText();
-                   
-                    if (name == null || name.trim().isEmpty()) {
-                        Alert alert = new Alert(Alert.AlertType.WARNING,"THERE ARE NULL FIELD ");
-                        alert.setTitle("WARNING");
-                        alert.setHeaderText("WARNING");
-                        ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-                        alert.getButtonTypes().setAll(okButton);
-                        alert.showAndWait(); 
-                        return false;
-                    }
-                    if (nameSet.contains(name)) {
-                        Alert alert = new Alert(Alert.AlertType.WARNING,"THERE ARE REPEAT NAMES");
-                        alert.setTitle("WARNING");
-                        alert.setHeaderText("WARNING");
-                        ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-                        alert.getButtonTypes().setAll(okButton);
-                        alert.showAndWait(); 
-                        return false;
-                    }
-                    
-                    nameSet.add(name);
+                VBox v = (VBox) node;
+                TextField textField = (TextField) v.getChildren().get(1);
+                String name = textField.getText();
+
+                if (name == null || name.trim().isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "THERE ARE NULL FIELD ");
+                    alert.setTitle("WARNING");
+                    alert.setHeaderText("WARNING");
+                    ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+                    alert.getButtonTypes().setAll(okButton);
+                    alert.showAndWait();
+                    return false;
                 }
+                if (nameSet.contains(name)) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "THERE ARE REPEAT NAMES");
+                    alert.setTitle("WARNING");
+                    alert.setHeaderText("WARNING");
+                    ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+                    alert.getButtonTypes().setAll(okButton);
+                    alert.showAndWait();
+                    return false;
+                }
+
+                nameSet.add(name);
             }
+
         }
+
         return true;
     }
 
-    private ArrayList<Player> getPlayer( ArrayList<VBox> vboxes){
+    private ArrayList<Player> getPlayer(ArrayList<VBox> vboxes) {
         ArrayList<Player> players = new ArrayList<>();
         for (VBox vbox : vboxes) {
             for (Node node : vbox.getChildren()) {
                 System.out.println(node.toString());
 //                if (node instanceof TextField) {
-                    VBox v = (VBox) node;
-                    System.out.println("check");
-                    TextField textField = (TextField) v.getChildren().get(1);
-                    String name = textField.getText();
-                    Player p = new Player(name,true,us);
-                    System.out.println(p);
-                    players.add(p);
+                VBox v = (VBox) node;
+                System.out.println("check");
+                TextField textField = (TextField) v.getChildren().get(1);
+                String name = textField.getText();
+                Player p = new Player(name, true, us);
+                System.out.println(p);
+                players.add(p);
 //                }    
             }
         }
