@@ -83,6 +83,7 @@ public class HomeTournamentController implements Initializable {
 
     @FXML
     private void complete4players(MouseEvent event) {
+        state = '4';
         cleanVbox_players();
         btn_4players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
         btn_8players.setStyle("-fx-border-width: 0;");
@@ -123,6 +124,7 @@ public class HomeTournamentController implements Initializable {
 
     @FXML
     private void complete8players(MouseEvent event) {
+        state = '8';
         cleanVbox_players();
         btn_8players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
         btn_4players.setStyle("-fx-border-width: 0;");
