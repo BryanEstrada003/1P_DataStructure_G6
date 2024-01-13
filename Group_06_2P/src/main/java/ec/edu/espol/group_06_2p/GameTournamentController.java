@@ -17,22 +17,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -41,11 +35,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -106,6 +96,7 @@ public class GameTournamentController implements Initializable {
     private static Player p2;
     private static Player winner;
     private static Player GlobalWinner;
+    private static String idComp;
 
     /**
      * Initializes the controller class.
@@ -265,32 +256,20 @@ public class GameTournamentController implements Initializable {
     public void createDivWinner() {
         Vbox_btn.getChildren().clear();
         VBox v = new VBox();
-
-// Style the "WINNER OF THE MATCH" label
         Label label_Winner = new Label("WINNER OF THE MATCH");
-        label_Winner.setFont(Font.font("Arial", FontWeight.BOLD, 16));  // Slightly smaller font
-        label_Winner.setTextFill(Color.web("#0099FF"));  // Cool blue
 
-// Determine the final message based on the round
         String s = "";
-        if (match_Actual.getRound() == Round.Semi) {
-            s = GlobalWinner.getName() + " ADVANCES";
+        if (match_Actual.getRound() == Round.Quarter) {
+            s = GlobalWinner.getName() + " QUALIFIES TO THE SEMIFINAL ";
+        } else if (match_Actual.getRound() == Round.Semi) {
+            s = GlobalWinner.getName() + " QUALIFIES TO THE FINAL ";
         } else if (match_Actual.getRound() == Round.Final) {
-            s = GlobalWinner.getName() + " IS THE CHAMPION!";
+            s = GlobalWinner.getName() + " IS THE CHAMPION";
         }
-
-// Style the final message label
+        
         Label finalLabel = new Label(s);
-        finalLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));  // Slightly smaller font
-        finalLabel.setTextFill(Color.web("#0066FF"));  // Lighter blue
-
-// Add labels to the VBox and display
         v.getChildren().addAll(label_Winner, finalLabel);
         Vbox_btn.getChildren().add(v);
-
-// Set the VBox's width and height to fill the window
-        v.setPrefWidth(Vbox_btn.getWidth());
-        v.setPrefHeight(Vbox_btn.getHeight());
         createBtnNextRoundGame();
     }
 
@@ -299,20 +278,37 @@ public class GameTournamentController implements Initializable {
         btn_newgame.setPrefWidth(190);
         btn_newgame.setPrefHeight(190);
         btn_newgame.setStyle("-fx-font-size: 20px;");
+
         btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
             @Override
             public void handle(Event event) {
-                try {
-                    User.passUser(us1);
-                    Tournament.passTournament(torneo);
-                    Match.passMatch(match_Actual);
-                    Parent root = FXMLLoader.load(getClass().getResource("fourTournament.fxml"));
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) game.getScene().getWindow();
-                    stage.setScene(scene);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                if (EigthTournamentController.stCompe) {
+                    try {
+                        User.passUser(us1);
+                        Tournament.passTournament(torneo);
+                        Match.passMatch(match_Actual);
+                        Parent root = FXMLLoader.load(getClass().getResource("eigthTournament.fxml"));
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) game.getScene().getWindow();
+                        stage.setScene(scene);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
+                if (FourTournamentController.stCompe) {
+                    try {
+                        User.passUser(us1);
+                        Tournament.passTournament(torneo);
+                        Match.passMatch(match_Actual);
+                        Parent root = FXMLLoader.load(getClass().getResource("fourTournament.fxml"));
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) game.getScene().getWindow();
+                        stage.setScene(scene);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
             }
         });
         Vbox_btn.getChildren().add(btn_newgame);
