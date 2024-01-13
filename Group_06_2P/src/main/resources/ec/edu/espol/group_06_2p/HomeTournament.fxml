@@ -39,14 +39,9 @@
             <Font name="Modak" size="26.0" />
          </font>
       </Button>
-      <Button fx:id="btn_start" layoutX="533.0" layoutY="385.0" mnemonicParsing="false" onMouseClicked="#startTournament" prefHeight="56.0" prefWidth="186.0" text="START">
+      <Button fx:id="btn_start" layoutX="533.0" layoutY="415.0" mnemonicParsing="false" onMouseClicked="#startTournament" prefHeight="56.0" prefWidth="186.0" text="START">
          <font>
             <Font name="Modak" size="29.0" />
-         </font>
-      </Button>
-      <Button fx:id="btn_continue" layoutX="533.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#continueTournament" prefHeight="56.0" prefWidth="186.0" text="CONTINUE">
-         <font>
-            <Font name="Modak" size="31.0" />
          </font>
       </Button>
       <HBox alignment="CENTER" layoutX="8.0" layoutY="297.0" prefHeight="297.0" prefWidth="514.0" spacing="10.0">

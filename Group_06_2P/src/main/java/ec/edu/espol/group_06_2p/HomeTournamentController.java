@@ -53,10 +53,6 @@ public class HomeTournamentController implements Initializable {
     private char state = '4'; // '4' 4 players; '8' 8 players
     @FXML
     private Button btn_start;
-    @FXML
-    private Button btn_continue;
-    @FXML
-    private Button btn_tournament;
 
     // cosas del anterior controlador
     private User us;
@@ -180,10 +176,6 @@ public class HomeTournamentController implements Initializable {
         }
     }
 
-    @FXML
-    private void continueTournament(MouseEvent event) {
-
-    }
 
     private boolean validateNames(ArrayList<VBox> vboxes) {
         Set<String> nameSet = new HashSet<>();
@@ -240,7 +232,4 @@ public class HomeTournamentController implements Initializable {
         return players;
     }
 
-    @FXML
-    private void goTournament(MouseEvent event) {
-    }
 }
