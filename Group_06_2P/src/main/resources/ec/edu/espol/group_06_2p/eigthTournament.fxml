@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.EigthTournamentController">
+<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.EigthTournamentController">
    <children>
       <Pane layoutX="6.0" layoutY="132.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="135.0" styleClass="back_info">
          <children>
@@ -56,7 +56,7 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="semi1" text="Label" textFill="WHITE" />
+                  <Label fx:id="semi1" textFill="WHITE" />
                </children>
             </HBox>
          </children>
@@ -66,7 +66,7 @@
             <Font size="37.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="194.0" layoutY="509.0" prefHeight="81.0" prefWidth="356.0" spacing="10.0" styleClass="back_info">
+      <HBox fx:id="labels_partidos" alignment="CENTER" layoutX="194.0" layoutY="509.0" prefHeight="81.0" prefWidth="356.0" spacing="10.0" styleClass="back_info">
          <children>
             <Label fx:id="player_jugar1" text="Label">
                <font>
@@ -94,11 +94,6 @@
             </Text>
          </children>
       </TextFlow>
-      <Button fx:id="btn_play" layoutX="594.0" layoutY="516.0" mnemonicParsing="false" onMouseClicked="#play_match" prefHeight="60.0" prefWidth="130.0" text="PLAY">
-         <font>
-            <Font name="Modak" size="30.0" />
-         </font>
-      </Button>
       <Pane layoutX="6.0" layoutY="325.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="135.0" styleClass="back_info">
          <children>
             <Line endX="-5.5000152587890625" endY="30.20001220703125" layoutX="72.0" layoutY="125.0" startX="-5.5" startY="-72.0" strokeWidth="4.0" />
@@ -151,7 +146,7 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="semi2" text="Label" textFill="WHITE" />
+                  <Label fx:id="semi2" textFill="WHITE" />
                </children>
             </HBox>
          </children>
@@ -160,7 +155,7 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="semi3" text="Label" textFill="WHITE" />
+                  <Label fx:id="semi3" textFill="WHITE" />
                </children>
             </HBox>
          </children>
@@ -169,7 +164,7 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="semi4" text="Label" textFill="WHITE" />
+                  <Label fx:id="semi4" textFill="WHITE" />
                </children>
             </HBox>
          </children>
@@ -178,7 +173,7 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="122.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="final1" text="Label" textFill="WHITE" />
+                  <Label fx:id="final1" textFill="WHITE" />
                </children>
             </HBox>
          </children>
@@ -187,7 +182,7 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="121.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="final2" text="Label" textFill="WHITE" />
+                  <Label fx:id="final2" textFill="WHITE" />
                </children>
             </HBox>
          </children>
@@ -196,12 +191,21 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="winner" text="Label" textFill="WHITE" />
+                  <Label fx:id="winner" textFill="WHITE" />
                </children>
             </HBox>
          </children>
       </HBox>
       <Line endX="-4.9999542236328125" layoutX="238.0" layoutY="343.0" startX="-32.32844543457031" strokeWidth="4.0" />
       <Line endX="-28.67156982421875" layoutX="559.0" layoutY="342.0" startX="-46.79998779296875" strokeWidth="4.0" />
+      <VBox fx:id="container_play" layoutX="586.0" layoutY="522.0" prefHeight="66.0" prefWidth="135.0">
+         <children>
+            <Button fx:id="btn_play" mnemonicParsing="false" onMouseClicked="#play_match" prefHeight="60.0" prefWidth="130.0" text="PLAY">
+               <font>
+                  <Font name="Modak" size="30.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

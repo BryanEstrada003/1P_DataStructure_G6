@@ -75,6 +75,7 @@ public class FourTournamentController implements Initializable {
     private static Match match_Actual;
     private Tournament  torneo ;
     private ArrayList<Player> finalistas = new ArrayList<Player>();
+    public static boolean stCompe;
     @FXML
     private VBox container_play;
 
@@ -162,10 +163,12 @@ public class FourTournamentController implements Initializable {
             }
             else if (!m.isPlayed() && m.getRound() == Round.Final){
                 match_Actual = m;
+                //Aqui este man carga los nulos claro como son 2 no mas
                 Player finalista1 = finalistas.get(0);
                 Player finalista2 = finalistas.get(1);
                 match_Actual.setP1(finalista1);
                 match_Actual.setP2(finalista2);
+                m.isPlayed();
                 Platform.runLater(()->{
                     player_jugar1.setText(match_Actual.getP1().getName());
                     player_jugar2.setText(match_Actual.getP2().getName());
@@ -189,6 +192,7 @@ public class FourTournamentController implements Initializable {
         User.passUser(us);
         Tournament.passTournament(torneo);
         Match.passMatch(match_Actual);
+        FourTournamentController.stCompe=true;
         Parent root = FXMLLoader.load(getClass().getResource("GameTournament.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) page.getScene().getWindow();

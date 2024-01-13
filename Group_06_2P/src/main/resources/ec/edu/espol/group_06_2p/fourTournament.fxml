@@ -73,12 +73,18 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="140.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="final1" textFill="WHITE" />
+                  <Label fx:id="final1" textFill="WHITE">
+                     <font>
+                        <Font size="49.0" />
+                     </font></Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="130.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="final2" textFill="WHITE" />
+                  <Label fx:id="final2" textFill="WHITE">
+                     <font>
+                        <Font size="49.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
@@ -87,7 +93,10 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="140.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="winner" textFill="WHITE" />
+                  <Label fx:id="winner" textFill="WHITE">
+                     <font>
+                        <Font size="49.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
