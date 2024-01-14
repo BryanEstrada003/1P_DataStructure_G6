@@ -71,15 +71,7 @@ public class LoginController implements Initializable {
         user.getStyleClass().add("text-field");
         password.getStyleClass().add("text-field");
         firsttime.getStyleClass().add("sign-up");
-        sign_up.getStyleClass().add("sign-up");
-       
-//        ArrayList<User> users = readListFromFileSer("User.ser");
-//        System.out.println(users.size());
-//            for(User u1 :users){
-//                System.out.println("User");
-//                System.out.println(u1); 
-//            }
-        
+        sign_up.getStyleClass().add("sign-up");        
     }    
     public void passUser(User us1)
     {

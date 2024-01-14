@@ -81,7 +81,7 @@ public class GameController implements Initializable {
     private boolean draw = false;
     private int[][] games;
     private ArrayList<Cuadro> cuadros = new ArrayList<>();
-    private User us1 ;
+    private static User us1 ;
     @FXML
     private VBox Vbox_btn;
     private ArrayList<int[][]> jugadas = new ArrayList<>();

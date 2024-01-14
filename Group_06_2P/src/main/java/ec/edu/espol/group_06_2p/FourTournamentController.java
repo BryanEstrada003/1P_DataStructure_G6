@@ -74,7 +74,7 @@ public class FourTournamentController implements Initializable {
     private Button btn_play;
     @FXML
     private HBox labels_partidos;
-    private User us;
+    private static User us;
     private ArrayList<Label> labels;
     private ArrayList<Player> players;
     private static ArrayList<Match> matches;

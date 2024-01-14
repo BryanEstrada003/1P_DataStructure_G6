@@ -58,7 +58,7 @@ public class HomeTournamentController implements Initializable {
     private Button btn_start;
 
     // cosas del anterior controlador
-    private User us;
+    private static User us;
     @FXML
     private AnchorPane page;
 

@@ -71,7 +71,7 @@ public class Sign_upController implements Initializable {
     private String path_users = "User.ser";
     private String path_users_images = "Users/Profile_Images";
     private int id_actual = User.nextId();
-    private User user1;
+    private static User user1;
     /**
      * Initializes the controller class.
      */

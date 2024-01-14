@@ -62,7 +62,7 @@ public class HomeController implements Initializable {
     private SplitMenuButton menu_options;
     @FXML
     private Label user_name;
-    private User user1;
+    private static User user1;
     private String  path = "src/main/resources/Users/Profile_Images/";
     @FXML
     private AnchorPane back_info_home;

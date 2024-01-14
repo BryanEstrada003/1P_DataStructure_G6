@@ -69,4 +69,11 @@ public class HistoryToReview implements Serializable{
         }
         return u1;
     }
+
+    @Override
+    public String toString() {
+        return "HistoryToReview{" + "id_actual=" + id_actual + ", state=" + state + '}';
+    }
+    
+    
 }

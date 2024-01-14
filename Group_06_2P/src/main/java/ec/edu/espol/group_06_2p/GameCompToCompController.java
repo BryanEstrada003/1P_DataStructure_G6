@@ -100,7 +100,9 @@ public class GameCompToCompController implements Initializable {
     private boolean new_game = false;
     private ArrayList<int[][]> jugadas = new ArrayList<>();
     private Button continue_game = new Button("Continue");
-    private boolean showNewGameButton = true;
+    private Button btn_newgame = new Button("NEW GAME");
+    private boolean showContinueButton = true;
+    private boolean showNewGameButton = false;
 
     /**
      * Initializes the controller class.
@@ -227,8 +229,9 @@ public class GameCompToCompController implements Initializable {
                 us1.setHistory(history);
                 User.updateUser(us1);
                 Platform.runLater(() -> {
-                    createBtnNewGame();
+                    this.showContinueButton = false; // Hide "Continue" button
                     this.showNewGameButton = true;
+                    createBtnNewGame();
                 });
             }
         });
@@ -354,8 +357,7 @@ public class GameCompToCompController implements Initializable {
     public void createBtnNewGame() {
         // Mostrar el botón solo si la bandera está activa
         if (showNewGameButton) {
-            continue_game.setText("CONTINUE");
-            Button btn_newgame = new Button("NEW GAME");
+            Vbox_btn.getChildren().clear();
             Vbox_btn.getChildren().add(btn_newgame);
             btn_newgame.setPrefWidth(190);
             btn_newgame.setPrefHeight(190);
@@ -364,6 +366,8 @@ public class GameCompToCompController implements Initializable {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     // Restablecer el estado del juego
+                    Vbox_btn.getChildren().clear();
+                    Vbox_btn.getChildren().add(continue_game);
                     jugadas.clear();
                     games = new int[3][3];
                     for (Cuadro c : cuadros) {

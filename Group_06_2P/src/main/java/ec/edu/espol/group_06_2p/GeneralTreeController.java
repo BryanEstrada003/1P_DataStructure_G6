@@ -59,7 +59,7 @@ public class GeneralTreeController implements Initializable {
     private ArrayList<Games> history_computer = new ArrayList<Games>();
     private Games gameActual;
     // cosas del anterior controlador
-    private User us1 ;
+    private static User us1 ;
     private int id_actual;
     private char state = 'P';
     //llevar el control
@@ -149,7 +149,7 @@ public class GeneralTreeController implements Initializable {
         
     }
     public void updateColores(){
-        colores = new ArrayList<String>();
+        colores = new ArrayList<>();
         colores.add("#FFD1DC"); // Pastel Pink
         colores.add("#AEC6CF"); // Pastel Blue
         colores.add("#77DD77"); // Pastel Green
@@ -164,14 +164,12 @@ public class GeneralTreeController implements Initializable {
         TreeItem<GridPane> tree = new TreeItem<>();
         int[][] root_m = new int[3][3];
         ArrayList<int[][]> tableros = gameActual.getTableros();
-        System.out.println(tableros.size());
         l_matrices.add(root_m);
         l_matrices.addAll(tableros);
         jugador = starting_player(tableros.get(0));
         System.out.println("el jugador actual es :" + jugador);
         GridPane g1 = newGridPane(root_m);
         tree.setValue(g1);
-        int[][] m_guardada ;
         tree_guardado = tree ;
         tree_matrizIgual = tree ;
         
@@ -183,7 +181,6 @@ public class GeneralTreeController implements Initializable {
             int[][] m1 = l_matrices.get(u);
             LinkedList<int[][]> posiblesEstados1 = posiblesEstados1(jugador , m1);
             int[][] miniMax = miniMax(m1,jugador);
-            String color = colores.get(u);
             for(int[][] m_posible : posiblesEstados1){
                 GridPane g2 = newGridPane(m_posible);
 //                TreeItem<GridPane> t_g2 = new TreeItem<>();

@@ -84,7 +84,7 @@ public class ReviewGameController implements Initializable {
     private ArrayList<Games> history_computer = new ArrayList<Games>();
     private Games gameActual;
     // cosas del anterior controlador
-    private User us1;
+    private static User us1;
     private int id_actual;
     private char state = 'P';
 

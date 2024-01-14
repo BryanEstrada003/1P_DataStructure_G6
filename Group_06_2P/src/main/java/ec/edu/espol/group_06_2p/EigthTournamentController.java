@@ -44,7 +44,7 @@ public class EigthTournamentController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    private User us;
+    private static User us;
     @FXML
     private AnchorPane page;
     @FXML
