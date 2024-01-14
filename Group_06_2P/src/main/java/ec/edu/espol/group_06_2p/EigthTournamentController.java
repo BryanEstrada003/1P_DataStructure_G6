@@ -17,6 +17,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,6 +27,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -146,14 +150,30 @@ public class EigthTournamentController implements Initializable {
                     winner.setText(m.getWinner().getName());
                     torneo.setWinner(m.getWinner());
                     labels_partidos.getChildren().clear();
-                    TextFlow te = new TextFlow();
-                    te.setTextAlignment(TextAlignment.CENTER);
-                    te.setMaxSize(labels_partidos.getPrefWidth(), labels_partidos.getPrefHeight());
+                    VBox message = new VBox();
+                    message.setAlignment(Pos.CENTER);  // Center the content within the VBox
                     Label fin = new Label();
-                    String s = "Congratulations to the champion of this Tournament\n" + m.getWinner().getName() + "\nfor a spectacular victory!";
+                    Label fin1 = new Label();
+                    Label fin2 = new Label();
+                    String s = "CONGRATULATIONS";
+                    String s1 = m.getWinner().getName();
+                    String s2 = "for a spectacular victory!";
+                    // Apply styling to the label
                     fin.setText(s);
-                    te.getChildren().add(fin);
-                    labels_partidos.getChildren().add(te);
+                    fin.setFont(Font.font("Arial", FontWeight.BOLD, 16)); // Bold for emphasis
+                    fin.setTextFill(Color.web("#08c20e")); // Cool blue color
+                    fin.setAlignment(Pos.CENTER); // Center the text both horizontally and vertically
+                    fin1.setText(s1);
+                    fin1.setFont(Font.font("Arial", FontWeight.BOLD, 23)); // Bold for emphasis
+                    fin1.setTextFill(Color.web("#08c20e")); // Cool blue color
+                    fin1.setAlignment(Pos.CENTER); // Center the text both horizontally and vertically
+                    fin2.setText(s2);
+                    fin2.setFont(Font.font("Arial", FontWeight.BOLD, 16)); // Bold for emphasis
+                    fin2.setTextFill(Color.web("#08c20e")); // Cool blue color
+                    fin2.setAlignment(Pos.CENTER); // Center the text both horizontally and vertically
+                    message.getChildren().addAll(fin, fin1, fin2);
+                    // Add the label to the containers (no animation code added)
+                    labels_partidos.getChildren().add(message);
                     container_play.getChildren().clear();
                 });
                 break;

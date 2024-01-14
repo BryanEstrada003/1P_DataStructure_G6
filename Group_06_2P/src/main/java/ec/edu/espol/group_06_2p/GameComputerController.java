@@ -43,6 +43,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -195,6 +198,10 @@ public class GameComputerController implements Initializable {
                     info.setWrapText(true);
                     info.setMaxWidth(170);
                     info.setAlignment(Pos.CENTER);
+
+                    // Apply styling for visual appeal and emphasis
+                    info.setFont(Font.font("Arial", FontWeight.BOLD, 16));  // Bold font for clarity
+                    info.setTextFill(Color.web("#007AFF"));  // Cool blue text color
 
                     GridPane juego = new GridPane();
                     juego.setAlignment(Pos.CENTER);
