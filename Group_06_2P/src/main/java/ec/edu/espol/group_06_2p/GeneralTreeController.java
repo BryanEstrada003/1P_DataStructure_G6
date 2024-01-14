@@ -79,12 +79,12 @@ public class GeneralTreeController implements Initializable {
         HistoryToReview h1 = HistoryToReview.getPassHistoryToReview();
         
         System.out.println("Id recibido");
-        id_actual = h1.getId_actual();
         state = h1.getState();       
         history = us1.getHistory();
-        updateHistoryArrayLists();
-        setgameActual_info();
+//        updateHistoryArrayLists();
+//        setgameActual_info();
         gameActual = Games.getPassGame();
+        System.out.println(gameActual);
         TreeItem<GridPane> generalTree = createTree();
         generalTree.setExpanded(true);
         TreeView<GridPane> treeView = new TreeView<>(generalTree);
@@ -164,6 +164,7 @@ public class GeneralTreeController implements Initializable {
         TreeItem<GridPane> tree = new TreeItem<>();
         int[][] root_m = new int[3][3];
         ArrayList<int[][]> tableros = gameActual.getTableros();
+        System.out.println(tableros.size());
         l_matrices.add(root_m);
         l_matrices.addAll(tableros);
         jugador = starting_player(tableros.get(0));
@@ -212,14 +213,14 @@ public class GeneralTreeController implements Initializable {
         }
         return jugador;
     }
-    public void setgameActual_info(){
-        if( state == 'P'){
-            gameActual = history_2players.get(id_actual);
-        }
-        else if (state == 'C'){
-            gameActual = history_computer.get(id_actual);
-        }
-    }
+//    public void setgameActual_info(){
+//        if( state == 'P'){
+//            gameActual = history_2players.get(id_actual);
+//        }
+//        else if (state == 'C'){
+//            gameActual = history_computer.get(id_actual);
+//        }
+//    }
     public void updateHistoryArrayLists(){
         for(Games g : history){
             if(g.getName_player().compareTo("COMPUTER")== 0){
