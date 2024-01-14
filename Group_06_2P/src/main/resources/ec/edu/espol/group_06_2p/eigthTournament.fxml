@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.EigthTournamentController">
+<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.EigthTournamentController">
    <children>
       <Pane layoutX="6.0" layoutY="132.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="183.0" prefWidth="135.0" styleClass="back_info">
          <children>
@@ -39,11 +39,11 @@
             <Image url="@../../../../Iconos/prebtn.png" />
          </image>
       </ImageView>
-      <VBox layoutX="149.0" prefHeight="146.0" prefWidth="432.0">
+      <VBox layoutX="149.0" prefHeight="108.0" prefWidth="432.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="133.0" prefWidth="561.0" spacing="100.0">
+            <HBox alignment="CENTER" prefHeight="94.0" prefWidth="399.0" spacing="100.0">
                <children>
-                  <ImageView fitHeight="133.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="135.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../Images/Logo_tournaments.png" />
                      </image>
@@ -56,12 +56,15 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="semi1" textFill="WHITE" />
+                  <Label fx:id="semi1" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
       </HBox>
-      <Label layoutX="298.0" layoutY="170.0" prefHeight="54.0" prefWidth="148.0" text="WINNER" textFill="WHITE">
+      <Label layoutX="293.0" layoutY="147.0" prefHeight="54.0" prefWidth="148.0" text="WINNER" textFill="WHITE">
          <font>
             <Font size="37.0" />
          </font>
@@ -146,7 +149,10 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="semi2" textFill="WHITE" />
+                  <Label fx:id="semi2" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
@@ -155,7 +161,10 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="semi3" textFill="WHITE" />
+                  <Label fx:id="semi3" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
@@ -164,7 +173,10 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="semi4" textFill="WHITE" />
+                  <Label fx:id="semi4" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
@@ -173,7 +185,10 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="122.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="final1" textFill="WHITE" />
+                  <Label fx:id="final1" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
@@ -182,16 +197,23 @@
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="121.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="final2" textFill="WHITE" />
+                  <Label fx:id="final2" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </HBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="307.0" layoutY="220.0" prefHeight="66.0" prefWidth="118.0" spacing="10.0" styleClass="back_info">
+      <HBox alignment="CENTER" layoutX="273.0" layoutY="213.0" prefHeight="81.0" prefWidth="188.0" spacing="10.0" styleClass="back_info">
          <children>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="106.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="151.0" style="-fx-background-radius: 30;" styleClass="blackbackgorund">
                <children>
-                  <Label fx:id="winner" textFill="WHITE" />
+                  <Label fx:id="winner" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
          </children>

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.FourTournamentController">
+<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.FourTournamentController">
    <children>
       <VBox prefHeight="146.0" prefWidth="673.0">
          <children>
@@ -75,7 +75,7 @@
                <children>
                   <Label fx:id="final1" textFill="WHITE">
                      <font>
-                        <Font size="49.0" />
+                        <Font size="16.0" />
                      </font></Label>
                </children>
             </HBox>
@@ -83,7 +83,7 @@
                <children>
                   <Label fx:id="final2" textFill="WHITE">
                      <font>
-                        <Font size="49.0" />
+                        <Font size="16.0" />
                      </font></Label>
                </children>
             </HBox>
@@ -95,7 +95,7 @@
                <children>
                   <Label fx:id="winner" textFill="WHITE">
                      <font>
-                        <Font size="49.0" />
+                        <Font size="16.0" />
                      </font></Label>
                </children>
             </HBox>
