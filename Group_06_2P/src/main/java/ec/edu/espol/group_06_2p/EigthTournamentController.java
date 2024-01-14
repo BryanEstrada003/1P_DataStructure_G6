@@ -144,129 +144,133 @@ public class EigthTournamentController implements Initializable {
     private int nVez = 1;
 
     private void updateMatch() {
-        for (Match m : matches) {
-            if (m.isPlayed() && m.getRound() == Round.Final) {
-                Platform.runLater(() -> {
-                    winner.setText(m.getWinner().getName());
-                    torneo.setWinner(m.getWinner());
-                    labels_partidos.getChildren().clear();
-                    VBox message = new VBox();
-                    message.setAlignment(Pos.CENTER);  // Center the content within the VBox
-                    Label fin = new Label();
-                    Label fin1 = new Label();
-                    Label fin2 = new Label();
-                    String s = "CONGRATULATIONS";
-                    String s1 = m.getWinner().getName();
-                    String s2 = "for a spectacular victory!";
-                    // Apply styling to the label
-                    fin.setText(s);
-                    fin.setFont(Font.font("Arial", FontWeight.BOLD, 16)); // Bold for emphasis
-                    fin.setTextFill(Color.web("#08c20e")); // Cool blue color
-                    fin.setAlignment(Pos.CENTER); // Center the text both horizontally and vertically
-                    fin1.setText(s1);
-                    fin1.setFont(Font.font("Arial", FontWeight.BOLD, 23)); // Bold for emphasis
-                    fin1.setTextFill(Color.web("#08c20e")); // Cool blue color
-                    fin1.setAlignment(Pos.CENTER); // Center the text both horizontally and vertically
-                    fin2.setText(s2);
-                    fin2.setFont(Font.font("Arial", FontWeight.BOLD, 16)); // Bold for emphasis
-                    fin2.setTextFill(Color.web("#08c20e")); // Cool blue color
-                    fin2.setAlignment(Pos.CENTER); // Center the text both horizontally and vertically
-                    message.getChildren().addAll(fin, fin1, fin2);
-                    // Add the label to the containers (no animation code added)
-                    labels_partidos.getChildren().add(message);
-                    container_play.getChildren().clear();
-                });
-                break;
-            }
-            if (m.isPlayed() && m.getRound() == Round.Quarter) {
-                Player finalSemi = m.getWinner();
-                this.finalistas.add(finalSemi);
-                Platform.runLater(() -> {
-                    if (this.semi1.getText().isEmpty()) {
-                        semi1.setText(finalSemi.getName());
-                    } else if (semi2.getText().isEmpty()) {
-                        semi2.setText(finalSemi.getName());
-                    } else if (semi3.getText().isEmpty()) {
-                        semi3.setText(finalSemi.getName());
-                    } else if (semi4.getText().isEmpty()) {
-                        semi4.setText(finalSemi.getName());
-                    }
-                });
-            }
-            if (m.isPlayed() && m.getRound() == Round.Semi) {
-                Player winner1 = m.getWinner();
-                finalistas.add(winner1);
-                Platform.runLater(() -> {
-                    if (final1.getText().isEmpty()) {
-                        final1.setText(winner1.getName());
-                    } else if (final2.getText().isEmpty()) {
-                        final2.setText(winner1.getName());
-                    }
-                });
-            }
-            if (!m.isPlayed() && m.getP1() != null && m.getP2() != null && m.getRound() == Round.Semi) {
-                match_Actual = m;
-                player1_match = m.getP1();
-                player2_match = m.getP2();
-                Platform.runLater(() -> {
-                    player_jugar1.setText(match_Actual.getP1().getName());
-                    player_jugar2.setText(match_Actual.getP2().getName());
-                });
-                break;
-            } else if (!m.isPlayed() && m.getRound() == Round.Final) {
-                match_Actual = m;
-                Player finalista1 = finalistas.get(this.finalistas.size() - 1);
-                Player finalista2 = finalistas.get(this.finalistas.size() - 2);
-                match_Actual.setP1(finalista1);
-                match_Actual.setP2(finalista2);
-                if (this.finalistas.size() <= 5) {
-                    nVez = 0;
+        try {
+            for (Match m : matches) {
+                if (m.isPlayed() && m.getRound() == Round.Final) {
                     Platform.runLater(() -> {
-                        player_jugar1.setText(finalistas.get(0).getName());
-                        player_jugar2.setText(finalistas.get(1).getName());
+                        winner.setText(m.getWinner().getName());
+                        torneo.setWinner(m.getWinner());
+                        labels_partidos.getChildren().clear();
+                        VBox message = new VBox();
+                        message.setAlignment(Pos.CENTER);  // Center the content within the VBox
+                        Label fin = new Label();
+                        Label fin1 = new Label();
+                        Label fin2 = new Label();
+                        String s = "CONGRATULATIONS";
+                        String s1 = m.getWinner().getName();
+                        String s2 = "for a spectacular victory!";
+                        // Apply styling to the label
+                        fin.setText(s);
+                        fin.setFont(Font.font("Arial", FontWeight.BOLD, 16)); // Bold for emphasis
+                        fin.setTextFill(Color.web("#08c20e")); // Cool blue color
+                        fin.setAlignment(Pos.CENTER); // Center the text both horizontally and vertically
+                        fin1.setText(s1);
+                        fin1.setFont(Font.font("Arial", FontWeight.BOLD, 23)); // Bold for emphasis
+                        fin1.setTextFill(Color.web("#08c20e")); // Cool blue color
+                        fin1.setAlignment(Pos.CENTER); // Center the text both horizontally and vertically
+                        fin2.setText(s2);
+                        fin2.setFont(Font.font("Arial", FontWeight.BOLD, 16)); // Bold for emphasis
+                        fin2.setTextFill(Color.web("#08c20e")); // Cool blue color
+                        fin2.setAlignment(Pos.CENTER); // Center the text both horizontally and vertically
+                        message.getChildren().addAll(fin, fin1, fin2);
+                        // Add the label to the containers (no animation code added)
+                        labels_partidos.getChildren().add(message);
+                        container_play.getChildren().clear();
                     });
-                } else {
+                    break;
+                }
+                if (m.isPlayed() && m.getRound() == Round.Quarter) {
+                    Player finalSemi = m.getWinner();
+                    this.finalistas.add(finalSemi);
                     Platform.runLater(() -> {
-                        player_jugar1.setText(match_Actual.getP2().getName());
-                        player_jugar2.setText(match_Actual.getP1().getName());
+                        if (this.semi1.getText().isEmpty()) {
+                            semi1.setText(finalSemi.getName());
+                        } else if (semi2.getText().isEmpty()) {
+                            semi2.setText(finalSemi.getName());
+                        } else if (semi3.getText().isEmpty()) {
+                            semi3.setText(finalSemi.getName());
+                        } else if (semi4.getText().isEmpty()) {
+                            semi4.setText(finalSemi.getName());
+                        }
                     });
                 }
-            }
+                if (m.isPlayed() && m.getRound() == Round.Semi) {
+                    Player winner1 = m.getWinner();
+                    finalistas.add(winner1);
+                    Platform.runLater(() -> {
+                        if (final1.getText().isEmpty()) {
+                            final1.setText(winner1.getName());
+                        } else if (final2.getText().isEmpty()) {
+                            final2.setText(winner1.getName());
+                        }
+                    });
+                }
+                if (!m.isPlayed() && m.getP1() != null && m.getP2() != null && m.getRound() == Round.Semi) {
+                    match_Actual = m;
+                    player1_match = m.getP1();
+                    player2_match = m.getP2();
+                    Platform.runLater(() -> {
+                        player_jugar1.setText(match_Actual.getP1().getName());
+                        player_jugar2.setText(match_Actual.getP2().getName());
+                    });
+                    break;
+                } else if (!m.isPlayed() && m.getRound() == Round.Final) {
+                    match_Actual = m;
+                    Player finalista1 = finalistas.get(this.finalistas.size() - 1);
+                    Player finalista2 = finalistas.get(this.finalistas.size() - 2);
+                    match_Actual.setP1(finalista1);
+                    match_Actual.setP2(finalista2);
+                    if (this.finalistas.size() <= 5) {
+                        nVez = 0;
+                        Platform.runLater(() -> {
+                            player_jugar1.setText(finalistas.get(0).getName());
+                            player_jugar2.setText(finalistas.get(1).getName());
+                        });
+                    } else {
+                        Platform.runLater(() -> {
+                            player_jugar1.setText(match_Actual.getP2().getName());
+                            player_jugar2.setText(match_Actual.getP1().getName());
+                        });
+                    }
+                }
 
-            if (!m.isPlayed() && m.getP1() != null && m.getP2() != null && m.getRound() == Round.Quarter) {
-                match_Actual = m;
-                player1_match = m.getP1();
-                player2_match = m.getP2();
-                player_jugar1.setText(m.getP1().getName());
-                player_jugar2.setText(m.getP2().getName());
-                break;
-            } else if (!m.isPlayed() && m.getRound() == Round.Semi) {
-                if (cambio == 1) {
-                    cambio = 2;
+                if (!m.isPlayed() && m.getP1() != null && m.getP2() != null && m.getRound() == Round.Quarter) {
                     match_Actual = m;
-                    Player finalista1Sem = finalistas.get(0);
-                    Player finalista2Sem = finalistas.get(1);
-                    match_Actual.setP1(finalista1Sem);
-                    match_Actual.setP2(finalista2Sem);
-                    Platform.runLater(() -> {
-                        player_jugar1.setText(match_Actual.getP1().getName());
-                        player_jugar2.setText(match_Actual.getP2().getName());
-                    });
-                } else if (cambio == 2) {
-                    cambio = 1;
-                    match_Actual = m;
-                    Player finalista3Sem = finalistas.get(2);
-                    Player finalista4Sem = finalistas.get(3);
-                    match_Actual.setP1(finalista3Sem);
-                    match_Actual.setP2(finalista4Sem);
-                    Platform.runLater(() -> {
-                        player_jugar1.setText(match_Actual.getP1().getName());
-                        player_jugar2.setText(match_Actual.getP2().getName());
-                    });
+                    player1_match = m.getP1();
+                    player2_match = m.getP2();
+                    player_jugar1.setText(m.getP1().getName());
+                    player_jugar2.setText(m.getP2().getName());
+                    break;
+                } else if (!m.isPlayed() && m.getRound() == Round.Semi) {
+                    if (cambio == 1) {
+                        cambio = 2;
+                        match_Actual = m;
+                        Player finalista1Sem = finalistas.get(0);
+                        Player finalista2Sem = finalistas.get(1);
+                        match_Actual.setP1(finalista1Sem);
+                        match_Actual.setP2(finalista2Sem);
+                        Platform.runLater(() -> {
+                            player_jugar1.setText(match_Actual.getP1().getName());
+                            player_jugar2.setText(match_Actual.getP2().getName());
+                        });
+                    } else if (cambio == 2) {
+                        cambio = 1;
+                        match_Actual = m;
+                        Player finalista3Sem = finalistas.get(2);
+                        Player finalista4Sem = finalistas.get(3);
+                        match_Actual.setP1(finalista3Sem);
+                        match_Actual.setP2(finalista4Sem);
+                        Platform.runLater(() -> {
+                            player_jugar1.setText(match_Actual.getP1().getName());
+                            player_jugar2.setText(match_Actual.getP2().getName());
+                        });
+                    }
                 }
             }
+            torneo.setMatches(matches);
+        } catch (Exception e) {
+            e.getMessage();
         }
-        torneo.setMatches(matches);
     }
 
     private void getListLabel() {

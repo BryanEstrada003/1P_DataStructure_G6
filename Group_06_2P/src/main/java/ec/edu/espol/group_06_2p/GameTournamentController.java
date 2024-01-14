@@ -290,75 +290,88 @@ public class GameTournamentController implements Initializable {
     }
 
     public void createBtnNextRoundGame() {
-        Button btn_newgame = new Button("NEW ROUND");
-        btn_newgame.setPrefWidth(190);
-        btn_newgame.setPrefHeight(190);
-        btn_newgame.setStyle("-fx-font-size: 20px;");
+        try {
+            Button btn_newgame = new Button("NEW ROUND");
+            btn_newgame.setPrefWidth(190);
+            btn_newgame.setPrefHeight(190);
+            btn_newgame.setStyle("-fx-font-size: 20px;");
 
-        btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
-            @Override
-            public void handle(Event event) {
-                if (EigthTournamentController.stCompe) {
-                    try {
-                        User.passUser(us1);
-                        Tournament.passTournament(torneo);
-                        Match.passMatch(match_Actual);
-                        Parent root = FXMLLoader.load(getClass().getResource("eigthTournament.fxml"));
-                        Scene scene = new Scene(root);
-                        Stage stage = (Stage) game.getScene().getWindow();
-                        stage.setScene(scene);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+            btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
+                @Override
+                public void handle(Event event) {
+                    if (EigthTournamentController.stCompe) {
+                        try {
+                            EigthTournamentController.stCompe=false;
+                            User.passUser(us1);
+                            Tournament.passTournament(torneo);
+                            Match.passMatch(match_Actual);
+                            Parent root = FXMLLoader.load(getClass().getResource("eigthTournament.fxml"));
+                            Scene scene = new Scene(root);
+                            Stage stage = (Stage) game.getScene().getWindow();
+                            stage.setScene(scene);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
                     }
-                }
-                if (FourTournamentController.stCompe) {
-                    try {
-                        User.passUser(us1);
-                        Tournament.passTournament(torneo);
-                        Match.passMatch(match_Actual);
-                        Parent root = FXMLLoader.load(getClass().getResource("fourTournament.fxml"));
-                        Scene scene = new Scene(root);
-                        Stage stage = (Stage) game.getScene().getWindow();
-                        stage.setScene(scene);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                    if (FourTournamentController.stCompe) {
+                        try {
+                            FourTournamentController.stCompe=false;
+                            User.passUser(us1);
+                            Tournament.passTournament(torneo);
+                            Match.passMatch(match_Actual);
+                            Parent root = FXMLLoader.load(getClass().getResource("fourTournament.fxml"));
+                            Scene scene = new Scene(root);
+                            Stage stage = (Stage) game.getScene().getWindow();
+                            stage.setScene(scene);
+                        } catch (IOException ex) {
+                            ex.getMessage();
+                        }
                     }
-                }
 
-            }
-        });
-        Vbox_btn.getChildren().add(btn_newgame);
+                }
+            });
+            Vbox_btn.getChildren().add(btn_newgame);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
     }
 
     public void createBtnNewGame() {
-        Button btn_newgame = new Button("NEW GAME");
-        Vbox_btn.getChildren().add(btn_newgame);
-        btn_newgame.setPrefWidth(190);
-        btn_newgame.setPrefHeight(190);
-        btn_newgame.setStyle("-fx-font-size: 20px;");
-        btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
-            @Override
-            public void handle(Event event) {
-                jugadas.clear();
-                games = new int[3][3];
-                for (Cuadro c : cuadros) {
-                    c.setOcupado(false);
-                    c.getChildren().clear();
+        try {
+            Button btn_newgame = new Button("NEW GAME");
+            Vbox_btn.getChildren().add(btn_newgame);
+            btn_newgame.setPrefWidth(190);
+            btn_newgame.setPrefHeight(190);
+            btn_newgame.setStyle("-fx-font-size: 20px;");
+            btn_newgame.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
+                @Override
+                public void handle(Event event) {
+                    jugadas.clear();
+                    games = new int[3][3];
+                    for (Cuadro c : cuadros) {
+                        c.setOcupado(false);
+                        c.getChildren().clear();
+                    }
+                    Vbox_btn.getChildren().clear();
+                    winner_n = 0;
+                    draw = false;
+                    if (turno_user) {
+                        user_play.setText("START");
+                        user_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
+                        computer_play.setText("");
+                    } else if (turno_computer) {
+                        computer_play.setText("START");
+                        computer_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
+                        user_play.setText("");
+                    }
                 }
-                Vbox_btn.getChildren().clear();
-                winner_n = 0;
-                draw = false;
-                if (turno_user) {
-                    user_play.setText("START");
-                    user_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
-                    computer_play.setText("");
-                } else if (turno_computer) {
-                    computer_play.setText("START");
-                    computer_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
-                    user_play.setText("");
-                }
-            }
-        });
+            });
+
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
     }
 
     public void validarGanador(int[][] games) {
