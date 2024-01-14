@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.HomeTournamentController">
+<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.HomeTournamentController">
    <children>
       <VBox prefHeight="176.0" prefWidth="733.0">
          <children>
@@ -39,14 +39,9 @@
             <Font name="Modak" size="26.0" />
          </font>
       </Button>
-      <Button fx:id="btn_start" layoutX="533.0" layoutY="385.0" mnemonicParsing="false" onMouseClicked="#startTournament" prefHeight="56.0" prefWidth="186.0" text="START">
+      <Button fx:id="btn_start" layoutX="533.0" layoutY="419.0" mnemonicParsing="false" onMouseClicked="#startTournament" prefHeight="56.0" prefWidth="186.0" text="START">
          <font>
             <Font name="Modak" size="29.0" />
-         </font>
-      </Button>
-      <Button fx:id="btn_continue" layoutX="533.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#continueTournament" prefHeight="56.0" prefWidth="186.0" text="CONTINUE">
-         <font>
-            <Font name="Modak" size="31.0" />
          </font>
       </Button>
       <HBox alignment="CENTER" layoutX="8.0" layoutY="297.0" prefHeight="297.0" prefWidth="514.0" spacing="10.0">

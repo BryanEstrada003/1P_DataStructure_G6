@@ -166,6 +166,7 @@ public class HistoryController implements Initializable {
                         User.passUser(us1);
                         HistoryToReview h1 = new HistoryToReview(id_game_actual,state);
                         HistoryToReview.passHistoryToReview(h1);
+                        Games.passGame(game_last);
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("generalTree.fxml"));
                         Parent root = loader.load();
                         GeneralTreeController generalTreeController = loader.getController();

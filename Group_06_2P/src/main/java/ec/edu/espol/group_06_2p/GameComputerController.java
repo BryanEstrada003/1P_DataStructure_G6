@@ -176,17 +176,20 @@ public class GameComputerController implements Initializable {
     public void getHelp() {
         Platform.runLater(() -> {
             VBox vbox_help = new VBox();
+            vbox_help.setSpacing(10);
             vbox_help.setPrefWidth(193);
             vbox_help.setAlignment(Pos.CENTER);
             Button btn_help = new Button("HELP");
 
-            Vbox_btn.getChildren().addAll(btn_help, vbox_help);
+            Vbox_btn.getChildren().addAll(btn_help);
             btn_help.setPrefWidth(100);
             btn_help.setPrefHeight(40);
             btn_help.setStyle("-fx-font-size: 15px;");
             btn_help.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler() {
                 @Override
                 public void handle(Event event) {
+                    Vbox_btn.getChildren().clear();
+                    Vbox_btn.getChildren().addAll(vbox_help);
                     // Aqui darle formato para que quede más bonito.
                     Label info = new Label("WE RECOMMEND YOU MAKE THE FOLLOWING MOVE");
                     info.setWrapText(true);
