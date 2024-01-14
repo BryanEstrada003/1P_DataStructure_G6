@@ -35,6 +35,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -256,20 +259,33 @@ public class GameTournamentController implements Initializable {
     public void createDivWinner() {
         Vbox_btn.getChildren().clear();
         VBox v = new VBox();
-        Label label_Winner = new Label("WINNER OF THE MATCH");
 
+// Style the "WINNER OF THE MATCH" label
+        Label label_Winner = new Label("WINNER OF THE MATCH");
+        label_Winner.setFont(Font.font("Arial", FontWeight.BOLD, 14));  // Slightly smaller font
+        label_Winner.setTextFill(Color.web("#0099FF"));  // Cool blue
+
+// Determine the final message based on the round
         String s = "";
-        if (match_Actual.getRound() == Round.Quarter) {
-            s = GlobalWinner.getName() + " QUALIFIES TO THE SEMIFINAL ";
-        } else if (match_Actual.getRound() == Round.Semi) {
-            s = GlobalWinner.getName() + " QUALIFIES TO THE FINAL ";
+
+        if (match_Actual.getRound() == Round.Semi || match_Actual.getRound() == Round.Quarter) {
+            s = GlobalWinner.getName() + " ADVANCES";
         } else if (match_Actual.getRound() == Round.Final) {
-            s = GlobalWinner.getName() + " IS THE CHAMPION";
+            s = GlobalWinner.getName() + " IS THE CHAMPION!";
         }
-        
+
+// Style the final message label
         Label finalLabel = new Label(s);
+        finalLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));  // Slightly smaller font
+        finalLabel.setTextFill(Color.WHITE);  // Lighter blue
+
+// Add labels to the VBox and display
         v.getChildren().addAll(label_Winner, finalLabel);
         Vbox_btn.getChildren().add(v);
+
+// Set the VBox's width and height to fill the window
+        v.setPrefWidth(Vbox_btn.getWidth());
+        v.setPrefHeight(Vbox_btn.getHeight());
         createBtnNextRoundGame();
     }
 

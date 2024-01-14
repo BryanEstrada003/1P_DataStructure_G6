@@ -31,6 +31,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -84,7 +87,7 @@ public class HomeTournamentController implements Initializable {
         btn_4players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
         btn_8players.setStyle("-fx-border-width: 0;");
         for (int i = 0; i < 8; i++) {
-            String str_label = "NAME " + (i+1);
+            String str_label = "NAME " + (i + 1);
             if (i < 2) {
                 Platform.runLater(() -> {
                     vbox_player1.getChildren().add(createVboxPlayer(str_label));
@@ -109,7 +112,7 @@ public class HomeTournamentController implements Initializable {
         for (int i = 0; i < 4; i++) {
             btn_4players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
             btn_8players.setStyle("-fx-border-width: 0;");
-            String str_label = "NAME " + (i+1);
+            String str_label = "NAME " + (i + 1);
             if (i < 2) {
                 vbox_player1.getChildren().add(createVboxPlayer(str_label));
             } else if (i < 4) {
@@ -125,7 +128,7 @@ public class HomeTournamentController implements Initializable {
         btn_8players.setStyle("-fx-border-color: green; -fx-border-width: 5px;");
         btn_4players.setStyle("-fx-border-width: 0;");
         for (int i = 0; i < 8; i++) {
-            String str_label = "NAME " + (i+1);
+            String str_label = "NAME " + (i + 1);
             if (i < 4) {
                 Platform.runLater(() -> {
                     vbox_player1.getChildren().add(createVboxPlayer(str_label));
@@ -141,11 +144,17 @@ public class HomeTournamentController implements Initializable {
     private VBox createVboxPlayer(String str_label) {
         VBox vbox_player = new VBox();
         vbox_player.setPrefSize(240, 58);
+
+        // Create the label with white color and bold font
         Label label = new Label(str_label);
         label.setPrefSize(220, 22);
+        label.setTextFill(Color.WHITE);  // Set text color to white
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 14));  // Set font to bold
+
         TextField name = new TextField();
         name.setPromptText(str_label);
         name.setPrefSize(220, 30);
+
         vbox_player.getChildren().addAll(label, name);
         return vbox_player;
     }
@@ -175,7 +184,6 @@ public class HomeTournamentController implements Initializable {
             }
         }
     }
-
 
     private boolean validateNames(ArrayList<VBox> vboxes) {
         Set<String> nameSet = new HashSet<>();
