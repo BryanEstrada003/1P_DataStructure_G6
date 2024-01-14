@@ -366,8 +366,7 @@ public class GameCompToCompController implements Initializable {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     // Restablecer el estado del juego
-                    Vbox_btn.getChildren().clear();
-                    Vbox_btn.getChildren().add(continue_game);
+                    
                     jugadas.clear();
                     games = new int[3][3];
                     for (Cuadro c : cuadros) {
@@ -377,22 +376,9 @@ public class GameCompToCompController implements Initializable {
                     winner_n = 0;
                     draw = false;
                     showNewGameButton = false; // Desactivar la bandera después de hacer clic en "New Game"
-
-                    // Iniciar el turno según la condición actual
-                    if (turno_user) {
-                        computer_play.setText("");
-                        user_play.setText("START");
-                        user_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
-                    } else if (turno_computer) {
-                        user_play.setText("");
-                        computer_play.setText("START");
-                        computer_play.setStyle("-fx-text-fill: #0c57ed; -fx-font-weight: bold");
-                        if (new_game) {
-                            PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
-                            pause.setOnFinished(e -> computer());
-                            pause.play();
-                        }
-                    }
+                    Vbox_btn.getChildren().clear();
+                    Vbox_btn.getChildren().add(continue_game);
+                    
                 }
             });
         }
