@@ -179,6 +179,9 @@ public class HistoryController implements Initializable {
                         GeneralTreeController generalTreeController = loader.getController();
                         Scene scene = new Scene(root);
                         // Crea un nuevo Stage
+                        Stage stage_old = (Stage) game.getScene().getWindow();
+                        stage_old.close();
+                        
                         Stage newStage = new Stage();
                         // Asigna la escena al nuevo Stage
                         newStage.setScene(scene);
@@ -208,6 +211,9 @@ public class HistoryController implements Initializable {
                         ReviewGameController reviewController = loader.getController();
                         Scene scene = new Scene(root);
                         // Crea un nuevo Stage
+                        Stage stage_old = (Stage) game.getScene().getWindow();
+                        stage_old.close();
+                        
                         Stage newStage = new Stage();
                         // Asigna la escena al nuevo Stage
                         newStage.setScene(scene);

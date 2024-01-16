@@ -654,7 +654,6 @@ public class GameComputerController implements Initializable {
         LinkedList<Integer> utilidades1 = new LinkedList<>();
         if (matrices1.size() > 1) {
             for (int[][] m1 : matrices1) {
-
                 LinkedList<int[][]> matrices2 = posiblesEstados2(jugador, m1);
                 LinkedList<Integer> utilidades2 = new LinkedList<>();
                 Tree children = new Tree(m1);
@@ -664,10 +663,7 @@ public class GameComputerController implements Initializable {
                     int utilidad = utilidadTablero(1, 2, jugador, m2);
                     utilidades2.add(utilidad);
                     children.addChildren(children2);
-   
                 }
-
-
                 int min_util = 0;
                 if (matrices2.size() > 1) {
                     Heap<Integer> h2 = new Heap(cmp_i_maxheap, utilidades2,false);
