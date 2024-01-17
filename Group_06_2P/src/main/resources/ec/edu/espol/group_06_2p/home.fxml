@@ -122,12 +122,7 @@
                                         <Font size="27.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="btn_compTocomp" mnemonicParsing="false" prefHeight="40.0" prefWidth="253.0" text="COMPUTER - COMPUTER" GridPane.rowIndex="4">
-                                    <font>
-                                        <Font size="20.0" />
-
-                                    </font>
-                                </Button>
+                                <Button fx:id="btn_compTocomp" mnemonicParsing="false" prefHeight="40.0" prefWidth="253.0" text="COMPUTER - COMPUTER" GridPane.rowIndex="4" />
                             </children>
                         </GridPane>
                     </children>
