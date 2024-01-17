@@ -12,6 +12,7 @@ import ec.edu.espol.Clases.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -20,7 +21,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -293,11 +297,27 @@ public class EigthTournamentController implements Initializable {
 
     @FXML
     private void regresar(MouseEvent event) throws IOException {
-        User.passUser(us);
-        Parent root = FXMLLoader.load(getClass().getResource("HomeTournament.fxml"));
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) page.getScene().getWindow();
-        stage.setScene(scene);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Return to HomeTournament");
+        alert.setContentText("Data from this tournament will be lost. Do you want to continue?");
+
+        ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOk, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == buttonTypeOk) {
+            User.passUser(us);
+            Parent root = FXMLLoader.load(getClass().getResource("HomeTournament.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) page.getScene().getWindow();
+            stage.setScene(scene);
+        } else {
+            // Do nothing if Cancel is clicked
+        }
     }
 
     @FXML
