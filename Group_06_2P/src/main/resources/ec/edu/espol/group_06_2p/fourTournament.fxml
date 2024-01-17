@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -13,9 +14,9 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.FourTournamentController">
+<AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.FourTournamentController">
    <children>
-      <VBox prefHeight="146.0" prefWidth="673.0">
+      <VBox prefHeight="146.0" prefWidth="327.0">
          <children>
             <Pane prefHeight="61.0" prefWidth="731.0">
                <children>
@@ -24,17 +25,17 @@
                         <Image url="@../../../../Iconos/prebtn.png" />
                      </image>
                   </ImageView>
-                  <HBox alignment="CENTER" layoutX="113.0" prefHeight="146.0" prefWidth="521.0" spacing="100.0">
-                     <children>
-                        <ImageView fitHeight="133.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../Images/Logo_tournaments.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
                </children>
             </Pane>
+            <HBox alignment="CENTER" prefHeight="146.0" prefWidth="252.0" spacing="100.0">
+               <children>
+                  <ImageView fitHeight="133.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Images/Logo_tournaments.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
       </VBox>
       <Pane layoutX="14.0" layoutY="202.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="297.0" prefWidth="195.0" styleClass="back_info">
@@ -142,6 +143,39 @@
                </font>
             </Button>
          </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="318.0" layoutY="15.0" prefHeight="123.0" prefWidth="408.0" stylesheets="@../../../../styles/login.css">
+         <children>
+            <Label text="RULES" textFill="WHITE">
+               <font>
+                  <Font name="Modak" size="19.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="376.0" spacing="20.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="   Advancement by Wins :" textAlignment="CENTER" wrappingWidth="140.5859375">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="A player needs to win 3 games to advance to the next round." textAlignment="JUSTIFY" wrappingWidth="210.9873046875" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="376.0" spacing="20.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Qualification by Draws:" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="If there are 7 draws, the player who has accumulated the most victories throughout the tournament qualifies." textAlignment="JUSTIFY" wrappingWidth="197.78173828125" />
+               </children>
+            </HBox>
+         </children>
+         <styleClass>
+            <String fx:value="blackbackgorund" />
+            <String fx:value="button" />
+         </styleClass>
       </VBox>
    </children>
 </AnchorPane>

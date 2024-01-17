@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="home" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.HomeController">
+<AnchorPane id="AnchorPane" fx:id="home" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.HomeController">
     <stylesheets>
         <URL value="@/styles/login.css" />
     </stylesheets>
@@ -122,7 +122,7 @@
                                         <Font size="27.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="btn_compTocomp" mnemonicParsing="false" prefHeight="40.0" prefWidth="253.0" text="Computer to Computer" GridPane.rowIndex="4">
+                                <Button fx:id="btn_compTocomp" mnemonicParsing="false" prefHeight="40.0" prefWidth="253.0" text="COMPUTER - COMPUTER" GridPane.rowIndex="4">
                                     <font>
                                         <Font size="20.0" />
 
