@@ -16,9 +16,9 @@
 
 <AnchorPane id="AnchorPane" fx:id="page" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="733.0" styleClass="blackbackgorund" stylesheets="@../../../../styles/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.group_06_2p.FourTournamentController">
    <children>
-      <VBox prefHeight="146.0" prefWidth="327.0">
+      <VBox layoutX="-5.0" prefHeight="60.0" prefWidth="332.0">
          <children>
-            <Pane prefHeight="61.0" prefWidth="731.0">
+            <Pane prefHeight="69.0" prefWidth="332.0">
                <children>
                   <ImageView fx:id="flecha_regresar" fitHeight="56.0" fitWidth="61.0" layoutX="14.0" layoutY="4.0" onMouseClicked="#regresar" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -27,15 +27,6 @@
                   </ImageView>
                </children>
             </Pane>
-            <HBox alignment="CENTER" prefHeight="146.0" prefWidth="252.0" spacing="100.0">
-               <children>
-                  <ImageView fitHeight="133.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../Images/Logo_tournaments.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
          </children>
       </VBox>
       <Pane layoutX="14.0" layoutY="202.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="297.0" prefWidth="195.0" styleClass="back_info">
@@ -177,5 +168,10 @@
             <String fx:value="button" />
          </styleClass>
       </VBox>
+      <ImageView fitHeight="160.0" fitWidth="165.0" layoutX="97.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Images/Logo_tournaments.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
